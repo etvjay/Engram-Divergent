@@ -29,10 +29,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          SOURCE_SHA=$(git -C .migration-source rev-parse HEAD)
+          printf '%s\n' "$SOURCE_SHA" > /tmp/engram-source-sha
           rsync -a --delete \
             --exclude='.git/' \
             --exclude='.migration-source/' \
-            --exclude='.github/workflows/import-engram-sibyl.yml' \
+            --exclude='.github/workflows/' \
             .migration-source/ ./
           rm -rf .migration-source
           rm -f .migration-seed
@@ -41,7 +43,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SOURCE_SHA=$(git ls-remote https://github.com/etvjay/Engram.git refs/heads/hackathon/sibyl-ebi | awk '{print $1}')
+          SOURCE_SHA=$(cat /tmp/engram-source-sha)
           cat > MIGRATION_PROVENANCE.md <<EOF
           # Migration provenance
 
