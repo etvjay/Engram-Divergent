@@ -6,6 +6,7 @@ import { runBenchmark } from "../../packages/benchmark/src/runner.js";
 import { writeBenchmarkResults } from "../../packages/benchmark/src/result-writer.js";
 import { createDeterministicAdapter } from "../../packages/benchmark/src/adapters/deterministic.js";
 import { createQwenAdapter } from "../../packages/benchmark/src/adapters/qwen.js";
+import { createBedrockAdapter, resolveBedrockCredentials } from "../../packages/benchmark/src/adapters/bedrock.js";
 import { baseProposal, type ModelAdapter, type ModelDecisionRequest } from "../../packages/benchmark/src/model-adapter.js";
 import { loadBenchmarkScenario } from "../../packages/benchmark/src/scenario.js";
 
@@ -224,6 +225,93 @@ describe("Engram causal benchmark runner", () => {
       candidates: scenarioCandidatesFix(scenario),
       memory: { arm: "A0_NO_MEMORY", slices: [], grants: [], eligibleGrantIds: [] },
     })).rejects.toThrow("QWEN_ADAPTER_INVALID_RESPONSE");
+  });
+
+  it("bedrock adapter signs SigV4, parses Converse output, and records the model id", async () => {
+    process.env.AWS_ACCESS_KEY_ID = "AKIDEXAMPLE";
+    process.env.AWS_SECRET_ACCESS_KEY = "secret";
+    delete process.env.AWS_SESSION_TOKEN;
+    let authHeader = "";
+    const fetchImpl = (async (_url: unknown, init?: Record<string, unknown>) => {
+      const headers = (init?.headers ?? {}) as Record<string, string>;
+      authHeader = headers.authorization ?? "";
+      expect(headers["x-amz-date"]).toMatch(/^\d{8}T\d{6}Z$/);
+      expect(init?.body as string).toContain("proposedAction");
+      return new Response(
+        JSON.stringify({
+          output: {
+            message: {
+              content: [
+                {
+                  text: JSON.stringify({
+                    proposedAction: { provider: "beacon" },
+                    reasoningSummary: "memory flags atlas SLA breaches",
+                    memorySliceIds: [],
+                    requestedEffects: [],
+                  }),
+                },
+              ],
+            },
+          },
+        }),
+        { status: 200 },
+      );
+    }) as typeof fetch;
+
+    const adapter = createBedrockAdapter({
+      fetchImpl,
+      modelId: "us.meta.llama3-1-8b-instruct-v1:0",
+      region: "us-west-2",
+    });
+    expect(adapter.model).toBe("bedrock:us.meta.llama3-1-8b-instruct-v1:0");
+
+    const proposal = await adapter.propose({
+      executionId: "10000000-0000-4000-8000-00000000000a",
+      scenarioId: scenario.scenarioId,
+      decisionType: scenario.taskFamily,
+      mandate: { ...scenario.constraints },
+      candidates: scenarioCandidatesFix(scenario),
+      memory: { arm: "A0_NO_MEMORY", slices: [], grants: [], eligibleGrantIds: [] },
+    });
+    expect(authHeader.startsWith("AWS4-HMAC-SHA256 Credential=AKIDEXAMPLE/")).toBe(true);
+    expect(authHeader).toContain("/bedrock/aws4_request");
+    expect((proposal.proposedAction as { provider: string }).provider).toBe("beacon");
+    expect(proposal.actor.model).toBe("bedrock:us.meta.llama3-1-8b-instruct-v1:0");
+    delete process.env.AWS_ACCESS_KEY_ID;
+    delete process.env.AWS_SECRET_ACCESS_KEY;
+  });
+
+  it("bedrock adapter fails closed without credentials and on non-JSON output", async () => {
+    delete process.env.AWS_ACCESS_KEY_ID;
+    delete process.env.AWS_SECRET_ACCESS_KEY;
+    const adapter = createBedrockAdapter({ modelId: "us.meta.llama3-1-8b-instruct-v1:0", region: "us-west-2" });
+    await expect(adapter.propose({
+      executionId: "10000000-0000-4000-8000-00000000000b",
+      scenarioId: scenario.scenarioId,
+      decisionType: scenario.taskFamily,
+      mandate: { ...scenario.constraints },
+      candidates: scenarioCandidatesFix(scenario),
+      memory: { arm: "A0_NO_MEMORY", slices: [], grants: [], eligibleGrantIds: [] },
+    })).rejects.toThrow("BEDROCK_ADAPTER_NO_CREDENTIALS");
+
+    process.env.AWS_ACCESS_KEY_ID = "AKIDEXAMPLE";
+    process.env.AWS_SECRET_ACCESS_KEY = "secret";
+    const fetchImpl = (async () =>
+      new Response(JSON.stringify({ output: { message: { content: [{ text: "atlas looks cheaper" }] } } }), {
+        status: 200,
+      })) as typeof fetch;
+    const withFake = createBedrockAdapter({ fetchImpl, modelId: "us.meta.llama3-1-8b-instruct-v1:0", region: "us-west-2" });
+    await expect(withFake.propose({
+      executionId: "10000000-0000-4000-8000-00000000000c",
+      scenarioId: scenario.scenarioId,
+      decisionType: scenario.taskFamily,
+      mandate: { ...scenario.constraints },
+      candidates: scenarioCandidatesFix(scenario),
+      memory: { arm: "A0_NO_MEMORY", slices: [], grants: [], eligibleGrantIds: [] },
+    })).rejects.toThrow("BEDROCK_ADAPTER_INVALID_RESPONSE");
+    delete process.env.AWS_ACCESS_KEY_ID;
+    delete process.env.AWS_SECRET_ACCESS_KEY;
+    expect(resolveBedrockCredentials).toBeTypeOf("function");
   });
 });
 

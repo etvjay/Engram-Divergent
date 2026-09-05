@@ -1,0 +1,44 @@
+{
+  "trialId": "a876fffd-a6da-4546-8910-b8e0ff61b69c",
+  "arm": "A1_RAW_HISTORY",
+  "executionId": "8d72c6d4-1792-4024-9c88-5056b5a368cb",
+  "proposal": {
+    "executionId": "8d72c6d4-1792-4024-9c88-5056b5a368cb",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-3b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon",
+      "costUsd": 16,
+      "expectedLatencySeconds": 1500
+    },
+    "reasoningSummary": "Selected beacon provider due to lower expected latency.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T17:42:57.453Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": true
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

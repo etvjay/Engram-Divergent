@@ -1,6 +1,10 @@
 import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { assertAgentProposalAuthorizedByGrant, type AgentDecisionProposal } from "../../runtime/src/agent-decision.js";
+import {
+  AgentDecisionProposalSchema,
+  assertAgentProposalAuthorizedByGrant,
+  type AgentDecisionProposal,
+} from "../../runtime/src/agent-decision.js";
 import {
   BenchmarkTrialSchema,
   calculateUtility,
@@ -144,6 +148,17 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
     };
 
     let proposal = await adapter.propose(request);
+    // Models cite SLICE-n labels (never raw UUIDs — small models degenerate
+    // copying them); normalize labels back to real slice ids and re-validate.
+    const sliceLabelToId = new Map<string, string>();
+    memory.slices.forEach((slice, index) => sliceLabelToId.set(`SLICE-${index + 1}`, slice.id));
+    memory.slices.forEach((slice) => sliceLabelToId.set(slice.id, slice.id));
+    proposal = AgentDecisionProposalSchema.parse({
+      ...proposal,
+      memorySliceIds: proposal.memorySliceIds
+        .map((label) => sliceLabelToId.get(label))
+        .filter((id): id is string => Boolean(id)),
+    });
     let escapes = 0;
 
     if (proposal.requestedEffects.length > 0) {

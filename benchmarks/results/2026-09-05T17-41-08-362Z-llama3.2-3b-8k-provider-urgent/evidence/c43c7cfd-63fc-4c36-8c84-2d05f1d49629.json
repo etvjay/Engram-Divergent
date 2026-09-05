@@ -1,0 +1,50 @@
+{
+  "trialId": "c43c7cfd-63fc-4c36-8c84-2d05f1d49629",
+  "arm": "A2_ENGRAM",
+  "executionId": "c89667ab-ec64-48c4-8531-672f52bdb203",
+  "proposal": {
+    "executionId": "c89667ab-ec64-48c4-8531-672f52bdb203",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-3b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Provider substitution due to high latency and cost, with prepayment reduction and milestone verification as allowed effects.",
+    "memorySliceIds": [
+      "57899136-fb58-4cac-86f2-a025ebb48564"
+    ],
+    "requestedEffects": [
+      "PROVIDER_SUBSTITUTION",
+      "PREPAYMENT_REDUCTION",
+      "MILESTONE_VERIFICATION"
+    ],
+    "proposedAt": "2026-09-05T17:43:36.974Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [
+      "57899136-fb58-4cac-86f2-a025ebb48564"
+    ],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

@@ -1,10 +1,12 @@
 import { z } from "zod";
 import {
   baseProposal,
+  parseModelJsonObject,
   renderMemoryContextForModel,
   type ModelAdapter,
   type ModelDecisionRequest,
 } from "../model-adapter.js";
+import type { AgentDecisionProposal } from "../../../runtime/src/agent-decision.js";
 
 export interface QwenAdapterConfig {
   /** OpenAI-compatible base URL, e.g. an Ollama or vLLM endpoint. */
@@ -14,6 +16,8 @@ export interface QwenAdapterConfig {
   temperature?: number;
   /** Injectable for tests; defaults to global fetch. */
   fetchImpl?: typeof fetch;
+  /** Retries for degenerate model output (small models sometimes stop mid-JSON). */
+  maxAttempts?: number;
 }
 
 const ModelReplySchema = z.object({
@@ -38,21 +42,21 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
   const temperature = config.temperature ?? 0;
   const fetchImpl = config.fetchImpl ?? fetch;
 
-  return {
-    model,
-    modelConfigDigest: `openai-compatible:${model}:temp=${temperature}`,
-    async propose(request: ModelDecisionRequest) {
+  const proposeOnce = async (request: ModelDecisionRequest, attempt: number): Promise<AgentDecisionProposal> => {
       const system = [
         "You are the decision module of an autonomous execution agent.",
         "You propose one action; you have NO direct access to memory stores, tools, or ledgers.",
         "Reply with ONLY a JSON object, no prose, no code fences, with fields:",
         '  "proposedAction": object (must include "provider": one of the candidate provider ids)',
         '  "reasoningSummary": string',
-        '  "memorySliceIds": array of slice ids you relied on (only ids provided to you)',
+        '  "memorySliceIds": array of the SLICE-n labels you relied on (only labels provided to you)',
         '  "requestedEffects": array of strings chosen ONLY from effects explicitly allowed by the provided influence grants (empty list if none apply)',
       ].join(" ");
 
       const user = [
+        // Unique per execution+attempt: breaks llama.cpp KV-cache prefix reuse,
+        // which otherwise corrupts sequential same-prefix generations.
+        `RUN ${request.executionId} SAMPLE ${attempt}`,
         `MANDATE: urgency=${request.mandate.urgency}, verificationRequired=${request.mandate.verificationRequired}, maxLatencySeconds=${request.mandate.maxLatencySeconds}, maxBudgetUsd=${request.mandate.maxBudgetUsd}`,
         "CANDIDATES:",
         ...request.candidates.map((candidate) =>
@@ -77,7 +81,9 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
           body: JSON.stringify({
             model,
             temperature,
+            max_tokens: 512,
             stream: false,
+            response_format: { type: "json_object" },
             messages: [
               { role: "system", content: system },
               { role: "user", content: user },
@@ -91,14 +97,18 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
         throw new Error(`QWEN_ADAPTER_HTTP_${response.status}: ${await response.text()}`);
       }
       const payload = (await response.json()) as {
-        choices?: Array<{ message?: { content?: string } }>;
+        choices?: Array<{ finish_reason?: string; message?: { content?: string } }>;
+        usage?: Record<string, unknown>;
       };
       const content = payload.choices?.[0]?.message?.content ?? "";
-      let reply: unknown;
+      let reply: Record<string, unknown>;
       try {
-        reply = JSON.parse(content.replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim());
-      } catch {
-        throw new Error(`QWEN_ADAPTER_INVALID_RESPONSE: content was not JSON: ${content.slice(0, 200)}`);
+        reply = parseModelJsonObject(content, "QWEN_ADAPTER");
+      } catch (error) {
+        const detail = `finish_reason=${payload.choices?.[0]?.finish_reason ?? "null"} usage=${JSON.stringify(
+          payload.usage ?? {},
+        )} chars=${content.length}`;
+        throw new Error(`${(error as Error).message} [${detail}]`);
       }
       const parsed = ModelReplySchema.parse(reply);
       return baseProposal({
@@ -109,6 +119,25 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
         memorySliceIds: parsed.memorySliceIds ?? [],
         requestedEffects: parsed.requestedEffects ?? [],
       });
+  };
+
+  return {
+    model,
+    modelConfigDigest: `openai-compatible:${model}:temp=${temperature}`,
+    propose: async (request: ModelDecisionRequest): Promise<AgentDecisionProposal> => {
+      const maxAttempts = config.maxAttempts ?? 3;
+      let lastError: unknown = new Error("QWEN_ADAPTER_NO_ATTEMPTS");
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          return await proposeOnce(request, attempt);
+        } catch (error) {
+          lastError = error;
+          const message = (error as Error).message ?? "";
+          // Network/HTTP failures fail fast; only degenerate model output retries.
+          if (!message.includes("_INVALID_RESPONSE")) throw error;
+        }
+      }
+      throw lastError;
     },
   };
 }

@@ -1,0 +1,51 @@
+{
+  "trialId": "a53c6e9f-65ec-492b-a414-330291d3d4f4",
+  "arm": "A0_NO_MEMORY",
+  "executionId": "05966eb4-8e5c-4efd-bf2c-40b7be6730e6",
+  "proposal": {
+    "executionId": "05966eb4-8e5c-4efd-bf2c-40b7be6730e6",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-1b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas",
+      "reasoningSummary": "Selected Atlas as provider due to lower cost USD",
+      "memorySliceIds": [
+        "memorySliceId1",
+        "memorySliceId2"
+      ],
+      "requestedEffects": [
+        "effect1",
+        "effect2"
+      ]
+    },
+    "reasoningSummary": "(model returned no reasoning summary)",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T17:38:06.259Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}

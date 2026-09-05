@@ -1,0 +1,49 @@
+{
+  "trialId": "0feea4bd-e6ff-42d4-a864-ed59c72d4376",
+  "arm": "A4_STALE_OR_CONTRADICTORY",
+  "executionId": "0f901e75-6c4f-4bd8-8ef6-44377d07528e",
+  "proposal": {
+    "executionId": "0f901e75-6c4f-4bd8-8ef6-44377d07528e",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-1b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas",
+      "reasoningSummary": "Substitute provider atlas with beacon for urgent financial data",
+      "memorySliceIds": [
+        "SLICE-1"
+      ],
+      "requestedEffects": [
+        "PROVIDER_SUBSTITUTION"
+      ]
+    },
+    "reasoningSummary": "(model returned no reasoning summary)",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T17:38:51.292Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}

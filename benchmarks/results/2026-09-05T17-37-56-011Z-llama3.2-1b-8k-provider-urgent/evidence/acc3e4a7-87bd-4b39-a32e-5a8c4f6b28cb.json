@@ -1,0 +1,47 @@
+{
+  "trialId": "acc3e4a7-87bd-4b39-a32e-5a8c4f6b28cb",
+  "arm": "A1_RAW_HISTORY",
+  "executionId": "521aae8b-3d22-4380-b3b2-f8e4f5a47aeb",
+  "proposal": {
+    "executionId": "521aae8b-3d22-4380-b3b2-f8e4f5a47aeb",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-1b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas",
+      "reasoningSummary": " atlas provider selected based on urgency and latency",
+      "memorySliceIds": [
+        "raw_prior_history"
+      ],
+      "requestedEffects": []
+    },
+    "reasoningSummary": "(model returned no reasoning summary)",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T17:38:14.631Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}

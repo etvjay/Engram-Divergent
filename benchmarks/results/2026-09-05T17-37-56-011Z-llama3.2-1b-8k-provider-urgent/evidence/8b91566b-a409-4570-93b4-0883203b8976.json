@@ -1,0 +1,49 @@
+{
+  "trialId": "8b91566b-a409-4570-93b4-0883203b8976",
+  "arm": "A3_IRRELEVANT_MEMORY",
+  "executionId": "661a9097-6c1d-480d-b579-7121ef5d4a47",
+  "proposal": {
+    "executionId": "661a9097-6c1d-480d-b579-7121ef5d4a47",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-1b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas",
+      "reasoningSummary": "Substituting provider weather-oracle with climate-alt based on influence grant",
+      "memorySliceIds": [
+        "SLICE-1"
+      ],
+      "requestedEffects": [
+        "PROVIDER_SUBSTITUTION"
+      ]
+    },
+    "reasoningSummary": "(model returned no reasoning summary)",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T17:38:39.061Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}
