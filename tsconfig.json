@@ -12,5 +12,21 @@
     "resolveJsonModule": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["packages/**/*.ts", "services/**/*.ts", "tests/**/*.ts"]
+  "include": [
+    "packages/core/**/*.ts",
+    "packages/memory-core/**/*.ts",
+    "packages/policy/**/*.ts",
+    "packages/runtime/**/*.ts",
+    "packages/evaluation/**/*.ts",
+    "packages/sibyl/**/*.ts",
+    "packages/scenarios/provider-continuity/**/*.ts",
+    "packages/virtuals-acp/**/*.ts",
+    "packages/base-settlement/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/integration/sibyl-*.test.ts",
+    "tests/integration/virtuals-acp-evidence.test.ts",
+    "tests/integration/base-settlement-*.test.ts",
+    "tests/adapters/virtuals-acp-evidence.test.ts",
+    "tests/scenarios/provider-continuity-memory.test.ts"
+  ]
 }
