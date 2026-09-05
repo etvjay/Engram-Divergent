@@ -12,6 +12,10 @@ import { ExecutionMemorySchema } from "../../packages/memory-core/src/execution-
 import { MemorySliceSchema } from "../../packages/memory-core/src/memory-slice.js";
 import { InfluenceGrantSchema } from "../../packages/memory-core/src/influence-grant.js";
 import { BehavioralMemoryEvaluationSchema } from "../../packages/evaluation/src/memory-evaluation.js";
+import {
+  AgentDecisionProposalSchema,
+  assertAgentProposalAuthorizedByGrant,
+} from "../../packages/runtime/src/agent-decision.js";
 
 const IDs = {
   execution1: "00000000-0000-4000-8000-000000000001",
@@ -202,6 +206,27 @@ describe("behavioral memory primitives", () => {
     expect(() => assertInfluenceAllowed(value.influenceGrant, "provider_selection")).not.toThrow();
     expect(() => assertInfluenceAllowed(value.influenceGrant, "increase_budget")).toThrow("INFLUENCE_EFFECT_DENIED:increase_budget");
     expect(() => assertInfluenceAllowed(value.influenceGrant, "asset_selection")).toThrow("INFLUENCE_EFFECT_NOT_GRANTED:asset_selection");
+  });
+
+  it("authorizes a Qwen-style external model proposal only within the influence grant", () => {
+    const value = lineage();
+    const proposal = AgentDecisionProposalSchema.parse({
+      executionId: IDs.execution2,
+      actor: { runtime: "local-aws-agent", model: "qwen2.5", instanceId: "worker-1" },
+      decisionType: "PROVIDER_SELECTION",
+      proposedAction: { providerId: "provider-b" },
+      reasoningSummary: "Use the applicable execution-memory slice to avoid the prior urgent SLA failure mode.",
+      memorySliceIds: [value.memorySlice.id],
+      requestedEffects: ["provider_selection"],
+      proposedAt: new Date("2026-09-05T08:31:00Z"),
+    });
+    expect(() => assertAgentProposalAuthorizedByGrant(proposal, value.influenceGrant)).not.toThrow();
+
+    expect(() => assertAgentProposalAuthorizedByGrant({
+      ...proposal,
+      proposedAction: { providerId: "provider-b", budgetUsd: 100 },
+      requestedEffects: ["provider_selection", "increase_budget"],
+    }, value.influenceGrant)).toThrow("INFLUENCE_EFFECT_DENIED:increase_budget");
   });
 
   it("fails closed when lineage is broken", () => {
