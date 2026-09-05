@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run test:sibyl",
     "test:primitives": "vitest run tests/primitives/behavioral-memory-lineage.test.ts",
-    "test:sibyl": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/sibyl-memory-loop.test.ts tests/integration/sibyl-provider-continuity.test.ts tests/integration/sibyl-competing-memories.test.ts",
+    "test:sibyl": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/sibyl-memory-loop.test.ts tests/integration/sibyl-provider-continuity.test.ts tests/integration/sibyl-competing-memories.test.ts tests/integration/sibyl-behavioral-memory-graph.test.ts",
     "test:virtuals": "vitest run tests/integration/virtuals-acp-evidence.test.ts tests/adapters/virtuals-acp-evidence.test.ts",
     "test:base": "vitest run tests/integration/base-settlement-authority.test.ts tests/integration/base-settlement-receipt.test.ts",
     "test:scenario": "vitest run tests/scenarios/provider-continuity-memory.test.ts",
