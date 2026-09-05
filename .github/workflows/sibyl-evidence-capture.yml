@@ -1,0 +1,43 @@
+name: Sibyl Evidence Capture
+
+on:
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm install
+      - run: python -m pip install -r packages/sibyl/requirements.txt
+      - run: npm run build
+      - name: Capture fresh Sibyl + Base-authority evidence bundle
+        run: npm run evidence:sibyl:capture
+      - name: Validate captured manifest before upload
+        run: >-
+          npx tsx -e "import { readdirSync, readFileSync, existsSync } from 'node:fs';
+          const root='artifacts/sibyl-evidence';
+          const dirs=readdirSync(root,{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>x.name);
+          if (dirs.length !== 1) throw new Error('expected exactly one evidence directory');
+          const dir=root+'/'+dirs[0];
+          const m=JSON.parse(readFileSync(dir+'/manifest.json','utf8'));
+          if (m.schema !== 'engram.sibyl-evidence-capture/v3') throw new Error('unexpected manifest schema');
+          if (m.status !== 'LOCAL_PASS') throw new Error('capture failed');
+          if (!m.baseSettlementIntent?.sha256) throw new Error('base intent digest missing');
+          if (!m.baseSettlementIntent?.provenance?.retrievalId) throw new Error('base retrieval provenance missing');
+          if (!existsSync(dir+'/'+m.baseSettlementIntent.file)) throw new Error('base intent artifact missing');"
+      - name: Upload evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: sibyl-evidence-${{ github.sha }}
+          path: artifacts/sibyl-evidence/
+          if-no-files-found: error
+          retention-days: 30
