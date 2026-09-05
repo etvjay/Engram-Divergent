@@ -1,0 +1,50 @@
+name: Engram SAM Build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'template.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'services/**'
+      - 'packages/**'
+      - 'db/**'
+      - '.github/workflows/sam-build.yml'
+  pull_request:
+    paths:
+      - 'template.yaml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'services/**'
+      - 'packages/**'
+      - 'db/**'
+      - '.github/workflows/sam-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  sam-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      SAM_CLI_TELEMETRY: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: aws-actions/setup-sam@v2
+
+      - run: npm install
+
+      - name: Expose pinned project binaries
+        shell: bash
+        run: echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Build SAM application
+        run: sam build --template template.yaml
