@@ -1,0 +1,484 @@
+schema_version: engram-claims-v1
+updated_at: 2026-08-16
+
+claims:
+  - id: ENG-001
+    claim: A prior execution can materially change a later Engram decision under comparable context.
+    state: VERIFIED
+    evidence:
+      - tests/e2e/memory-caused-behavior.test.ts
+      - tests/e2e/demo-orchestration.test.ts
+      - services/demo/src/run-runtime-demo.ts
+      - experiments/EXP-001-memory-caused-decision
+      - GitHub Actions Engram CI run 31921774367
+    boundary: Deterministic simulated external execution; causal behavior is tested through the Engram runtime and provenance model.
+
+  - id: ENG-002
+    claim: Engram persists executions, memories, retrievals, decisions, outcomes, runtime evaluations, and memory-to-decision provenance in CockroachDB.
+    state: IMPLEMENTED
+    evidence:
+      - db/migrations/001_initial.sql
+      - db/migrations/002_runtime.sql
+      - packages/cockroach/src/repository.ts
+      - packages/cockroach/src/runtime-store.ts
+      - packages/cockroach/src/atomic-runtime-store.ts
+      - tests/integration/cockroach-memory-loop.test.ts
+      - tests/integration/cockroach-runtime.test.ts
+    promotion_condition: Successful Engram Live Verification run against CockroachDB Cloud with evidence/live/latest.json artifact.
+
+  - id: ENG-003
+    claim: Engram performs agent-scoped cosine vector retrieval using CockroachDB Cloud VECTOR/C-SPANN.
+    state: IMPLEMENTED
+    evidence:
+      - db/migrations/001_initial.sql
+      - db/migrations/005_cosine_vector_index.sql
+      - db/migrations/006_agent_scoped_vector_index.sql
+      - db/migrations/007_agent_cosine_vector_index.sql
+      - packages/cockroach/src/memory.ts
+      - packages/cockroach/src/vector-plan.ts
+      - services/verification/src/live-verify.ts
+    boundary: Production retrieval is agent-scoped and uses cosine distance. Automated code captures a natural EXPLAIN plan and distinguishes successful vector-distance retrieval from actual C-SPANN index selection.
+    promotion_condition: Successful live verification artifact where vectorIndex.usesVectorSearch and vectorIndex.usesCosineIndex prove that CockroachDB naturally selected memories_agent_embedding_cosine_idx for the live retrieval query shape.
+
+  - id: ENG-004
+    claim: Amazon Bedrock Titan Embeddings V2 supplies Engram memory/query embeddings.
+    state: IMPLEMENTED
+    evidence:
+      - packages/bedrock/src/embeddings.ts
+      - services/verification/src/live-verify.ts
+    promotion_condition: Successful live verification artifact produced with Bedrock credentials and no deterministic test embedding provider.
+
+  - id: ENG-005
+    claim: CockroachDB Cloud Managed MCP can inspect Engram memory provenance through a read-only agent-facing plane.
+    state: IMPLEMENTED
+    evidence:
+      - packages/cockroach-mcp/src/client.ts
+      - services/api/src/handler.ts
+      - services/verification/src/live-verify.ts
+    promotion_condition: Successful live verification artifact containing MCP status and select_query provenance output.
+
+  - id: ENG-006
+    claim: Engram can run as an AWS Lambda HTTP API using the SAM deployment definition.
+    state: IMPLEMENTED
+    evidence:
+      - template.yaml
+      - services/api/src/handler.ts
+      - .github/workflows/sam-build.yml
+      - .github/workflows/aws-deploy-verification.yml
+      - GitHub Actions Engram SAM Build run 31935001857
+    boundary: The SAM application packages successfully in CI. Actual Lambda deployment and public API operation remain UNVERIFIED.
+    promotion_condition: Successful Engram AWS Deploy Verification run proving sam deploy, public health, runtime demo, protected trace, protected control-plane/evaluation reads, and MCP inspection endpoints.
+
+  - id: ENG-007
+    claim: Engram exposes an evidence-first four-screen interface for Execute, Live Trace, Memory Explorer, and Compare Runs.
+    state: TESTED
+    evidence:
+      - apps/web
+      - GitHub Actions Engram CI web build
+    boundary: Build verified; public deployment not yet verified.
+
+  - id: ENG-008
+    claim: The external multi-venue workload in the MVP is a live market execution.
+    state: FALSE
+    evidence:
+      - packages/execution-simulator/src/index.ts
+      - services/demo/src/run-runtime-demo.ts
+    boundary: The workload is intentionally SIMULATED. Persistence, retrieval, provenance, runtime influence validation, and cloud integrations may be promoted independently.
+
+  - id: ENG-009
+    claim: Engram has a reproducible live-verification path for the runtime causal spine and external CockroachDB, Bedrock, Managed MCP, and vector-plan evidence.
+    state: TESTED
+    evidence:
+      - services/verification/src/live-verify.ts
+      - packages/cockroach/src/migrations.ts
+      - packages/cockroach/src/vector-plan.ts
+      - .github/workflows/live-verification.yml
+      - GitHub Actions Engram CI run 31922956931
+    boundary: The verifier writes a sanitized UNKNOWN artifact on failure and separates vector-query success from C-SPANN index selection.
+    promotion_condition: Manually dispatch Engram Live Verification with required CockroachDB, AWS, and MCP secrets; successful execution must emit evidence/live/latest.json.
+
+  - id: ENG-010
+    claim: Engram enforces recall exposure and memory-influence eligibility in a stateless runtime that survives Lambda cold starts.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/runtime.ts
+      - packages/runtime/src/policy.ts
+      - packages/cockroach/src/runtime-store.ts
+      - tests/e2e/runtime-cold-start.test.ts
+      - tests/integration/cockroach-runtime.test.ts
+      - GitHub Actions Engram CI run 31921774367
+    boundary: Cold-start behavior is automated; live CockroachDB execution remains separately promoted by ENG-002/009.
+
+  - id: ENG-011
+    claim: Engram freezes the resolved memory-policy bundle per execution so later policy activation cannot silently change an in-flight run.
+    state: TESTED
+    evidence:
+      - packages/policy/src/registry.ts
+      - packages/cockroach/src/policy-registry.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/frozen-policy.test.ts
+      - GitHub Actions Engram CI run 31921774367
+
+  - id: ENG-012
+    claim: Engram exposes one semantic runtime through TypeScript SDK, Python SDK, HTTP API, and Engram MCP rather than independent memory implementations.
+    state: TESTED
+    evidence:
+      - packages/sdk
+      - packages/python
+      - packages/mcp-server
+      - services/api/src/handler.ts
+      - services/runtime/src/create-runtime.ts
+      - tests/sdk
+      - tests/mcp
+      - packages/python/tests/test_client.py
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Package/runtime conformance and TypeScript/Python Bearer-token propagation are automated; published package registries and public API deployment are not yet verified.
+
+  - id: ENG-013
+    claim: Framework adapters preserve external execution telemetry as ExecutionEpisode evidence without inferring memory-to-action causality.
+    state: TESTED
+    evidence:
+      - packages/episode/src/schema.ts
+      - packages/adapters/openai-agents/src/index.ts
+      - packages/adapters/langgraph/src/index.ts
+      - tests/adapters
+      - GitHub Actions Engram CI run 31921774367
+    boundary: Structural adapter conformance is tested; live framework applications are not yet part of external verification.
+
+  - id: ENG-014
+    claim: Engram provides read-focused control-plane views over agents, executions, memories, influences, policy state, and evidence-safe memory evaluation.
+    state: TESTED
+    evidence:
+      - packages/control-plane/src/store.ts
+      - packages/cockroach/src/control-plane.ts
+      - services/api/src/handler.ts
+      - template.yaml
+      - tests/conformance/api-contract.test.ts
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Handler/SAM contract and routing behavior are automated; public AWS deployment is not yet verified.
+
+  - id: ENG-015
+    claim: Engram distinguishes memory usefulness evidence from mere retrieval or later success through explicit evaluations, relationships, and counterfactual experiments.
+    state: TESTED
+    evidence:
+      - packages/evaluation/src/domain.ts
+      - packages/evaluation/src/store.ts
+      - packages/evaluation/src/quality.ts
+      - packages/cockroach/src/evaluation-store.ts
+      - db/migrations/004_memory_evaluation.sql
+      - tests/evaluation
+      - tests/conformance/api-contract.test.ts
+      - experiments/EXP-003-contradiction-and-harm
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Controlled evaluation evidence is required before individual memories are labeled beneficial or harmful; the control-plane response preserves this interpretation boundary.
+
+  - id: ENG-016
+    claim: Engram can allocate execution-event sequence numbers through a store-side atomic allocator rather than deriving them from trace length.
+    state: TESTED
+    evidence:
+      - packages/cockroach/src/atomic-runtime-store.ts
+      - db/migrations/005_atomic_event_sequence.sql
+      - tests/runtime/atomic-event-sequence.test.ts
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Automated runtime behavior is tested; concurrent live/load execution against CockroachDB remains unverified.
+
+  - id: ENG-017
+    claim: Engram rejects stale/incompatible operational memories before exposure and independently rejects low-confidence recalled memories before decision influence.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/policy.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/bad-memory.test.ts
+      - experiments/EXP-002-bad-memory
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Default thresholds are versioned policy choices, not universal truth; live CockroachDB execution remains separately unverified.
+
+  - id: ENG-018
+    claim: Engram preserves contradictory memories and harmful effect evidence append-only rather than overwriting history or using latest-result-wins evaluation.
+    state: TESTED
+    evidence:
+      - packages/evaluation/src/domain.ts
+      - packages/evaluation/src/quality.ts
+      - tests/evaluation/contradiction-harm.test.ts
+      - experiments/EXP-003-contradiction-and-harm
+      - GitHub Actions Engram CI run 31935001862
+    boundary: Contradiction is explicitly assessed; Engram does not infer contradiction solely from vector similarity.
+
+  - id: ENG-019
+    claim: Engram protects every non-demo /v1 API surface with fail-closed bearer authorization.
+    state: TESTED
+    evidence:
+      - services/api/src/auth.ts
+      - services/api/src/handler.ts
+      - template.yaml
+      - tests/security/api-inspection-auth.test.ts
+      - tests/conformance/api-contract.test.ts
+      - tests/sdk/http-transport.test.ts
+      - packages/python/tests/test_client.py
+      - GitHub Actions Engram CI run 31935001862
+    boundary: GET /health and POST /v1/demo/run are deliberately public. ENGRAM_API_TOKEN is a single-token MVP deployment guard, not complete multi-tenant identity/RBAC, and must not be embedded into a public static frontend.
+
+  - id: ENG-020
+    claim: Engram has a reproducible AWS SAM deployment verification workflow that can produce public deployment evidence without changing the simulated external-workload boundary.
+    state: IMPLEMENTED
+    evidence:
+      - .github/workflows/aws-deploy-verification.yml
+      - template.yaml
+      - .github/workflows/sam-build.yml
+      - GitHub Actions Engram SAM Build run 31935001857
+    boundary: SAM packaging is TESTED, but AWS deployment remains UNVERIFIED until the deployment workflow succeeds and emits evidence/aws/latest.json.
+    promotion_condition: Successful Engram AWS Deploy Verification workflow run with uploaded deployment artifact.
+
+  - id: ENG-021
+    claim: Engram preserves exact recall-to-decision provenance when multiple recalls compete and rejects a valid memory paired with the wrong retrieval.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/competing-memory-provenance.test.ts
+      - experiments/EXP-008-competing-memory-provenance/hypothesis.md
+      - experiments/EXP-008-competing-memory-provenance/setup.md
+      - experiments/EXP-008-competing-memory-provenance/findings.md
+      - experiments/EXP-008-competing-memory-provenance/decision.md
+      - GitHub Actions Engram CI run 31935001862
+    boundary: A memory ID is not sufficient influence provenance; the referenced retrieval must actually have exposed that memory. Credentialed CockroachDB trace reconstruction is separately live-verification-gated.
+
+  - id: ENG-022
+    claim: Engram can keep explicitly contradictory memories recall-visible while an opt-in eligibility advisor blocks unresolved contradiction from becoming action authority.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/eligibility.ts
+      - packages/evaluation/src/eligibility-advisor.ts
+      - tests/runtime/competing-memories.test.ts
+      - experiments/EXP-004-competing-eligible-memories
+      - GitHub Actions Engram CI run 31935001862
+    boundary: This is optional workload/evaluation-aware composition, not a universal Engram protocol default. Contradiction requires explicit relationship evidence and is not inferred from vector similarity.
+
+  - id: ENG-023
+    claim: Engram can reuse a prior failure-and-recovery episode to change a later comparable software deployment strategy with an observed control-run counterfactual.
+    state: TESTED
+    evidence:
+      - tests/e2e/deployment-recovery-memory.test.ts
+      - experiments/EXP-005-deployment-recovery-memory/hypothesis.md
+      - experiments/EXP-005-deployment-recovery-memory/setup.md
+      - experiments/EXP-005-deployment-recovery-memory/findings.md
+      - experiments/EXP-005-deployment-recovery-memory/decision.md
+      - GitHub Actions Engram CI run 31935125047
+    boundary: The deployment workload is deterministic and SIMULATED. Engram records source execution memory, treatment recall, CHANGED_ACTION influence, a real same-context control execution as counterfactual evidence, and the later observed outcome; the application owns deployment strategy selection.
+
+  - id: ENG-024
+    claim: Engram can preserve the secondary consequences of a recovery action and use that execution memory to change a later comparable incident-recovery sequence.
+    state: TESTED
+    evidence:
+      - packages/scenarios/incident-response/src/index.ts
+      - tests/e2e/incident-recovery-memory.test.ts
+      - experiments/EXP-006-incident-recovery-memory/hypothesis.md
+      - experiments/EXP-006-incident-recovery-memory/setup.md
+      - experiments/EXP-006-incident-recovery-memory/findings.md
+      - experiments/EXP-006-incident-recovery-memory/decision.md
+      - GitHub Actions Engram CI run 31935299891
+    boundary: The incident workload is deterministic and SIMULATED. The runtime proof includes source memory admission, a real same-context control, exact treatment retrieval/influence provenance, and observed treatment outcome; live infrastructure orchestration is not claimed.
+
+  - id: ENG-025
+    claim: Engram can reuse a prior reverted coding regression to change a later comparable autonomous-coding methodology from patch-first to regression-test-first.
+    state: TESTED
+    evidence:
+      - packages/scenarios/coding/src/index.ts
+      - tests/scenarios/coding-memory.test.ts
+      - tests/e2e/coding-regression-memory.test.ts
+      - experiments/EXP-007-coding-regression/hypothesis.md
+      - experiments/EXP-007-coding-regression/setup.md
+      - experiments/EXP-007-coding-regression/findings.md
+      - experiments/EXP-007-coding-regression/decision.md
+      - GitHub Actions Engram CI run 31935526015
+    boundary: The coding workload is deterministic and SIMULATED. Engram preserves the full source/control/treatment causal chain, but no live repository-writing coding-agent integration is claimed.
+
+  - id: ENG-026
+    claim: Engram can preserve an explicit human correction as operational memory and use it to change a later comparable autonomous action before repeated human intervention is required.
+    state: TESTED
+    evidence:
+      - packages/scenarios/operator-safety/src/index.ts
+      - tests/scenarios/operator-safety-memory.test.ts
+      - tests/e2e/human-correction-memory.test.ts
+      - experiments/EXP-009-human-correction-safety/hypothesis.md
+      - experiments/EXP-009-human-correction-safety/setup.md
+      - experiments/EXP-009-human-correction-safety/findings.md
+      - experiments/EXP-009-human-correction-safety/decision.md
+      - GitHub Actions Engram CI run 31935842159
+    boundary: The maintenance workload is deterministic and SIMULATED. The source action is rejected before execution and correctly ends ABORTED; human correction is scoped evidence, not a universal Engram-generated policy. Live operator/infrastructure integration is not claimed.
+
+  - id: ENG-027
+    claim: Engram can preserve a successful but materially expensive execution as operational memory and use it to change a later comparable strategy while preserving SUCCESS as the source outcome.
+    state: TESTED
+    evidence:
+      - packages/scenarios/cost-aware/src/index.ts
+      - tests/scenarios/cost-aware-memory.test.ts
+      - tests/e2e/costly-success-memory.test.ts
+      - experiments/EXP-010-costly-success-memory/hypothesis.md
+      - experiments/EXP-010-costly-success-memory/setup.md
+      - experiments/EXP-010-costly-success-memory/findings.md
+      - experiments/EXP-010-costly-success-memory/decision.md
+      - GitHub Actions Engram CI run 31935999992
+    boundary: The workload and cost model are deterministic and SIMULATED. Source, memory-free control, and treatment all remain SUCCESS; the observed significant-cost consequence drives memory admission and changed action. Live cost savings are UNVERIFIED.
+
+  - id: ENG-028
+    claim: Engram can preserve coordinator-owned execution memory about a multi-worker shared-target conflict and use it to change a later comparable coordination strategy without introducing implicit cross-agent memory sharing.
+    state: TESTED
+    evidence:
+      - packages/scenarios/multi-agent-coordination/src/index.ts
+      - tests/scenarios/multi-agent-coordination-memory.test.ts
+      - tests/e2e/multi-agent-coordination-memory.test.ts
+      - experiments/EXP-011-multi-agent-coordination/hypothesis.md
+      - experiments/EXP-011-multi-agent-coordination/setup.md
+      - experiments/EXP-011-multi-agent-coordination/findings.md
+      - experiments/EXP-011-multi-agent-coordination/decision.md
+      - GitHub Actions Engram CI run 31937408498
+    boundary: The coordination workload is deterministic and SIMULATED. Memory remains owned by the coordinator Engram agent; worker identities are execution evidence, not implicitly shared memory principals. Live distributed locks, leases and cross-agent memory authorization remain UNVERIFIED.
+
+  - id: ENG-029
+    claim: Engram supports validated multi-source Operational Memory provenance through optional admission-signal source execution IDs and exposes that contract consistently through runtime, TypeScript SDK documentation, HTTP API documentation and OpenAPI.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/types.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/multi-source-admission.test.ts
+      - packages/sdk/frontend-usage/README.md
+      - services/api/frontend-usage/README.md
+      - openapi-usage/README.md
+      - openapi.json
+      - tests/conformance/api-contract.test.ts
+      - tests/conformance/frontend-module-registry.test.ts
+      - GitHub Actions Engram CI run 31937408498
+    boundary: Explicit source sets are deduplicated, must include the admitting execution, and must reference existing executions owned by the same Engram agent. Multiple sources are provenance, not confidence inflation, consensus, proof of truth or cross-agent shared memory. Live CockroachDB persistence of a multi-source example remains separately UNVERIFIED.
+
+  - id: ENG-030
+    claim: Engram can preserve a repeated operational pattern supported by multiple successful prior executions and use that multi-source memory to change a later comparable action while all source outcomes remain SUCCESS.
+    state: TESTED
+    evidence:
+      - packages/scenarios/handoff-pattern/src/index.ts
+      - tests/scenarios/handoff-pattern-memory.test.ts
+      - tests/e2e/repeated-handoff-pattern-memory.test.ts
+      - tests/runtime/multi-source-admission.test.ts
+      - experiments/EXP-012-repeated-handoff-pattern/hypothesis.md
+      - experiments/EXP-012-repeated-handoff-pattern/setup.md
+      - experiments/EXP-012-repeated-handoff-pattern/findings.md
+      - experiments/EXP-012-repeated-handoff-pattern/decision.md
+      - GitHub Actions Engram CI run 31937605893
+    boundary: The handoff workload and timing model are deterministic and SIMULATED. Source multiplicity records evidence lineage and does not automatically make the derived pattern true or more authoritative. Live multi-agent handoff latency improvements remain UNVERIFIED.
+
+  - id: ENG-031
+    claim: Engram can preserve historically valid memories while removing current action authority through distinct environment/tool invalidation and explicit supersession mechanisms, then allow only current eligible memory to influence a later comparable execution.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/policy.ts
+      - packages/evaluation/src/eligibility-advisor.ts
+      - packages/scenarios/environment-evolution/src/index.ts
+      - tests/e2e/memory-invalidation-supersession.test.ts
+      - experiments/EXP-013-memory-invalidation-supersession/hypothesis.md
+      - experiments/EXP-013-memory-invalidation-supersession/setup.md
+      - experiments/EXP-013-memory-invalidation-supersession/findings.md
+      - experiments/EXP-013-memory-invalidation-supersession/decision.md
+      - GitHub Actions Engram CI run 31940146076
+    boundary: The runtime-upgrade workload is deterministic and SIMULATED. Invalidation reasons are policy-derived and supersession requires explicit relationship evidence; the experiment does not prove a complete production lifecycle state machine or live infrastructure upgrade safety.
+
+  - id: ENG-032
+    claim: Engram fails closed when version-bound Operational Memory requires environment or tool compatibility evidence that the current execution did not supply.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/policy.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/context-completeness-memory.test.ts
+      - experiments/EXP-014-context-completeness-authority/hypothesis.md
+      - experiments/EXP-014-context-completeness-authority/setup.md
+      - experiments/EXP-014-context-completeness-authority/findings.md
+      - experiments/EXP-014-context-completeness-authority/decision.md
+      - GitHub Actions Engram CI run 31943569578
+    boundary: Missing comparison metadata is treated as UNKNOWN compatibility rather than compatibility. This is deterministic runtime evidence; live applications may still supply inaccurate or semantically weak version identifiers.
+
+  - id: ENG-033
+    claim: Engram requires claimed Operational Memory source-execution lineage to resolve to canonical same-agent executions before recall exposure and again before decision influence.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/provenance-authenticity-memory.test.ts
+      - experiments/EXP-015-provenance-authenticity/hypothesis.md
+      - experiments/EXP-015-provenance-authenticity/setup.md
+      - experiments/EXP-015-provenance-authenticity/findings.md
+      - experiments/EXP-015-provenance-authenticity/decision.md
+      - GitHub Actions Engram CI run 31944577594
+    boundary: This proves deterministic runtime reconciliation of declared lineage, not cryptographic provenance, tamper-evident storage, cross-tenant authorization or trusted attestation.
+
+  - id: ENG-034
+    claim: Engram independently revalidates same-agent Operational Memory ownership at recall and influence time even if a storage adapter returns or later mutates a foreign-agent memory.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/agent-isolation-authority.test.ts
+      - experiments/EXP-016-runtime-agent-isolation-authority/hypothesis.md
+      - experiments/EXP-016-runtime-agent-isolation-authority/setup.md
+      - experiments/EXP-016-runtime-agent-isolation-authority/findings.md
+      - experiments/EXP-016-runtime-agent-isolation-authority/decision.md
+      - GitHub Actions Engram CI run 31944737562
+    boundary: This is defense-in-depth for the current per-agent ownership model, not production tenant/workspace identity, RBAC, ACLs or authorized shared memory.
+
+  - id: ENG-035
+    claim: Engram prevents newly derived Operational Memory from claiming a stronger evidence state than the execution outcome that admitted it.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/policy.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/evidence-state-escalation.test.ts
+      - experiments/EXP-017-evidence-state-escalation/hypothesis.md
+      - experiments/EXP-017-evidence-state-escalation/setup.md
+      - experiments/EXP-017-evidence-state-escalation/findings.md
+      - experiments/EXP-017-evidence-state-escalation/decision.md
+      - GitHub Actions Engram CI run 31944907415
+    boundary: The admitting execution is an evidence ceiling for direct derived memory. Cryptographic verification, trusted attestors and conservative multi-source evidence aggregation remain separate work.
+
+  - id: ENG-036
+    claim: Engram requires CONTROL_RUN, SHADOW_RUN and REPLAY counterfactual evidence to reference an existing, distinct, completed comparison execution owned by the same agent.
+    state: TESTED
+    evidence:
+      - packages/core/src/protocol.ts
+      - packages/runtime/src/runtime.ts
+      - tests/runtime/counterfactual-authenticity.test.ts
+      - experiments/EXP-018-counterfactual-authenticity/hypothesis.md
+      - experiments/EXP-018-counterfactual-authenticity/setup.md
+      - experiments/EXP-018-counterfactual-authenticity/findings.md
+      - experiments/EXP-018-counterfactual-authenticity/decision.md
+      - GitHub Actions Engram CI run 31945075487
+    boundary: This authenticates the referenced comparison execution but does not prove controlled-variable equivalence, side-effect isolation or causal validity of a full shadow/replay experiment.
+
+  - id: ENG-037
+    claim: Engram binds each exposed recall to a versioned digest of the authority-relevant Operational Memory state and rejects later influence if that state changed or the persisted recall has no state binding.
+    state: TESTED
+    evidence:
+      - packages/core/src/protocol.ts
+      - packages/runtime/src/memory-state.ts
+      - packages/runtime/src/runtime.ts
+      - packages/cockroach/src/runtime-store.ts
+      - db/migrations/008_recall_memory_state_digest.sql
+      - tests/runtime/recall-influence-state-integrity.test.ts
+      - tests/runtime/memory-state-digest.test.ts
+      - experiments/EXP-019-recall-influence-state-integrity/hypothesis.md
+      - experiments/EXP-019-recall-influence-state-integrity/setup.md
+      - experiments/EXP-019-recall-influence-state-integrity/findings.md
+      - experiments/EXP-019-recall-influence-state-integrity/decision.md
+      - GitHub Actions Engram CI run 31947548380
+    boundary: The digest proves continuity of the Operational Memory object state exposed by recall; it does not prove external facts are immutable or replace provenance, ownership, lifecycle, evidence, policy or counterfactual checks. Credentialed CockroachDB Cloud execution remains separately live-verification-gated.
+
+
+  - id: ENG-038
+    claim: Engram prevents multi-source Operational Memory from claiming stronger evidence than the weakest outcome among its declared supporting source executions and fails closed when historical source outcome evidence cannot be resolved.
+    state: TESTED
+    evidence:
+      - packages/runtime/src/runtime.ts
+      - packages/runtime/src/store.ts
+      - packages/cockroach/src/runtime-store.ts
+      - tests/runtime/multi-source-admission.test.ts
+      - tests/e2e/repeated-handoff-pattern-memory.test.ts
+      - experiments/EXP-020-multi-source-evidence-ceiling/hypothesis.md
+      - experiments/EXP-020-multi-source-evidence-ceiling/setup.md
+      - experiments/EXP-020-multi-source-evidence-ceiling/findings.md
+      - experiments/EXP-020-multi-source-evidence-ceiling/decision.md
+      - GitHub Actions EXP-020 scoped acceptance run 31948369159 attempt 3
+    boundary: The invariant governs declared supporting-source evidence authority. It does not cryptographically establish source truth, define weighted/materiality roles, or prove live CockroachDB Cloud execution.

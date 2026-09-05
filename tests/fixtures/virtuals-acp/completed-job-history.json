@@ -1,0 +1,31 @@
+{
+  "jobId": "engram-acp-fixture-001",
+  "chainId": 84532,
+  "protocol": "v2",
+  "status": "completed",
+  "entryCount": 5,
+  "entries": [
+    {
+      "kind": "system",
+      "event": { "type": "job_opened" }
+    },
+    {
+      "kind": "message",
+      "from": "0xRequesterFixture",
+      "content": "Fetch the requested dataset within the agreed SLA."
+    },
+    {
+      "kind": "system",
+      "event": { "type": "funded" }
+    },
+    {
+      "kind": "message",
+      "from": "0xProviderFixture",
+      "content": "Deliverable submitted."
+    },
+    {
+      "kind": "system",
+      "event": { "type": "completed" }
+    }
+  ]
+}

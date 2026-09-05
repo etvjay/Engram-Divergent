@@ -1,0 +1,2 @@
+# Re-verify the latest published version at the start of the Sep 1 build window.
+sibyl-memory-client==0.6.1

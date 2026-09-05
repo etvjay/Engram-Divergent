@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+dist-web/
+coverage/
+*.tsbuildinfo
+
+# AWS SAM
+.aws-sam/
+
+# Generated external evidence (uploaded as workflow artifacts, not committed)
+evidence/live/
+evidence/aws/
+artifacts/sibyl-evidence/
+
+# Logs and editor/OS noise
+*.log
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/

@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Engram - durable operational memory API
+
+Parameters:
+  DatabaseUrl:
+    Type: String
+    NoEcho: true
+    Description: CockroachDB Cloud PostgreSQL-compatible connection string.
+  CorsOrigin:
+    Type: String
+    Default: '*'
+  BedrockEmbeddingModel:
+    Type: String
+    Default: amazon.titan-embed-text-v2:0
+  ApiToken:
+    Type: String
+    NoEcho: true
+    Default: ''
+    Description: Bearer token required by all non-demo /v1 API routes.
+  CockroachMcpClusterId:
+    Type: String
+    Default: ''
+    Description: Optional CockroachDB Cloud cluster ID for Managed MCP.
+  CockroachMcpApiKey:
+    Type: String
+    NoEcho: true
+    Default: ''
+    Description: Optional service-account API key for non-interactive Managed MCP access.
+  CockroachMcpDatabase:
+    Type: String
+    Default: defaultdb
+    Description: Database name used by MCP read/introspection tools.
+
+Globals:
+  Function:
+    Runtime: nodejs22.x
+    Architectures:
+      - arm64
+    MemorySize: 512
+    Timeout: 30
+    Environment:
+      Variables:
+        DATABASE_URL: !Ref DatabaseUrl
+        CORS_ORIGIN: !Ref CorsOrigin
+        BEDROCK_EMBEDDING_MODEL: !Ref BedrockEmbeddingModel
+        ENGRAM_API_TOKEN: !Ref ApiToken
+        COCKROACH_MCP_URL: https://cockroachlabs.cloud/mcp
+        COCKROACH_MCP_CLUSTER_ID: !Ref CockroachMcpClusterId
+        COCKROACH_MCP_API_KEY: !Ref CockroachMcpApiKey
+        COCKROACH_MCP_DATABASE: !Ref CockroachMcpDatabase
+        NODE_OPTIONS: --enable-source-maps
+
+Resources:
+  EngramApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref CorsOrigin
+        AllowHeaders:
+          - content-type
+          - authorization
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+
+  EngramFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: services/api/src/handler.handler
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - bedrock:InvokeModel
+              Resource: !Sub arn:${AWS::Partition}:bedrock:${AWS::Region}::foundation-model/${BedrockEmbeddingModel}
+      Events:
+        Health:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/health', Method: GET }
+        StartExecution:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions', Method: POST }
+        Recall:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions/{id}/recall', Method: POST }
+        RecordDecision:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions/{id}/decisions', Method: POST }
+        RecordObservation:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions/{id}/observations', Method: POST }
+        CompleteExecution:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions/{id}/complete', Method: POST }
+        ExecutionTrace:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/executions/{id}/trace', Method: GET }
+        McpStatus:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/mcp/status', Method: GET }
+        McpMemoryProvenance:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/mcp/memories/{id}/provenance', Method: GET }
+        RunDemo:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/demo/run', Method: POST }
+        SearchMemory:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/memory/search', Method: POST }
+        ControlPlaneOverview:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/overview', Method: GET }
+        ControlPlaneAgents:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/agents', Method: GET }
+        ControlPlaneExecutions:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/executions', Method: GET }
+        ControlPlaneMemories:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/memories', Method: GET }
+        ControlPlaneInfluences:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/influences', Method: GET }
+        ControlPlanePolicies:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/policies', Method: GET }
+        ControlPlanePolicyAssignments:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/policy-assignments', Method: GET }
+        ControlPlaneMemoryEvaluation:
+          Type: HttpApi
+          Properties: { ApiId: !Ref EngramApi, Path: '/v1/control-plane/memories/{id}/evaluation', Method: GET }
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - services/api/src/handler.ts
+        Format: esm
+        Minify: true
+        Sourcemap: true
+        Target: es2022
+        OutExtension:
+          - .js=.mjs
+
+Outputs:
+  ApiUrl:
+    Description: Public Engram HTTP API URL.
+    Value: !Sub https://${EngramApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}

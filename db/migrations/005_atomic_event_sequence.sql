@@ -1,0 +1,2 @@
+ALTER TABLE executions
+  ADD COLUMN IF NOT EXISTS next_event_sequence INT8 NOT NULL DEFAULT 0;

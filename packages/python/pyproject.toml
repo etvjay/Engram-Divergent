@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "engram-execution-memory"
+version = "0.1.0"
+description = "Execution-memory client for autonomous systems"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Engram" }]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/engram"]

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "engram.frontend-module-registry/v1",
+  "updatedAt": "2026-08-16",
+  "modules": [
+    {
+      "id": "http-api",
+      "modulePath": "services/api",
+      "usageGuide": "services/api/frontend-usage/README.md",
+      "consumptionMode": "API_ONLY",
+      "summary": "Canonical HTTP execution-memory and read-focused control-plane surface."
+    },
+    {
+      "id": "openapi-contract",
+      "modulePath": "openapi.json",
+      "usageGuide": "openapi-usage/README.md",
+      "consumptionMode": "BROWSER_SAFE",
+      "summary": "Machine-readable contract for Engram HTTP endpoints and schemas."
+    },
+    {
+      "id": "typescript-sdk",
+      "modulePath": "packages/sdk",
+      "usageGuide": "packages/sdk/frontend-usage/README.md",
+      "consumptionMode": "BROWSER_CONDITIONAL",
+      "summary": "Execution-scoped TypeScript client and HTTP transport."
+    },
+    {
+      "id": "protocol-contracts",
+      "modulePath": "packages/core",
+      "usageGuide": "packages/core/frontend-usage/README.md",
+      "consumptionMode": "BROWSER_SAFE",
+      "summary": "Evidence, state-bound recall, influence, counterfactual and provenance schemas."
+    },
+    {
+      "id": "execution-episode",
+      "modulePath": "packages/episode",
+      "usageGuide": "packages/episode/frontend-usage/README.md",
+      "consumptionMode": "BROWSER_SAFE",
+      "summary": "Portable Execution Episode schema and parser."
+    },
+    {
+      "id": "memory-policy-contracts",
+      "modulePath": "packages/policy",
+      "usageGuide": "packages/policy/frontend-usage/README.md",
+      "consumptionMode": "BROWSER_SAFE",
+      "summary": "Versioned admission, retrieval, influence and expiry policy contracts."
+    },
+    {
+      "id": "control-plane-model",
+      "modulePath": "packages/control-plane",
+      "usageGuide": "packages/control-plane/frontend-usage/README.md",
+      "consumptionMode": "API_ONLY",
+      "summary": "Read models for agents, executions, memories, influences and policy state."
+    },
+    {
+      "id": "evaluation-model",
+      "modulePath": "packages/evaluation",
+      "usageGuide": "packages/evaluation/frontend-usage/README.md",
+      "consumptionMode": "API_ONLY",
+      "summary": "Evidence-safe evaluation, quality, relationship and staleness model."
+    },
+    {
+      "id": "public-demo",
+      "modulePath": "services/demo",
+      "usageGuide": "services/demo/frontend-usage/README.md",
+      "consumptionMode": "API_ONLY",
+      "summary": "Deterministic public Run A -> memory -> Run B causal proof workload with explicit runtime-reconstruction evidence metadata."
+    }
+  ]
+}
