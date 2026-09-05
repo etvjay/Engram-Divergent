@@ -1,24 +1,16 @@
 {
-  "name": "engram",
+  "name": "engram-divergent",
   "private": true,
   "version": "0.1.0",
-  "description": "Durable operational memory for autonomous agents",
+  "description": "Sibyl-native execution memory for autonomous agents",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json && npm run build:web",
-    "build:web": "vite build --config apps/web/vite.config.ts",
-    "dev:web": "vite --config apps/web/vite.config.ts",
-    "migrate": "tsx scripts/migrate.ts",
-    "verify:live": "tsx services/verification/src/live-verify.ts",
-    "verify:scale": "tsx services/verification/src/scale-verify.ts",
-    "verify:cspann": "tsx services/verification/src/cspann-diagnostic.ts",
-    "verify:recall": "tsx services/verification/src/recall-diagnostic.ts",
-    "mcp:stdio": "tsx packages/mcp-server/src/stdio.ts",
-    "test": "vitest run tests/e2e/memory-caused-behavior.test.ts",
-    "test:integration": "vitest run tests/integration/cockroach-memory-loop.test.ts",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run test:sibyl",
     "test:sibyl": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/sibyl-memory-loop.test.ts tests/integration/sibyl-provider-continuity.test.ts tests/integration/sibyl-competing-memories.test.ts",
-    "test:virtuals": "vitest run tests/integration/virtuals-acp-evidence.test.ts",
+    "test:virtuals": "vitest run tests/integration/virtuals-acp-evidence.test.ts tests/adapters/virtuals-acp-evidence.test.ts",
     "test:base": "vitest run tests/integration/base-settlement-authority.test.ts tests/integration/base-settlement-receipt.test.ts",
+    "test:scenario": "vitest run tests/scenarios/provider-continuity-memory.test.ts",
     "demo:sibyl:seed": "tsx scripts/sibyl-demo.ts seed",
     "demo:sibyl:recall": "tsx scripts/sibyl-demo.ts recall",
     "demo:sibyl:no-memory-control": "tsx scripts/sibyl-demo.ts control",
@@ -29,30 +21,15 @@
     "evidence:sibyl:capture": "tsx scripts/sibyl-evidence-capture.ts",
     "virtuals:acp:ingest": "tsx scripts/virtuals-acp-ingest.ts",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
-    "test:all": "vitest run",
-    "test:watch": "vitest",
-    "check": "npm run build && npm run test:all"
+    "check": "npm run build && npm run test:sibyl && npm run test:scenario && npm run test:virtuals && npm run test:base"
   },
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.864.0",
-    "@modelcontextprotocol/client": "2.0.0",
-    "@modelcontextprotocol/server": "2.0.0",
-    "google-auth-library": "^10.3.0",
-    "pg": "^8.16.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
     "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
-    "@types/pg": "^8.15.5",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^5.0.2",
-    "esbuild": "^0.25.9",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
-    "vite": "^7.1.3",
     "vitest": "^3.2.4"
   }
 }
