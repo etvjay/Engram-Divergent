@@ -8,16 +8,16 @@ node_modules/
 
 # Build output
 dist/
-dist-web/
 coverage/
 *.tsbuildinfo
 
-# AWS SAM
-.aws-sam/
+# Sibyl local state
+.sibyl/
+*.db
+*.db-shm
+*.db-wal
 
-# Generated external evidence (uploaded as workflow artifacts, not committed)
-evidence/live/
-evidence/aws/
+# Generated evidence bundles
 artifacts/sibyl-evidence/
 
 # Logs and editor/OS noise
