@@ -1,0 +1,68 @@
+name: Import Engram Sibyl Snapshot
+
+on:
+  push:
+    paths:
+      - '.github/workflows/import-engram-sibyl.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Engram-Divergent
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout validated Engram Sibyl branch
+        uses: actions/checkout@v4
+        with:
+          repository: etvjay/Engram
+          ref: hackathon/sibyl-ebi
+          path: .migration-source
+
+      - name: Replace destination with source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.migration-source/' \
+            --exclude='.github/workflows/import-engram-sibyl.yml' \
+            .migration-source/ ./
+          rm -rf .migration-source
+          rm -f .migration-seed
+
+      - name: Record migration provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_SHA=$(git ls-remote https://github.com/etvjay/Engram.git refs/heads/hackathon/sibyl-ebi | awk '{print $1}')
+          cat > MIGRATION_PROVENANCE.md <<EOF
+          # Migration provenance
+
+          Source repository: \`etvjay/Engram\`
+          Source branch: \`hackathon/sibyl-ebi\`
+          Source head at migration: \`${SOURCE_SHA}\`
+          Destination repository: \`etvjay/Engram-Divergent\`
+
+          This repository is the isolated Engram × Sibyl hackathon implementation. Canonical Engram remains in \`etvjay/Engram\`.
+          EOF
+
+      - name: Commit imported snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No migration changes to commit.'
+            exit 0
+          fi
+          git commit -m 'migrate: import Engram Sibyl implementation into Engram-Divergent'
+          git push origin HEAD:main
