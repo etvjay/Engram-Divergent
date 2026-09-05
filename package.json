@@ -19,6 +19,8 @@
     "demo:sibyl:provider:seed": "tsx scripts/sibyl-provider-demo.ts seed",
     "demo:sibyl:provider:urgent": "tsx scripts/sibyl-provider-demo.ts urgent",
     "demo:sibyl:provider:routine": "tsx scripts/sibyl-provider-demo.ts routine",
+    "demo:sibyl:behavioral:seed": "tsx scripts/sibyl-behavioral-graph-demo.ts seed",
+    "demo:sibyl:behavioral:load": "tsx scripts/sibyl-behavioral-graph-demo.ts load",
     "evidence:sibyl:capture": "tsx scripts/sibyl-evidence-capture.ts",
     "virtuals:acp:ingest": "tsx scripts/virtuals-acp-ingest.ts",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
