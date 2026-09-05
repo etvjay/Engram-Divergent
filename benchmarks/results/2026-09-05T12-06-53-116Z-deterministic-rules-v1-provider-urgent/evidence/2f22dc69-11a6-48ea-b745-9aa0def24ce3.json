@@ -1,0 +1,42 @@
+{
+  "trialId": "2f22dc69-11a6-48ea-b745-9aa0def24ce3",
+  "arm": "A0_NO_MEMORY",
+  "executionId": "8cbbecbe-0a4b-4914-8ba2-84a60d93f4e2",
+  "proposal": {
+    "executionId": "8cbbecbe-0a4b-4914-8ba2-84a60d93f4e2",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "deterministic-rules-v1"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas"
+    },
+    "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate atlas.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T12:06:53.116Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "trialId": "956e8908-8552-4f3b-831b-090887ffa1f9",
+  "arm": "A1_RAW_HISTORY",
+  "executionId": "bbb72e04-2f9b-4478-9c8f-0d9f3cbbad37",
+  "proposal": {
+    "executionId": "bbb72e04-2f9b-4478-9c8f-0d9f3cbbad37",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "deterministic-rules-v1"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate beacon.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T09:42:56.484Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

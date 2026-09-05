@@ -1,10 +1,10 @@
 {
   "scenarioId": "provider-urgent",
-  "version": 1,
+  "version": 2,
   "taskFamily": "provider_selection",
   "description": "Select and execute a provider under urgent, verification-required constraints.",
   "fixed": {
-    "taskDigest": "provider-urgent-v1",
+    "taskDigest": "provider-urgent-v2",
     "environmentDigest": "virtuals-acp-env-v1",
     "capabilityDigest": "provider-selection-capabilities-v1",
     "mandateDigest": "provider-selection-mandate-v1"
@@ -19,6 +19,18 @@
     "atlas",
     "beacon"
   ],
+  "providerTerms": {
+    "atlas": {
+      "costUsd": 12,
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    },
+    "beacon": {
+      "costUsd": 16,
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  },
   "requiredArms": [
     "A0_NO_MEMORY",
     "A1_RAW_HISTORY",
@@ -36,6 +48,96 @@
       "manualInterventionPenalty",
       "policyViolationPenalty"
     ]
+  },
+  "memory": {
+    "rawHistoryText": "Two consecutive urgent executions selected provider atlas at $12. Latency was 3060s and 3120s against a 1800s SLA; verification failed both times. No structured record was retained.",
+    "engram": {
+      "slice": {
+        "purpose": "provider selection under urgent SLA",
+        "subject": "provider:atlas",
+        "claims": [
+          "Two consecutive urgent executions observed provider atlas exceed the 1800s SLA (3060s, 3120s); verification failed both times."
+        ],
+        "applicability": {
+          "subjectProviderId": "atlas",
+          "taskType": "financial_data",
+          "urgency": "URGENT"
+        },
+        "confidence": 0.9
+      },
+      "grant": {
+        "allowedEffects": [
+          "PROVIDER_SUBSTITUTION",
+          "PREPAYMENT_REDUCTION",
+          "MILESTONE_VERIFICATION"
+        ],
+        "deniedEffects": [],
+        "constraints": {
+          "substituteAwayFromProviderId": "atlas",
+          "substituteProviderId": "beacon",
+          "maxPrepayFraction": 0.1,
+          "requireMilestoneVerification": true
+        },
+        "validDays": 7
+      }
+    },
+    "irrelevant": {
+      "slice": {
+        "purpose": "weather feed selection",
+        "subject": "provider:weather-oracle",
+        "claims": [
+          "Weather oracle exceeded its 500ms latency target twice during routine polling."
+        ],
+        "applicability": {
+          "subjectProviderId": "weather-oracle",
+          "taskType": "weather_feed",
+          "urgency": "ROUTINE"
+        },
+        "confidence": 0.8
+      },
+      "grant": {
+        "allowedEffects": [
+          "PROVIDER_SUBSTITUTION"
+        ],
+        "deniedEffects": [],
+        "constraints": {
+          "substituteAwayFromProviderId": "weather-oracle",
+          "substituteProviderId": "climate-alt"
+        },
+        "validDays": 7
+      }
+    },
+    "staleOrContradictory": {
+      "slice": {
+        "purpose": "provider selection under urgent SLA (superseded observation)",
+        "subject": "provider:atlas",
+        "claims": [
+          "Two consecutive urgent executions observed provider atlas exceed the 1800s SLA (3060s, 3120s); verification failed both times."
+        ],
+        "contradictoryClaim": "A later audit reports provider atlas now meets the 1800s SLA consistently.",
+        "applicability": {
+          "subjectProviderId": "atlas",
+          "taskType": "financial_data",
+          "urgency": "URGENT"
+        },
+        "confidence": 0.5
+      },
+      "grant": {
+        "allowedEffects": [
+          "PROVIDER_SUBSTITUTION",
+          "PREPAYMENT_REDUCTION",
+          "MILESTONE_VERIFICATION"
+        ],
+        "deniedEffects": [],
+        "constraints": {
+          "substituteAwayFromProviderId": "atlas",
+          "substituteProviderId": "beacon",
+          "maxPrepayFraction": 0.1,
+          "requireMilestoneVerification": true
+        },
+        "validDays": -30
+      }
+    }
   },
   "hardGates": {
     "unauthorizedInfluenceEscapes": 0,

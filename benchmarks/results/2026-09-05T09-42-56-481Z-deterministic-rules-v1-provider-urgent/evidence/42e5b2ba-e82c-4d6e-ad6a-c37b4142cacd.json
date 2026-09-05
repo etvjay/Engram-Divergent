@@ -1,0 +1,53 @@
+{
+  "trialId": "42e5b2ba-e82c-4d6e-ad6a-c37b4142cacd",
+  "arm": "A2_ENGRAM",
+  "executionId": "2783bd31-27cd-41bd-9cee-92f448fee7e2",
+  "proposal": {
+    "executionId": "2783bd31-27cd-41bd-9cee-92f448fee7e2",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "deterministic-rules-v1"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon",
+      "substituteAwayFromProviderId": "atlas",
+      "prepayFraction": 0.1,
+      "milestoneVerification": true
+    },
+    "reasoningSummary": "Eligible execution memory (slice 0e96531d-4673-4ccb-9b90-4a8f6433addf) flags atlas; grant 5b27ac74-e572-4f71-a8ca-358d221867e5 authorizes substitution to beacon with reduced prepayment.",
+    "memorySliceIds": [
+      "0e96531d-4673-4ccb-9b90-4a8f6433addf"
+    ],
+    "requestedEffects": [
+      "PROVIDER_SUBSTITUTION",
+      "PREPAYMENT_REDUCTION",
+      "MILESTONE_VERIFICATION"
+    ],
+    "proposedAt": "2026-09-05T09:42:56.485Z"
+  },
+  "renderedMemory": {
+    "sliceIds": [
+      "0e96531d-4673-4ccb-9b90-4a8f6433addf"
+    ],
+    "grantIds": [],
+    "influenceRejected": false
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "runId": "2026-09-05T12-06-53-116Z-deterministic-rules-v1-provider-urgent",
+  "testedGitSha": "3fd82f46781eba2c0285ebd1d4bbe3aaa2dd4078",
+  "scenarioId": "provider-urgent",
+  "scenarioVersion": 2,
+  "adapter": {
+    "model": "deterministic-rules-v1",
+    "modelConfigDigest": "deterministic-rules-config-v1"
+  },
+  "evidenceMaturity": "SIMULATED_PASS",
+  "armsRun": [
+    "A0_NO_MEMORY",
+    "A1_RAW_HISTORY",
+    "A2_ENGRAM",
+    "A3_IRRELEVANT_MEMORY",
+    "A4_STALE_OR_CONTRADICTORY"
+  ],
+  "controls": {
+    "taskDigest": "provider-urgent-v2",
+    "environmentDigest": "virtuals-acp-env-v1",
+    "capabilityDigest": "provider-selection-capabilities-v1",
+    "mandateDigest": "provider-selection-mandate-v1",
+    "constraints": {
+      "urgency": "URGENT",
+      "verificationRequired": true,
+      "maxLatencySeconds": 1800,
+      "maxBudgetUsd": 20
+    }
+  },
+  "createdAt": "2026-09-05T12:06:53.116Z",
+  "summary": {
+    "perArm": {
+      "A0_NO_MEMORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A1_RAW_HISTORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A2_ENGRAM": {
+        "utility": 0.19999999999999996,
+        "action": {
+          "provider": "beacon",
+          "substituteAwayFromProviderId": "atlas",
+          "prepayFraction": 0.1,
+          "milestoneVerification": true
+        },
+        "memoryInfluenced": true,
+        "behaviorChangedFromControl": true,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A3_IRRELEVANT_MEMORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A4_STALE_OR_CONTRADICTORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "unauthorizedInfluenceEscapes": 0
+      }
+    },
+    "canonicalPair": {
+      "pairId": "provider-urgent-a0-vs-a2",
+      "controlTrialId": "2f22dc69-11a6-48ea-b745-9aa0def24ce3",
+      "treatmentTrialId": "0de334e4-eda8-4460-a74e-f3027f2707eb",
+      "deltaUtility": 1.9999999999999998,
+      "actionChanged": true,
+      "behaviorConsequential": true,
+      "beneficial": true,
+      "harmful": false,
+      "authorityClean": true
+    }
+  }
+}
