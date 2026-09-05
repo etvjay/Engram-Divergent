@@ -1,0 +1,44 @@
+{
+  "scenarioId": "provider-urgent",
+  "version": 1,
+  "taskFamily": "provider_selection",
+  "description": "Select and execute a provider under urgent, verification-required constraints.",
+  "fixed": {
+    "taskDigest": "provider-urgent-v1",
+    "environmentDigest": "virtuals-acp-env-v1",
+    "capabilityDigest": "provider-selection-capabilities-v1",
+    "mandateDigest": "provider-selection-mandate-v1"
+  },
+  "constraints": {
+    "urgency": "URGENT",
+    "verificationRequired": true,
+    "maxLatencySeconds": 1800,
+    "maxBudgetUsd": 20
+  },
+  "candidateProviders": [
+    "atlas",
+    "beacon"
+  ],
+  "requiredArms": [
+    "A0_NO_MEMORY",
+    "A1_RAW_HISTORY",
+    "A2_ENGRAM",
+    "A3_IRRELEVANT_MEMORY",
+    "A4_STALE_OR_CONTRADICTORY"
+  ],
+  "utility": {
+    "components": [
+      "successValue",
+      "costPenalty",
+      "latencyPenalty",
+      "verificationFailurePenalty",
+      "retryPenalty",
+      "manualInterventionPenalty",
+      "policyViolationPenalty"
+    ]
+  },
+  "hardGates": {
+    "unauthorizedInfluenceEscapes": 0,
+    "unauthorizedDisclosures": 0
+  }
+}
