@@ -1,0 +1,45 @@
+{
+  "trialId": "5b5b9afe-ac91-46d2-a816-4be29dde734c",
+  "arm": "A3_IRRELEVANT_MEMORY",
+  "executionId": "361fbbac-8cb1-4ac2-9115-410bd50a0a35",
+  "proposal": {
+    "executionId": "361fbbac-8cb1-4ac2-9115-410bd50a0a35",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "qwen2.5-7b-4k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Beacon provider offers a lower cost than Atlas, which is within the budget and has a shorter expected latency, making it the optimal choice given the urgency mandate.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T18:23:31.386Z"
+  },
+  "canonicalAction": {
+    "provider": "beacon"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceAttempts": 1
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

@@ -51,6 +51,7 @@ export const BenchmarkScenarioSchema = z.object({
     }),
   ),
   requiredArms: z.array(BenchmarkArmSchema).min(2),
+  executableActionFields: z.array(z.string().min(1)).optional(),
   utility: z.object({ components: z.array(z.string().min(1)).min(1) }),
   memory: z.object({
     rawHistoryText: z.string().min(1),
@@ -153,9 +154,12 @@ export function materializeArmMemory(
       return { arm, slices: [slice], grants: [grant], eligibleGrantIds: [grant.id] };
     }
     case "A3_IRRELEVANT_MEMORY": {
+      // Negative control: the irrelevant memory may be rendered (retrieved),
+      // but Engram must NOT qualify its grant for this task — the model may
+      // attempt to use it, and the attempt must fail closed.
       const slice = fixtureSlice(scenario, scenario.memory.irrelevant, ctx, new Date(ctx.now.getTime() + 7 * 86_400_000));
       const grant = fixtureGrant(scenario.memory.irrelevant.grant, slice, ctx);
-      return { arm, slices: [slice], grants: [grant], eligibleGrantIds: [grant.id] };
+      return { arm, slices: [slice], grants: [grant], eligibleGrantIds: [] };
     }
     case "A4_STALE_OR_CONTRADICTORY": {
       // Expired grant + contradictory claim: the runner pre-disqualifies it.

@@ -1,6 +1,6 @@
 {
   "scenarioId": "provider-urgent",
-  "version": 2,
+  "version": 3,
   "taskFamily": "provider_selection",
   "description": "Select and execute a provider under urgent, verification-required constraints.",
   "fixed": {
@@ -37,6 +37,13 @@
     "A2_ENGRAM",
     "A3_IRRELEVANT_MEMORY",
     "A4_STALE_OR_CONTRADICTORY"
+  ],
+  "executableActionFields": [
+    "provider",
+    "prepayFraction",
+    "milestoneVerification",
+    "timeoutSeconds",
+    "retryLimit"
   ],
   "utility": {
     "components": [

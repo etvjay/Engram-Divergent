@@ -1,0 +1,45 @@
+{
+  "trialId": "9346881b-e14c-49a4-99e2-77f1ade4480c",
+  "arm": "A1_RAW_HISTORY",
+  "executionId": "f59cd653-af75-48c6-ae13-c62f850ae06c",
+  "proposal": {
+    "executionId": "f59cd653-af75-48c6-ae13-c62f850ae06c",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "qwen2.5-7b-4k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Selected beacon due to lower cost and shorter expected latency, aiming to meet the SLA and avoid verification failure.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T18:20:32.467Z"
+  },
+  "canonicalAction": {
+    "provider": "beacon"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceAttempts": 0
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

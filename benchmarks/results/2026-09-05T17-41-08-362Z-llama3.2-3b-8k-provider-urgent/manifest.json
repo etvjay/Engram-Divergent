@@ -93,5 +93,6 @@
       "harmful": false,
       "authorityClean": true
     }
-  }
+  },
+  "benchmarkValidity": "SUPERSEDED_BY_HARNESS_FIX"
 }

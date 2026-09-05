@@ -1,0 +1,52 @@
+{
+  "trialId": "fcbad96b-2426-4640-bdc2-54828addd950",
+  "arm": "A2_ENGRAM",
+  "executionId": "2e8be375-c2aa-4e47-a6ec-26837d1841d4",
+  "proposal": {
+    "executionId": "2e8be375-c2aa-4e47-a6ec-26837d1841d4",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "llama3.2-3b-8k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Selected beacon as the provider due to lower expected latency and allowed effects from GRANT-1.",
+    "memorySliceIds": [
+      "26a49b62-6eb4-4f37-bbe9-14f476ea0f33"
+    ],
+    "requestedEffects": [
+      "PROVIDER_SUBSTITUTION",
+      "PREPAYMENT_REDUCTION"
+    ],
+    "proposedAt": "2026-09-05T18:03:09.041Z"
+  },
+  "canonicalAction": {
+    "provider": "beacon"
+  },
+  "renderedMemory": {
+    "sliceIds": [
+      "26a49b62-6eb4-4f37-bbe9-14f476ea0f33"
+    ],
+    "grantIds": [],
+    "influenceAttempts": 0
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

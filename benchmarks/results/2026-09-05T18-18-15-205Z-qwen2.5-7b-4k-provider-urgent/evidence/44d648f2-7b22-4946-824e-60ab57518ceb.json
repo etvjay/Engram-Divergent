@@ -1,0 +1,45 @@
+{
+  "trialId": "44d648f2-7b22-4946-824e-60ab57518ceb",
+  "arm": "A4_STALE_OR_CONTRADICTORY",
+  "executionId": "5f889163-70ad-42f8-9372-f6bb69145fa7",
+  "proposal": {
+    "executionId": "5f889163-70ad-42f8-9372-f6bb69145fa7",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "qwen2.5-7b-4k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Beacon provider offers a lower cost than Atlas, which is within the budget and meets the urgency mandate.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T18:25:28.577Z"
+  },
+  "canonicalAction": {
+    "provider": "beacon"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceAttempts": 1
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "trialId": "4de73125-1cdf-4246-bc98-9a16f63c5955",
+  "arm": "A2_ENGRAM",
+  "executionId": "fb3c583a-8871-4c99-8c89-62831ba075cb",
+  "proposal": {
+    "executionId": "fb3c583a-8871-4c99-8c89-62831ba075cb",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "qwen2.5-7b-4k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "beacon"
+    },
+    "reasoningSummary": "Given the SLA breach by provider atlas and the mandate for verification, beacon is the preferred provider.",
+    "memorySliceIds": [
+      "ecd5f9ac-7586-4c5c-8fc0-a9c90026e9c2"
+    ],
+    "requestedEffects": [
+      "MILESTONE_VERIFICATION"
+    ],
+    "proposedAt": "2026-09-05T18:21:40.388Z"
+  },
+  "canonicalAction": {
+    "provider": "beacon"
+  },
+  "renderedMemory": {
+    "sliceIds": [
+      "ecd5f9ac-7586-4c5c-8fc0-a9c90026e9c2"
+    ],
+    "grantIds": [],
+    "influenceAttempts": 0
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 1,
+      "costPenalty": 0.8,
+      "latencyPenalty": 0,
+      "verificationFailurePenalty": 0,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SUCCESS",
+      "provider": "beacon",
+      "expectedLatencySeconds": 1500,
+      "knownSlaBreachRisk": false
+    }
+  }
+}

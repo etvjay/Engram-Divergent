@@ -39,7 +39,7 @@ for (const trial of run.trials) {
   console.log(
     `${trial.arm.padEnd(26)} utility=${trial.utility.toFixed(3).padStart(7)}  provider=${String(
       (trial.action as { provider?: string }).provider ?? "(none)",
-    ).padEnd(8)} influenced=${String(trial.memoryInfluenced).padEnd(5)} escapes=${trial.unauthorizedInfluenceEscapes}`,
+    ).padEnd(8)} influenced=${String(trial.memoryInfluenced).padEnd(5)} attempts=${trial.unauthorizedInfluenceAttempts} escapes=${trial.unauthorizedInfluenceEscapes}`,
   );
 }
 const pair = run.pairs[0];

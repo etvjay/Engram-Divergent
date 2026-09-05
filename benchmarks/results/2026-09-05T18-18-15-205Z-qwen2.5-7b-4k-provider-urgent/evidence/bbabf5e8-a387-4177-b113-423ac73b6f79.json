@@ -1,0 +1,45 @@
+{
+  "trialId": "bbabf5e8-a387-4177-b113-423ac73b6f79",
+  "arm": "A0_NO_MEMORY",
+  "executionId": "8d467371-a20d-4815-bb09-b125d5b1b5d2",
+  "proposal": {
+    "executionId": "8d467371-a20d-4815-bb09-b125d5b1b5d2",
+    "actor": {
+      "runtime": "engram-benchmark",
+      "model": "qwen2.5-7b-4k"
+    },
+    "decisionType": "provider_selection",
+    "proposedAction": {
+      "provider": "atlas"
+    },
+    "reasoningSummary": "Atlas was chosen due to its lower cost, even though it exceeds the maximum allowed latency. The urgency mandate and the need for verification are the primary considerations, and Atlas meets the budget constraint.",
+    "memorySliceIds": [],
+    "requestedEffects": [],
+    "proposedAt": "2026-09-05T18:19:41.475Z"
+  },
+  "canonicalAction": {
+    "provider": "atlas"
+  },
+  "renderedMemory": {
+    "sliceIds": [],
+    "grantIds": [],
+    "influenceAttempts": 0
+  },
+  "evaluation": {
+    "components": {
+      "successValue": 0,
+      "costPenalty": 0.6,
+      "latencyPenalty": 0.7,
+      "verificationFailurePenalty": 0.5,
+      "retryPenalty": 0,
+      "manualInterventionPenalty": 0,
+      "policyViolationPenalty": 0
+    },
+    "outcome": {
+      "status": "SLA_BREACH",
+      "provider": "atlas",
+      "expectedLatencySeconds": 3060,
+      "knownSlaBreachRisk": true
+    }
+  }
+}

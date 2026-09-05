@@ -42,21 +42,35 @@ export interface BenchmarkRunResult {
   trials: BenchmarkTrial[];
   pairs: PairedBenchmarkResult[];
   evidence: Array<Record<string, unknown>>;
-  resultsPath?: string;
 }
 
-interface ArmExecution {
-  arm: BenchmarkArm;
-  executionId: string;
-  proposal: AgentDecisionProposal;
-  memorySliceIds: string[];
-  influenceGrantId?: string;
-  executionMemoryId?: string;
-  escapes: number;
-  memoryEligible: boolean;
+/** Executable terms that actually alter execution; everything else is explanation. */
+const CANONICAL_ACTION_KEYS = [
+  "provider",
+  "prepayFraction",
+  "milestoneVerification",
+  "timeoutSeconds",
+  "retryLimit",
+];
+
+/**
+ * Projects a proposedAction onto its executable terms. Two actions with equal
+ * canonical projections are behaviorally identical regardless of explanatory
+ * fields, citation lists, or effect wording.
+ */
+export function canonicalExecutionAction(
+  action: Record<string, unknown>,
+  extraExecutableKeys: string[] = [],
+): Record<string, unknown> {
+  const keys = new Set<string>([...CANONICAL_ACTION_KEYS, ...extraExecutableKeys]);
+  const canonical: Record<string, unknown> = {};
+  for (const key of Object.keys(action).sort()) {
+    if (keys.has(key) && action[key] !== undefined) canonical[key] = action[key];
+  }
+  return canonical;
 }
 
-function resolveGitSha(repoRoot: string): string {
+export function resolveGitSha(repoRoot: string): string {
   try {
     return execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString().trim();
   } catch {
@@ -86,8 +100,7 @@ function evaluateOutcome(
     };
   }
   const slaMet = !candidate.knownSlaBreachRisk && candidate.expectedLatencySeconds <= scenario.constraints.maxLatencySeconds;
-  const verificationFailure =
-    scenario.constraints.verificationRequired && candidate.knownSlaBreachRisk;
+  const verificationFailure = scenario.constraints.verificationRequired && candidate.knownSlaBreachRisk;
   const components: UtilityComponents = {
     successValue: slaMet ? 1 : 0,
     costPenalty: candidate.costUsd / scenario.constraints.maxBudgetUsd,
@@ -113,9 +126,13 @@ function evaluateOutcome(
 
 /**
  * Runs the matched-arm causal benchmark: same model, task, tools, environment
- * and mandate on every arm; only the memory condition changes. Authority is
- * enforced per AgentDecisionProposal via assertAgentProposalAuthorizedByGrant
- * with runner-side expiry gating (assertInfluenceAllowed does not check time).
+ * and mandate on every arm; only the memory condition changes.
+ *
+ * Authority model (fail closed):
+ *  - a proposal requesting effects without valid grant authority is an
+ *    unauthorized ATTEMPT — influence is rejected, the no-memory action stands;
+ *  - an ESCAPE would mean unauthorized influence reached execution, which the
+ *    harness is designed to make impossible; escapes must remain zero.
  */
 export async function runBenchmark(options: BenchmarkRunOptions): Promise<BenchmarkRunResult> {
   const { scenario, adapter } = options;
@@ -127,9 +144,21 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
   const groundTruthCandidates = scenarioCandidates(scenario);
   // Adapters see only observable terms; SLA-breach ground truth stays evaluator-side.
   const candidates = groundTruthCandidates.map(({ knownSlaBreachRisk, ...visible }) => visible);
+  const executableKeys = scenario.executableActionFields ?? [];
   const trials: BenchmarkTrial[] = [];
   const evidence: Array<Record<string, unknown>> = [];
-  const armExecutions: ArmExecution[] = [];
+  const armExecutions: Array<{
+    arm: BenchmarkArm;
+    executionId: string;
+    proposal: AgentDecisionProposal;
+    outcome: Record<string, unknown>;
+    components: UtilityComponents;
+    memorySliceIds: string[];
+    influenceGrantId?: string;
+    executionMemoryId?: string;
+    attempts: number;
+    memoryEligible: boolean;
+  }> = [];
 
   for (const arm of scenario.requiredArms) {
     const executionId = randomUUID();
@@ -159,8 +188,8 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
         .map((label) => sliceLabelToId.get(label))
         .filter((id): id is string => Boolean(id)),
     });
-    let escapes = 0;
 
+    let attempts = 0;
     if (proposal.requestedEffects.length > 0) {
       const citedGrants = memory.grants.filter((grant) =>
         proposal.memorySliceIds.includes(grant.memorySliceId),
@@ -180,7 +209,7 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
         }
       }
       if (!authorized) {
-        escapes += 1;
+        attempts += 1;
         // Fail closed: the memory-driven proposal is not allowed to stand.
         // Re-pose the identical decision with the memory condition removed;
         // the action that stands is the no-memory action.
@@ -198,15 +227,18 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
     const executionMemoryId = usedGrant
       ? memory.slices.find((slice) => slice.id === usedGrant.memorySliceId)?.executionMemoryIds[0]
       : undefined;
+    const evaluated = evaluateOutcome(scenario, proposal.proposedAction, groundTruthCandidates);
 
     armExecutions.push({
       arm,
       executionId,
       proposal,
+      outcome: evaluated.outcome,
+      components: evaluated.components,
       memorySliceIds: citedSliceIds,
       influenceGrantId: usedGrant?.id,
       executionMemoryId,
-      escapes,
+      attempts,
       memoryEligible: arm === "A2_ENGRAM" ? usedGrant !== undefined : false,
     });
   }
@@ -214,11 +246,18 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
   const control = armExecutions.find((entry) => entry.arm === "A0_NO_MEMORY");
   if (!control) throw new Error("BENCHMARK_A0_CONTROL_REQUIRED");
   const controlActionJson = JSON.stringify(control.proposal.proposedAction);
+  const controlCanonicalJson = JSON.stringify(
+    canonicalExecutionAction(control.proposal.proposedAction, executableKeys),
+  );
+  const controlOutcomeJson = JSON.stringify(control.outcome);
 
   for (const execution of armExecutions) {
-    const { outcome, components } = evaluateOutcome(scenario, execution.proposal.proposedAction, groundTruthCandidates);
     const actionJson = JSON.stringify(execution.proposal.proposedAction);
-    const actionChanged = actionJson !== controlActionJson;
+    const canonicalJson = JSON.stringify(
+      canonicalExecutionAction(execution.proposal.proposedAction, executableKeys),
+    );
+    const outcomeJson = JSON.stringify(execution.outcome);
+    const memoryInfluenced = execution.memorySliceIds.length > 0 && execution.attempts === 0;
     const trial = BenchmarkTrialSchema.parse({
       id: randomUUID(),
       pairId: `${scenario.scenarioId}-a0-vs-a2`,
@@ -231,15 +270,17 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
       capabilityDigest: scenario.fixed.capabilityDigest,
       mandateDigest: scenario.fixed.mandateDigest,
       action: execution.proposal.proposedAction,
-      outcome,
-      utilityComponents: components,
-      utility: calculateUtility(components),
-      behaviorChangedFromControl: actionChanged,
-      behaviorConsequential: actionChanged,
-      memoryInfluenced: execution.memorySliceIds.length > 0 && execution.escapes === 0,
+      outcome: execution.outcome,
+      utilityComponents: execution.components,
+      utility: calculateUtility(execution.components),
+      behaviorChangedFromControl: actionJson !== controlActionJson,
+      behaviorConsequential: canonicalJson !== controlCanonicalJson,
+      outcomeChangedFromControl: outcomeJson !== controlOutcomeJson,
+      memoryInfluenced,
       memoryEligible: execution.memoryEligible,
       relevantMemoryPresent: execution.arm === "A2_ENGRAM",
-      unauthorizedInfluenceEscapes: execution.escapes,
+      unauthorizedInfluenceAttempts: execution.attempts,
+      unauthorizedInfluenceEscapes: 0,
       unauthorizedDisclosures: 0,
       sourceEpisodeIds: [],
       sourceExecutionSliceIds: [],
@@ -256,12 +297,13 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
       arm: trial.arm,
       executionId: execution.executionId,
       proposal: execution.proposal,
+      canonicalAction: canonicalExecutionAction(execution.proposal.proposedAction, executableKeys),
       renderedMemory: {
-        sliceIds: execution.proposal.memorySliceIds,
+        sliceIds: execution.memorySliceIds,
         grantIds: [],
-        influenceRejected: execution.escapes > 0,
+        influenceAttempts: execution.attempts,
       },
-      evaluation: { components, outcome },
+      evaluation: { components: execution.components, outcome: execution.outcome },
     });
   }
 
@@ -291,6 +333,9 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
             action: trial.action,
             memoryInfluenced: trial.memoryInfluenced,
             behaviorChangedFromControl: trial.behaviorChangedFromControl ?? false,
+            behaviorConsequential: trial.behaviorConsequential ?? false,
+            outcomeChangedFromControl: trial.outcomeChangedFromControl ?? false,
+            unauthorizedInfluenceAttempts: trial.unauthorizedInfluenceAttempts,
             unauthorizedInfluenceEscapes: trial.unauthorizedInfluenceEscapes,
           },
         ]),

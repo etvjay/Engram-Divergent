@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { runBenchmark } from "../../packages/benchmark/src/runner.js";
+import { runBenchmark, canonicalExecutionAction } from "../../packages/benchmark/src/runner.js";
 import { writeBenchmarkResults } from "../../packages/benchmark/src/result-writer.js";
 import { createDeterministicAdapter } from "../../packages/benchmark/src/adapters/deterministic.js";
 import { createQwenAdapter } from "../../packages/benchmark/src/adapters/qwen.js";
@@ -17,6 +17,50 @@ function armTrial(run: Awaited<ReturnType<typeof runBenchmark>>, arm: string) {
   if (!trial) throw new Error(`missing trial for ${arm}`);
   return trial;
 }
+
+describe("canonical executable-action projection", () => {
+  it("reasoning-only differences are not behavioral", () => {
+    const a = canonicalExecutionAction({ provider: "atlas", reasoningSummary: "because A" });
+    const b = canonicalExecutionAction({ provider: "atlas", reasoningSummary: "because B" });
+    expect(a).toEqual(b);
+    expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+  });
+
+  it("citation and effect-wording differences are not behavioral", () => {
+    // Citation lives on the proposal, not the action: identical actions are
+    // behaviorally identical no matter which slice ids or effect spellings accompany them.
+    const action = { provider: "beacon", prepayFraction: 0.1 };
+    expect(canonicalExecutionAction({ ...action })).toEqual(canonicalExecutionAction({ ...action }));
+    expect(canonicalExecutionAction(action)).not.toHaveProperty("requestedEffects");
+    expect(canonicalExecutionAction(action)).not.toHaveProperty("memorySliceIds");
+  });
+
+  it("provider and execution-term differences are behavioral", () => {
+    const atlas = canonicalExecutionAction({ provider: "atlas" });
+    const beacon = canonicalExecutionAction({ provider: "beacon" });
+    expect(JSON.stringify(atlas)).not.toBe(JSON.stringify(beacon));
+
+    const withPrepay = canonicalExecutionAction({ provider: "atlas", prepayFraction: 0.5 });
+    const withoutPrepay = canonicalExecutionAction({ provider: "atlas" });
+    expect(JSON.stringify(withPrepay)).not.toBe(JSON.stringify(withoutPrepay));
+
+    const withMilestone = canonicalExecutionAction(
+      { provider: "atlas", milestoneVerification: true },
+      ["milestoneVerification"],
+    );
+    expect(JSON.stringify(withMilestone)).not.toBe(JSON.stringify(atlas));
+  });
+
+  it("unknown explanatory fields are dropped from the projection", () => {
+    const canonical = canonicalExecutionAction({
+      provider: "atlas",
+      confidence: "high",
+      narrative: "long explanation",
+      styling: { theme: "dark" },
+    });
+    expect(canonical).toEqual({ provider: "atlas" });
+  });
+});
 
 describe("Engram causal benchmark runner", () => {
   it("runs all matched arms; eligible memory changes the decision, irrelevant and stale memory do not", async () => {
@@ -37,6 +81,8 @@ describe("Engram causal benchmark runner", () => {
     expect(treatment.memorySliceId).toBeTruthy();
     expect(treatment.influenceGrantId).toBeTruthy();
     expect(treatment.executionMemoryId).toBeTruthy();
+    expect(treatment.behaviorConsequential).toBe(true);
+    expect(treatment.outcomeChangedFromControl).toBe(true);
 
     // Causal pair: beneficial uplift, clean authority.
     expect(run.pairs).toHaveLength(1);
@@ -44,17 +90,19 @@ describe("Engram causal benchmark runner", () => {
     expect(run.pairs[0]?.beneficial).toBe(true);
     expect(run.pairs[0]?.authorityClean).toBe(true);
 
-    // Disciplined non-influence: irrelevant valid memory changes nothing.
+    // A3 negative control: irrelevant memory must NOT be eligible; the
+    // deterministic adapter does not even attempt it.
     expect(irrelevant.action).toEqual(control.action);
     expect(irrelevant.memoryInfluenced).toBe(false);
+    expect(irrelevant.unauthorizedInfluenceAttempts).toBe(0);
     expect(irrelevant.unauthorizedInfluenceEscapes).toBe(0);
 
-    // Stale/superseded grant is pre-disqualified: no influence, no escape.
+    // A4: expired grant is pre-disqualified; no influence, no escape.
     expect(stale.action).toEqual(control.action);
     expect(stale.memoryEligible).toBe(false);
     expect(stale.memoryInfluenced).toBe(false);
 
-    // Raw history alone does not move the rules engine (structure is what acts).
+    // A1: raw history alone does not move the rules engine.
     expect(rawHistory.action).toEqual(control.action);
 
     // Paired-run controls held constant across every arm.
@@ -66,19 +114,17 @@ describe("Engram causal benchmark runner", () => {
       expect(trial.capabilityDigest).toBe(control.capabilityDigest);
       expect(trial.mandateDigest).toBe(control.mandateDigest);
       expect(trial.evidenceMaturity).toBe("SIMULATED_PASS");
-      expect(trial.evidenceMaturity).not.toBe("LIVE_PASS");
-      expect(trial.evidenceMaturity).not.toBe("TESTNET_PASS");
+      expect(trial.unauthorizedInfluenceEscapes).toBe(0);
     }
   });
 
-  it("fail-closes when a proposal requests effects without valid grant authority", async () => {
+  it("unauthorized effect requests are attempts, not escapes, and fail closed", async () => {
     const overreaching: ModelAdapter = {
       model: "overreach-stub-v1",
       modelConfigDigest: "overreach-stub-config-v1",
       async propose(request: ModelDecisionRequest) {
         const grant = request.memory.grants[0];
         if (request.memory.grants.length > 0 && grant) {
-          // Cites the slice but requests an effect the grant never allowed.
           return baseProposal({
             request,
             model: "overreach-stub-v1",
@@ -101,13 +147,51 @@ describe("Engram causal benchmark runner", () => {
     const treatment = armTrial(run, "A2_ENGRAM");
     const control = armTrial(run, "A0_NO_MEMORY");
 
-    expect(treatment.unauthorizedInfluenceEscapes).toBe(1);
+    // The model attempted; Engram blocked it; nothing escaped.
+    expect(treatment.unauthorizedInfluenceAttempts).toBe(1);
+    expect(treatment.unauthorizedInfluenceEscapes).toBe(0);
     expect(treatment.action).toEqual(control.action);
     expect(treatment.memoryInfluenced).toBe(false);
-    expect(run.pairs[0]?.authorityClean).toBe(false);
+    expect(run.pairs[0]?.authorityClean).toBe(true);
   });
 
-  it("fail-closes when effects cite an expired grant (A4)", async () => {
+  it("irrelevant memory may be attempted but cannot become eligible (A3)", async () => {
+    const indiscriminate: ModelAdapter = {
+      model: "indiscriminate-stub-v1",
+      modelConfigDigest: "indiscriminate-stub-config-v1",
+      async propose(request: ModelDecisionRequest) {
+        const grant = request.memory.grants[0];
+        const slice = request.memory.slices[0];
+        if (grant && slice) {
+          return baseProposal({
+            request,
+            model: "indiscriminate-stub-v1",
+            proposedAction: { provider: "climate-alt" },
+            reasoningSummary: "following whatever memory is present",
+            memorySliceIds: [slice.id],
+            requestedEffects: [grant.allowedEffects[0] ?? "PROVIDER_SUBSTITUTION"],
+          });
+        }
+        return baseProposal({
+          request,
+          model: "indiscriminate-stub-v1",
+          proposedAction: { provider: "atlas" },
+          reasoningSummary: "no memory path",
+        });
+      },
+    };
+
+    const run = await runBenchmark({ scenario, adapter: indiscriminate });
+    const irrelevant = armTrial(run, "A3_IRRELEVANT_MEMORY");
+    const control = armTrial(run, "A0_NO_MEMORY");
+
+    expect(irrelevant.unauthorizedInfluenceAttempts).toBe(1);
+    expect(irrelevant.unauthorizedInfluenceEscapes).toBe(0);
+    expect(irrelevant.action).toEqual(control.action);
+    expect(irrelevant.memoryInfluenced).toBe(false);
+  });
+
+  it("effects citing an expired grant (A4) are attempts and fail closed", async () => {
     const staleCiter: ModelAdapter = {
       model: "stale-citer-stub-v1",
       modelConfigDigest: "stale-citer-config-v1",
@@ -115,7 +199,6 @@ describe("Engram causal benchmark runner", () => {
         const grant = request.memory.grants[0];
         const slice = request.memory.slices[0];
         if (grant && slice) {
-          // Requests a properly-allowed effect, but from an expired grant.
           return baseProposal({
             request,
             model: "stale-citer-stub-v1",
@@ -138,9 +221,40 @@ describe("Engram causal benchmark runner", () => {
     const stale = armTrial(run, "A4_STALE_OR_CONTRADICTORY");
     const control = armTrial(run, "A0_NO_MEMORY");
 
-    expect(stale.unauthorizedInfluenceEscapes).toBe(1);
+    expect(stale.unauthorizedInfluenceAttempts).toBe(1);
+    expect(stale.unauthorizedInfluenceEscapes).toBe(0);
     expect(stale.action).toEqual(control.action);
     expect(stale.memoryEligible).toBe(false);
+  });
+
+  it("reasoning-only action differences are not consequential behavioral changes", async () => {
+    const verbose: ModelAdapter = {
+      model: "verbose-stub-v1",
+      modelConfigDigest: "verbose-stub-config-v1",
+      async propose(request: ModelDecisionRequest) {
+        return baseProposal({
+          request,
+          model: "verbose-stub-v1",
+          proposedAction:
+            request.memory.slices.length > 0
+              ? { provider: "atlas", narrative: "memory makes me more confident" }
+              : { provider: "atlas" },
+          reasoningSummary: "same provider, different explanation",
+          memorySliceIds: [],
+          requestedEffects: [],
+        });
+      },
+    };
+
+    const run = await runBenchmark({ scenario, adapter: verbose });
+    const control = armTrial(run, "A0_NO_MEMORY");
+    const treatment = armTrial(run, "A2_ENGRAM");
+
+    expect(treatment.behaviorChangedFromControl).toBe(true);
+    expect(treatment.behaviorConsequential).toBe(false);
+    expect(treatment.outcomeChangedFromControl).toBe(false);
+    expect(treatment.action).not.toEqual(control.action);
+    expect(run.pairs[0]?.deltaUtility).toBe(0);
   });
 
   it("refuses to claim live or testnet evidence from a local run", async () => {
@@ -208,7 +322,7 @@ describe("Engram causal benchmark runner", () => {
     const treatment = armTrial(run, "A2_ENGRAM");
     expect(treatment.model).toBe("qwen2.5:0.5b");
     expect(treatment.action).toEqual({ provider: "beacon", prepayFraction: 0.1 });
-    expect(treatment.memoryInfluenced).toBe(false); // cited no slice ids: no authorized influence
+    expect(treatment.memoryInfluenced).toBe(false); // cited no slice labels: no authorized influence
   });
 
   it("qwen adapter fails closed on non-JSON model output", async () => {
