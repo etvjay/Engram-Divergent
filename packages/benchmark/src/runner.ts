@@ -78,6 +78,25 @@ export function resolveGitSha(repoRoot: string): string {
   }
 }
 
+/**
+ * Evidence-provenance gate: recorded SHAs are only meaningful if the code that
+ * produced the results is exactly the committed tree. Untracked files (result
+ * bundles, evidence) are ignored; any tracked modification blocks the run.
+ */
+export function assertCleanGitTree(repoRoot: string): void {
+  const status = execFileSync("git", ["status", "--porcelain", "-uno"], { cwd: repoRoot })
+    .toString()
+    .trim();
+  if (status) {
+    throw new Error(
+      `BENCHMARK_DIRTY_GIT_TREE: commit all tracked changes before recording evidence:\n${status
+        .split("\n")
+        .slice(0, 10)
+        .join("\n")}`,
+    );
+  }
+}
+
 function evaluateOutcome(
   scenario: BenchmarkScenario,
   action: Record<string, unknown>,

@@ -2,10 +2,12 @@ import { loadBenchmarkScenario } from "../packages/benchmark/src/scenario.js";
 import { createDeterministicAdapter } from "../packages/benchmark/src/adapters/deterministic.js";
 import { createBedrockAdapter } from "../packages/benchmark/src/adapters/bedrock.js";
 import { createQwenAdapter } from "../packages/benchmark/src/adapters/qwen.js";
-import { runBenchmark } from "../packages/benchmark/src/runner.js";
+import { assertCleanGitTree, runBenchmark } from "../packages/benchmark/src/runner.js";
 import { writeBenchmarkResults } from "../packages/benchmark/src/result-writer.js";
 
 const scenario = loadBenchmarkScenario("benchmarks/scenarios/provider-urgent.json");
+// Provenance gate: evidence runs must start from a committed, clean tree.
+assertCleanGitTree(process.cwd());
 // A real model turns the run from SIMULATED_PASS into LOCAL_PASS evidence;
 // anything beyond LOCAL (testnet/live) stays gated in the runner.
 const bedrockModelId = process.env.ENGRAM_BEDROCK_MODEL_ID;
