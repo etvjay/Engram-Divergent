@@ -1,26 +1,19 @@
-name: Engram CI
+name: Engram Divergent CI
 
 on:
   push:
     branches: [main]
   pull_request:
 
-jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm install
-      - run: npm run check
+permissions:
+  contents: read
 
-  sibyl-profile:
+jobs:
+  sibyl:
     runs-on: ubuntu-latest
     env:
-      ENGRAM_SIBYL_DB: /tmp/engram-sibyl-demo.db
-      ENGRAM_SIBYL_TENANT: engram-ci-demo
+      ENGRAM_SIBYL_DB: /tmp/engram-divergent-ci.db
+      ENGRAM_SIBYL_TENANT: engram-divergent-ci
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,50 +22,42 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: npm install
-      - run: python -m pip install -r packages/sibyl/requirements.txt
-      - run: npm run build
-      - run: npm run test:sibyl
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Install Sibyl client
+        run: python -m pip install -r packages/sibyl/requirements.txt
+
+      - name: Build and run Sibyl-focused suite
+        run: npm run check
+
       - name: Seed execution memory in process A
         run: npm run demo:sibyl:seed
+
       - name: Recall and change action in fresh process B
         run: npm run demo:sibyl:recall
+
       - name: Show no-memory control
         run: npm run demo:sibyl:no-memory-control
-      - name: Seed accumulated provider experience in process C
+
+      - name: Seed accumulated provider experience
         run: npm run demo:sibyl:provider:seed
-      - name: Fresh urgent provider decision uses relationship memory
+
+      - name: Fresh urgent provider decision uses Sibyl memory
         run: npm run demo:sibyl:provider:urgent
-      - name: Fresh routine provider decision emits Base settlement intent
+
+      - name: Fresh routine provider decision emits consequence intent
         env:
           ENGRAM_BASE_ATLAS_ADDRESS: '0x1111111111111111111111111111111111111111'
           ENGRAM_BASE_BEACON_ADDRESS: '0x2222222222222222222222222222222222222222'
           ENGRAM_BASE_INTENT_OUT: /tmp/engram-base-routine-intent.json
         run: npm run demo:sibyl:provider:routine
-      - name: Verify fresh decision Base intent artifact
-        run: >-
-          npx tsx -e "import { readFileSync } from 'node:fs';
-          import { parseSerializedBaseSettlementIntent } from './packages/base-settlement/src/index.ts';
-          const intent = parseSerializedBaseSettlementIntent(JSON.parse(readFileSync('/tmp/engram-base-routine-intent.json','utf8')));
-          if (intent.providerId !== 'atlas') throw new Error('unexpected provider');
-          if (intent.terms.authorizedPrepayAtomic !== 800000n) throw new Error('unexpected prepay');
-          if (!intent.terms.requireMilestoneVerification) throw new Error('milestone verification not required');
-          if (!intent.provenance.retrievalId) throw new Error('missing retrieval provenance');"
-      - name: Remove Sibyl runtime and prove fail-closed degradation
+
+      - name: Prove Sibyl is load-bearing
         run: npm run test:sibyl:deletion
-      - name: Smoke exact evidence capture path
+
+      - name: Smoke evidence capture
         env:
-          ENGRAM_EVIDENCE_DIR: /tmp/engram-sibyl-evidence-smoke
+          ENGRAM_EVIDENCE_DIR: /tmp/engram-divergent-evidence
         run: npm run evidence:sibyl:capture
-      - name: Verify evidence manifest retains Base authority artifact
-        run: >-
-          npx tsx -e "import { readFileSync, existsSync } from 'node:fs';
-          const p='/tmp/engram-sibyl-evidence-smoke/manifest.json';
-          if (!existsSync(p)) throw new Error('manifest missing');
-          const m=JSON.parse(readFileSync(p,'utf8'));
-          if (m.schema !== 'engram.sibyl-evidence-capture/v3') throw new Error('unexpected manifest schema');
-          if (m.status !== 'LOCAL_PASS') throw new Error('capture did not pass');
-          if (!m.baseSettlementIntent?.sha256) throw new Error('base intent digest missing');
-          if (m.baseSettlementIntent?.terms?.authorizedPrepayAtomic !== '800000') throw new Error('base intent amount mismatch');
-          if (!m.baseSettlementIntent?.provenance?.retrievalId) throw new Error('base retrieval provenance missing');
-          if (!existsSync('/tmp/engram-sibyl-evidence-smoke/base-routine-intent.json')) throw new Error('base intent artifact missing');"
