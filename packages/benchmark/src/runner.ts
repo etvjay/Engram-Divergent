@@ -23,6 +23,56 @@ import {
 import type { ModelAdapter, ModelDecisionRequest } from "./model-adapter.js";
 import type { BenchmarkManifest } from "./result-writer.js";
 
+export type AuthorizationDecision =
+  | "AUTHORIZED"
+  | "REJECTED_NO_ELIGIBLE_GRANT"
+  | "REJECTED_EFFECT_NOT_ALLOWED"
+  | "REJECTED_STALE_OR_EXPIRED"
+  | "REJECTED_INVALID_CITATION"
+  | "REJECTED_OTHER";
+
+export type ExecutionDisposition = "EXECUTED" | "BLOCKED" | "DETERMINISTIC_FALLBACK";
+
+export interface BenchmarkAggregate {
+  model: string;
+  scenarioId: string;
+  nPairs: number;
+  meanDeltaU: number;
+  medianDeltaU: number;
+  minDeltaU: number;
+  maxDeltaU: number;
+  beneficialPairCount: number;
+  equalPairCount: number;
+  harmfulPairCount: number;
+  beneficialPairRate: number;
+  harmfulPairRate: number;
+  a0SuccessRate: number;
+  a2SuccessRate: number;
+  a0ConsequentialActionDistribution: Record<string, number>;
+  a2ConsequentialActionDistribution: Record<string, number>;
+  unauthorizedInfluenceAttempts: number;
+  unauthorizedInfluenceEscapes: number;
+  byArm: Record<string, { unauthorizedInfluenceAttempts: number; unauthorizedInfluenceEscapes: number }>;
+  bootstrapSeed: number;
+  bootstrap95: { lower: number; upper: number; resamples: number };
+}
+
+export interface RepeatedBenchmarkRunOptions extends BenchmarkRunOptions {
+  repetitions?: number;
+  bootstrapSeed?: number;
+  bootstrapResamples?: number;
+}
+
+export interface RepeatedBenchmarkRunResult {
+  runId: string;
+  testedGitSha: string;
+  manifest: BenchmarkManifest;
+  trials: BenchmarkTrial[];
+  pairs: PairedBenchmarkResult[];
+  evidence: Array<Record<string, unknown>>;
+  aggregate: BenchmarkAggregate;
+}
+
 export interface BenchmarkRunOptions {
   scenario: BenchmarkScenario;
   adapter: ModelAdapter;
@@ -33,6 +83,8 @@ export interface BenchmarkRunOptions {
   runId?: string;
   repoRoot?: string;
   now?: Date;
+  /** Stable pair identifier for repeated matched runs. */
+  pairId?: string;
 }
 
 export interface BenchmarkRunResult {
@@ -143,6 +195,28 @@ function evaluateOutcome(
   };
 }
 
+function deterministicFallbackAction(candidates: ReturnType<typeof scenarioCandidates>): Record<string, unknown> {
+  const fallback = [...candidates].sort((a, b) => a.costUsd - b.costUsd || a.providerId.localeCompare(b.providerId))[0];
+  if (!fallback) throw new Error("BENCHMARK_NO_CANDIDATES");
+  return { provider: fallback.providerId };
+}
+
+function authorizationFailureDecision(
+  arm: BenchmarkArm,
+  citedGrants: Array<{ id: string }>,
+  citedSliceIds: string[],
+  memory: { eligibleGrantIds: string[] },
+  error?: unknown,
+): AuthorizationDecision {
+  if (citedSliceIds.length === 0) return "REJECTED_INVALID_CITATION";
+  if (arm === "A4_STALE_OR_CONTRADICTORY") return "REJECTED_STALE_OR_EXPIRED";
+  if (citedGrants.some((grant) => !memory.eligibleGrantIds.includes(grant.id))) {
+    return "REJECTED_NO_ELIGIBLE_GRANT";
+  }
+  if (String(error).includes("EFFECT")) return "REJECTED_EFFECT_NOT_ALLOWED";
+  return "REJECTED_OTHER";
+}
+
 /**
  * Runs the matched-arm causal benchmark: same model, task, tools, environment
  * and mandate on every arm; only the memory condition changes.
@@ -170,6 +244,9 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
     arm: BenchmarkArm;
     executionId: string;
     proposal: AgentDecisionProposal;
+    authorizationDecision: AuthorizationDecision;
+    executionDisposition: ExecutionDisposition;
+    executedAction: Record<string, unknown>;
     outcome: Record<string, unknown>;
     components: UtilityComponents;
     memorySliceIds: string[];
@@ -209,12 +286,18 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
     });
 
     let attempts = 0;
+    let authorizationDecision: AuthorizationDecision = "AUTHORIZED";
+    let executionDisposition: ExecutionDisposition = "EXECUTED";
+    let executedAction = proposal.proposedAction;
+    const citedSliceIds = proposal.memorySliceIds.filter((id) =>
+      memory.slices.some((slice) => slice.id === id),
+    );
+    const citedGrants = memory.grants.filter((grant) => citedSliceIds.includes(grant.memorySliceId));
+
     if (proposal.requestedEffects.length > 0) {
-      const citedGrants = memory.grants.filter((grant) =>
-        proposal.memorySliceIds.includes(grant.memorySliceId),
-      );
-      let authorized = false;
-      if (citedGrants.length > 0) {
+      let authorized = citedGrants.length > 0;
+      let authorizationError: unknown;
+      if (authorized) {
         try {
           for (const grant of citedGrants) {
             if (!memory.eligibleGrantIds.includes(grant.id)) {
@@ -222,39 +305,45 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
             }
             assertAgentProposalAuthorizedByGrant(proposal, grant);
           }
-          authorized = true;
-        } catch {
+        } catch (error) {
           authorized = false;
+          authorizationError = error;
         }
       }
       if (!authorized) {
-        attempts += 1;
-        // Fail closed: the memory-driven proposal is not allowed to stand.
-        // Re-pose the identical decision with the memory condition removed;
-        // the action that stands is the no-memory action.
-        proposal = await adapter.propose({
-          ...request,
-          memory: { arm, slices: [], grants: [], eligibleGrantIds: [] },
-        });
+        attempts = 1;
+        authorizationDecision = authorizationFailureDecision(
+          arm,
+          citedGrants,
+          citedSliceIds,
+          memory,
+          authorizationError,
+        );
+        // Fail closed without another model sample. The fixed deterministic
+        // fallback is selected from the same candidate set for every arm.
+        executedAction = deterministicFallbackAction(groundTruthCandidates);
+        executionDisposition = "DETERMINISTIC_FALLBACK";
       }
     }
 
-    const citedSliceIds = proposal.memorySliceIds.filter((id) =>
-      memory.slices.some((slice) => slice.id === id),
-    );
-    const usedGrant = memory.grants.find((grant) => citedSliceIds.includes(grant.memorySliceId));
+    const usedGrant = authorizationDecision === "AUTHORIZED"
+      ? memory.grants.find((grant) => citedSliceIds.includes(grant.memorySliceId))
+      : undefined;
     const executionMemoryId = usedGrant
       ? memory.slices.find((slice) => slice.id === usedGrant.memorySliceId)?.executionMemoryIds[0]
       : undefined;
-    const evaluated = evaluateOutcome(scenario, proposal.proposedAction, groundTruthCandidates);
+    const evaluated = evaluateOutcome(scenario, executedAction, groundTruthCandidates);
 
     armExecutions.push({
       arm,
       executionId,
       proposal,
+      authorizationDecision,
+      executionDisposition,
+      executedAction,
       outcome: evaluated.outcome,
       components: evaluated.components,
-      memorySliceIds: citedSliceIds,
+      memorySliceIds: authorizationDecision === "AUTHORIZED" ? citedSliceIds : [],
       influenceGrantId: usedGrant?.id,
       executionMemoryId,
       attempts,
@@ -264,22 +353,22 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
 
   const control = armExecutions.find((entry) => entry.arm === "A0_NO_MEMORY");
   if (!control) throw new Error("BENCHMARK_A0_CONTROL_REQUIRED");
-  const controlActionJson = JSON.stringify(control.proposal.proposedAction);
+  const controlActionJson = JSON.stringify(control.executedAction);
   const controlCanonicalJson = JSON.stringify(
-    canonicalExecutionAction(control.proposal.proposedAction, executableKeys),
+    canonicalExecutionAction(control.executedAction, executableKeys),
   );
   const controlOutcomeJson = JSON.stringify(control.outcome);
 
   for (const execution of armExecutions) {
-    const actionJson = JSON.stringify(execution.proposal.proposedAction);
+    const actionJson = JSON.stringify(execution.executedAction);
     const canonicalJson = JSON.stringify(
-      canonicalExecutionAction(execution.proposal.proposedAction, executableKeys),
+      canonicalExecutionAction(execution.executedAction, executableKeys),
     );
     const outcomeJson = JSON.stringify(execution.outcome);
     const memoryInfluenced = execution.memorySliceIds.length > 0 && execution.attempts === 0;
     const trial = BenchmarkTrialSchema.parse({
       id: randomUUID(),
-      pairId: `${scenario.scenarioId}-a0-vs-a2`,
+      pairId: options.pairId ?? `${scenario.scenarioId}-a0-vs-a2`,
       scenarioId: scenario.scenarioId,
       arm: execution.arm,
       model: adapter.model,
@@ -288,7 +377,11 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
       environmentDigest: scenario.fixed.environmentDigest,
       capabilityDigest: scenario.fixed.capabilityDigest,
       mandateDigest: scenario.fixed.mandateDigest,
-      action: execution.proposal.proposedAction,
+      action: execution.executedAction,
+      modelProposal: execution.proposal,
+      authorizationDecision: execution.authorizationDecision,
+      executedAction: execution.executedAction,
+      executionDisposition: execution.executionDisposition,
       outcome: execution.outcome,
       utilityComponents: execution.components,
       utility: calculateUtility(execution.components),
@@ -316,7 +409,11 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
       arm: trial.arm,
       executionId: execution.executionId,
       proposal: execution.proposal,
-      canonicalAction: canonicalExecutionAction(execution.proposal.proposedAction, executableKeys),
+      modelProposal: execution.proposal,
+      authorizationDecision: execution.authorizationDecision,
+      executedAction: execution.executedAction,
+      executionDisposition: execution.executionDisposition,
+      canonicalAction: canonicalExecutionAction(execution.executedAction, executableKeys),
       renderedMemory: {
         sliceIds: execution.memorySliceIds,
         grantIds: [],
@@ -350,6 +447,10 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
           {
             utility: trial.utility,
             action: trial.action,
+            modelProposal: trial.modelProposal,
+            authorizationDecision: trial.authorizationDecision,
+            executionDisposition: trial.executionDisposition,
+            executedAction: trial.executedAction,
             memoryInfluenced: trial.memoryInfluenced,
             behaviorChangedFromControl: trial.behaviorChangedFromControl ?? false,
             behaviorConsequential: trial.behaviorConsequential ?? false,
@@ -370,5 +471,134 @@ export async function runBenchmark(options: BenchmarkRunOptions): Promise<Benchm
     trials,
     pairs: [canonicalPair],
     evidence,
+  };
+}
+
+export function bootstrapMeanConfidenceInterval(
+  values: number[],
+  seed: number,
+  resamples = 10_000,
+): { lower: number; upper: number; resamples: number } {
+  if (values.length === 0) throw new Error("BENCHMARK_BOOTSTRAP_REQUIRES_VALUES");
+  if (!Number.isInteger(seed) || seed < 0) throw new Error("BENCHMARK_BOOTSTRAP_SEED_INVALID");
+  if (!Number.isInteger(resamples) || resamples < 1) throw new Error("BENCHMARK_BOOTSTRAP_RESAMPLES_INVALID");
+  let state = seed >>> 0;
+  const random = () => {
+    state = (Math.imul(1664525, state) + 1013904223) >>> 0;
+    return state / 0x1_0000_0000;
+  };
+  const means: number[] = [];
+  for (let sample = 0; sample < resamples; sample += 1) {
+    let total = 0;
+    for (let index = 0; index < values.length; index += 1) {
+      total += values[Math.floor(random() * values.length)] ?? 0;
+    }
+    means.push(total / values.length);
+  }
+  means.sort((a, b) => a - b);
+  const percentile = (p: number) => {
+    const position = (means.length - 1) * p;
+    const lower = Math.floor(position);
+    const upper = Math.ceil(position);
+    if (lower === upper) return means[lower] ?? 0;
+    return (means[lower] ?? 0) + ((means[upper] ?? 0) - (means[lower] ?? 0)) * (position - lower);
+  };
+  return { lower: percentile(0.025), upper: percentile(0.975), resamples };
+}
+
+function median(values: number[]): number {
+  const sorted = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? ((sorted[middle - 1] ?? 0) + (sorted[middle] ?? 0)) / 2
+    : sorted[middle] ?? 0;
+}
+
+function actionDistribution(trials: BenchmarkTrial[]): Record<string, number> {
+  const distribution: Record<string, number> = {};
+  for (const trial of trials) {
+    if (!trial.behaviorConsequential) continue;
+    const key = JSON.stringify(canonicalExecutionAction(trial.executedAction));
+    distribution[key] = (distribution[key] ?? 0) + 1;
+  }
+  return distribution;
+}
+
+export async function runRepeatedBenchmark(options: RepeatedBenchmarkRunOptions): Promise<RepeatedBenchmarkRunResult> {
+  const repetitions = options.repetitions ?? 10;
+  if (!Number.isInteger(repetitions) || repetitions < 1) throw new Error("BENCHMARK_REPETITIONS_INVALID");
+  const bootstrapSeed = options.bootstrapSeed ?? 20260906;
+  const bootstrapResamples = options.bootstrapResamples ?? 10_000;
+  const allTrials: BenchmarkTrial[] = [];
+  const allPairs: PairedBenchmarkResult[] = [];
+  const allEvidence: Array<Record<string, unknown>> = [];
+  let firstRun: BenchmarkRunResult | undefined;
+
+  for (let index = 0; index < repetitions; index += 1) {
+    const run = await runBenchmark({
+      ...options,
+      pairId: `${options.scenario.scenarioId}-pair-${index + 1}`,
+      runId: `${options.scenario.scenarioId}-pair-${index + 1}`,
+    });
+    firstRun ??= run;
+    allTrials.push(...run.trials);
+    allPairs.push(...run.pairs);
+    allEvidence.push(...run.evidence);
+  }
+  if (!firstRun) throw new Error("BENCHMARK_NO_REPEATED_RUNS");
+
+  const deltaUtilities = allPairs.map((pair) => pair.deltaUtility);
+  const beneficialPairCount = allPairs.filter((pair) => pair.beneficial).length;
+  const harmfulPairCount = allPairs.filter((pair) => pair.harmful).length;
+  const equalPairCount = allPairs.length - beneficialPairCount - harmfulPairCount;
+  const a0Trials = allTrials.filter((trial) => trial.arm === "A0_NO_MEMORY");
+  const a2Trials = allTrials.filter((trial) => trial.arm === "A2_ENGRAM");
+  const byArm: BenchmarkAggregate["byArm"] = {};
+  for (const trial of allTrials) {
+    const current = byArm[trial.arm] ?? { unauthorizedInfluenceAttempts: 0, unauthorizedInfluenceEscapes: 0 };
+    current.unauthorizedInfluenceAttempts += trial.unauthorizedInfluenceAttempts;
+    current.unauthorizedInfluenceEscapes += trial.unauthorizedInfluenceEscapes;
+    byArm[trial.arm] = current;
+  }
+  const aggregate: BenchmarkAggregate = {
+    model: options.adapter.model,
+    scenarioId: options.scenario.scenarioId,
+    nPairs: allPairs.length,
+    meanDeltaU: deltaUtilities.reduce((sum, value) => sum + value, 0) / deltaUtilities.length,
+    medianDeltaU: median(deltaUtilities),
+    minDeltaU: Math.min(...deltaUtilities),
+    maxDeltaU: Math.max(...deltaUtilities),
+    beneficialPairCount,
+    equalPairCount,
+    harmfulPairCount,
+    beneficialPairRate: beneficialPairCount / allPairs.length,
+    harmfulPairRate: harmfulPairCount / allPairs.length,
+    a0SuccessRate: a0Trials.filter((trial) => trial.outcome.status === "SUCCESS").length / a0Trials.length,
+    a2SuccessRate: a2Trials.filter((trial) => trial.outcome.status === "SUCCESS").length / a2Trials.length,
+    a0ConsequentialActionDistribution: actionDistribution(a0Trials),
+    a2ConsequentialActionDistribution: actionDistribution(a2Trials),
+    unauthorizedInfluenceAttempts: allTrials.reduce((sum, trial) => sum + trial.unauthorizedInfluenceAttempts, 0),
+    unauthorizedInfluenceEscapes: allTrials.reduce((sum, trial) => sum + trial.unauthorizedInfluenceEscapes, 0),
+    byArm,
+    bootstrapSeed,
+    bootstrap95: bootstrapMeanConfidenceInterval(deltaUtilities, bootstrapSeed, bootstrapResamples),
+  };
+  const runId = `${new Date().toISOString().replace(/[:.]/g, "-")}-${options.adapter.model}-${options.scenario.scenarioId}-repeated-${repetitions}`;
+  const manifest: BenchmarkManifest = {
+    ...firstRun.manifest,
+    runId,
+    summary: {
+      ...firstRun.manifest.summary,
+      aggregate,
+    },
+  };
+  return {
+    runId,
+    testedGitSha: firstRun.testedGitSha,
+    manifest,
+    trials: allTrials,
+    pairs: allPairs,
+    evidence: allEvidence,
+    aggregate,
   };
 }

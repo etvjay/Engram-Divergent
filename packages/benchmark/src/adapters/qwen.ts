@@ -54,9 +54,9 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
       ].join(" ");
 
       const user = [
-        // Unique per execution+attempt: breaks llama.cpp KV-cache prefix reuse,
-        // which otherwise corrupts sequential same-prefix generations.
-        `RUN ${request.executionId} SAMPLE ${attempt}`,
+        // Do not expose internal execution identity. The request body is kept
+        // semantically stable across matched arms; retries differ only by the
+        // adapter-local control flow and are not part of the causal condition.
         `MANDATE: urgency=${request.mandate.urgency}, verificationRequired=${request.mandate.verificationRequired}, maxLatencySeconds=${request.mandate.maxLatencySeconds}, maxBudgetUsd=${request.mandate.maxBudgetUsd}`,
         "CANDIDATES:",
         ...request.candidates.map((candidate) =>

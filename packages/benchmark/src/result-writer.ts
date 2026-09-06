@@ -6,6 +6,7 @@ import type {
   EvidenceMaturity,
   PairedBenchmarkResult,
 } from "../../evaluation/src/benchmark.js";
+import type { BenchmarkAggregate } from "./runner.js";
 
 export interface BenchmarkManifest {
   runId: string;
@@ -20,6 +21,7 @@ export interface BenchmarkManifest {
   summary: {
     perArm: Record<string, unknown>;
     canonicalPair: PairedBenchmarkResult;
+    aggregate?: BenchmarkAggregate;
   };
 }
 
@@ -30,6 +32,7 @@ export interface WriteBenchmarkResultsInput {
   trials: BenchmarkTrial[];
   pairs: PairedBenchmarkResult[];
   evidence: Array<Record<string, unknown>>;
+  aggregate?: BenchmarkAggregate;
 }
 
 export async function writeBenchmarkResults(input: WriteBenchmarkResultsInput): Promise<string> {
@@ -38,6 +41,9 @@ export async function writeBenchmarkResults(input: WriteBenchmarkResultsInput): 
   await mkdir(evidenceDir, { recursive: true });
 
   await writeFile(join(runDir, "manifest.json"), `${JSON.stringify(input.manifest, null, 2)}\n`, "utf8");
+  if (input.aggregate) {
+    await writeFile(join(runDir, "aggregate.json"), `${JSON.stringify(input.aggregate, null, 2)}\n`, "utf8");
+  }
 
   const trialsJsonl = input.trials.map((trial) => JSON.stringify(trial)).join("\n");
   await writeFile(join(runDir, "trials.jsonl"), trialsJsonl ? `${trialsJsonl}\n` : "", "utf8");
