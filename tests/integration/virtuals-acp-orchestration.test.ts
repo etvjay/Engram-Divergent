@@ -6,6 +6,7 @@ import {
   ingestAcpOutcome,
   observeAcpJob,
   prepareAcpExecution,
+  verifyFrozenAcpContract,
   type AcpExecutionPlan,
 } from "../../packages/virtuals-acp/src/orchestration.js";
 
@@ -43,6 +44,14 @@ describe("Virtuals ACP live-readiness orchestration", () => {
     const funded = fundAcpJob(created, "fixture-receipt");
     const terminal = observeAcpJob(funded, true);
     expect(ingestAcpOutcome(terminal).state).toBe("A0_INGESTED");
+  });
+
+  it("rejects unknown, mismatched, over-budget, and out-of-SLA candidates", () => {
+    const candidates = [{ candidateKey: plan.candidateKey, agentId: plan.agentId, offeringId: plan.offeringId, priceUsdc: 0.01, slaMinutes: 5 }];
+    expect(() => verifyFrozenAcpContract({ frozenCandidates: candidates, contractCandidates: [{ ...candidates[0]!, candidateKey: "unknown" }], maximumSpendUsdc: 0.03, maximumLatencySeconds: 300 })).toThrow("ACP_UNKNOWN_CANDIDATE");
+    expect(() => verifyFrozenAcpContract({ frozenCandidates: candidates, contractCandidates: [{ ...candidates[0]!, offeringId: "wrong-offering" }], maximumSpendUsdc: 0.03, maximumLatencySeconds: 300 })).toThrow("ACP_OFFERING_MISMATCH");
+    expect(() => verifyFrozenAcpContract({ frozenCandidates: candidates, contractCandidates: [{ ...candidates[0]!, priceUsdc: 0.04 }], maximumSpendUsdc: 0.03, maximumLatencySeconds: 300 })).toThrow("ACP_PRICE_ABOVE_MAX_SPEND");
+    expect(() => verifyFrozenAcpContract({ frozenCandidates: [{ ...candidates[0]!, slaMinutes: 10 }], contractCandidates: [{ ...candidates[0]!, slaMinutes: 10 }], maximumSpendUsdc: 0.03, maximumLatencySeconds: 300 })).toThrow("ACP_SLA_OUTSIDE_CONTRACT");
   });
 
   it("rejects a changed frozen catalog and non-A0 live preparation", () => {

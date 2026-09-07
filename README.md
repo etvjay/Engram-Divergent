@@ -149,7 +149,32 @@ In a fresh process:
 
 This is not a universal reputation score or blacklist. It is agent-specific, task-specific experiential continuity.
 
-## Pressure tests
+## Two execution-memory use cases
+
+Engram is execution memory that changes what an agent does next.
+
+### Provider / commerce continuity
+
+```text
+Virtuals ACP execution
+  → provider experience
+  → durable Sibyl memory
+  → bounded future provider/terms influence
+```
+
+Current evidence state: local ACP-to-Sibyl durable-learning path is `LOCAL_PASS`. Live ACP execution is `UNVERIFIED / NOT YET AUTHORIZED`; no live job, funding, signer action, or Base transaction is included.
+
+### Tool / workflow recovery
+
+```text
+tool failure
+  → execution experience
+  → durable Sibyl memory
+  → future tool/retry/fallback influence
+```
+
+The local tool-recovery fixture demonstrates scoped applicability and fresh-process survival. Its evidence state is `LOCAL_PASS`. It does not involve Virtuals, money, or Base.
+
 
 The Sibyl and behavioral-memory paths are tested for:
 
@@ -243,7 +268,14 @@ outcome + evaluation
 
 Virtuals ACP is the external agent-to-agent execution environment. Base is the economic consequence/receipt surface. Neither is a memory backend.
 
-The model-portability track reuses the same benchmark scenario with matched A0–A4 arms per model. Local Qwen 2.5 can therefore be tested against other models without changing Engram's memory semantics.
+Preparation is deliberately separate from authorization and execution. The frozen A0 bundle is created with:
+
+```bash
+npm run virtuals:acp:prepare
+```
+
+It writes `evidence/virtuals/live-preparation/<timestamp>/` with the verified candidate snapshot, deterministic A0 contract, prospective ACP requests, and authorization requirements. Preparation does not create or fund a job, invoke a signer, or call Base. A2 is only a treatment protocol until authentic admitted A0 memory exists.
+
 
 Do not compare different models inside one causal control/treatment pair. Cross-model runs measure portability, not the primary Engram causal effect.
 
@@ -282,6 +314,7 @@ packages/
   sibyl/                sole durable runtime and behavioral graph store
   scenarios/
     provider-continuity/
+    tool-recovery/
   virtuals-acp/         execution-evidence adapter
   base-settlement/      consequence adapter
 
@@ -291,6 +324,9 @@ scripts/
   sibyl-behavioral-graph-demo.ts
   sibyl-evidence-capture.ts
   virtuals-acp-ingest.ts
+  acp-live-prepare.ts
+  tool-recovery-process-a.ts
+  tool-recovery-process-b.ts
   base-settlement-verify.ts
 
 tests/

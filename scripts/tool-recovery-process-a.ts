@@ -27,35 +27,36 @@ const started = await runtime.startExecution({
   agentId: "engram-tool-recovery-fixture-agent",
   workflowType: "tool_recovery",
   intent: "recover a transient tool failure without expanding capabilities",
-  context: { tool: raw.tool, operation: raw.operation, recoveryStrategy: raw.recovery.strategy },
-  constraints: { maxRetries: 1, noNewTools: true },
+  context: { taskType: raw.taskType, toolId: raw.toolId, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume },
+  constraints: { maxRetries: 2, noNewTools: true },
   environmentVersion: "tool-recovery-fixture-v1",
-  toolVersion: raw.version,
+  toolVersion: raw.toolVersion,
 });
 const execution = await runtimeStore.getExecution(started.executionId);
 if (!execution) throw new Error("EXECUTION_START_NOT_RECONSTRUCTABLE");
 const completedAt = new Date();
 await runtime.observe({
   executionId: started.executionId,
-  type: "TOOL_RECOVERY_ATTEMPTED",
+  type: "TOOL_RECOVERY_FAILED",
   evidenceState: "OBSERVED",
   observedAt: completedAt,
-  payload: { tool: raw.tool, operation: raw.operation, attempts: raw.attempts, recovery: raw.recovery },
+  payload: { toolId: raw.toolId, taskType: raw.taskType, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume, events: raw.events, terminalOutcome: raw.terminalOutcome },
   provenance: [{ source: sourceRef, digest }],
 });
 const completion = await runtime.complete({
   executionId: started.executionId,
-  status: "SUCCESS",
-  summary: "A transient tool timeout was recovered by one bounded retry using the same tool.",
-  result: { recoveryStrategy: raw.recovery.strategy, result: raw.recovery.result, noNewTools: true },
+  status: "FAILURE",
+  summary: "Tool A exhausted its configured retry policy after rate limits and timeout.",
+  result: { toolId: raw.toolId, terminalOutcome: raw.terminalOutcome, fallbackUsed: false },
+  failureType: "RETRY_EXHAUSTED",
   evidenceState: "OBSERVED",
   completedAt,
   admissionSignals: [{
     kind: "NOVEL_CONDITION",
-    summary: "When this tool times out once, retry the same tool once before considering escalation.",
+    summary: "Scope this failure to comparable high-volume retrieval and change retry/fallback strategy.",
     evidenceState: "OBSERVED",
     confidence: 0.9,
-    details: { tool: raw.tool, operation: raw.operation, recoveryStrategy: raw.recovery.strategy, maxRetries: 1, noNewTools: true },
+    details: { taskType: raw.taskType, toolId: raw.toolId, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume, maxRetries: 2 },
   }],
 });
 const completed = await runtimeStore.getExecution(started.executionId);
@@ -72,26 +73,26 @@ const episode = formExecutionEpisode({
 const slice = formExecutionSlice({
   episode,
   purpose: "tool_recovery_learning",
-  subject: raw.tool,
-  fields: { tool: raw.tool, operation: raw.operation, recoveryStrategy: raw.recovery.strategy, attempts: raw.attempts.length },
+  subject: raw.toolId,
+  fields: { toolId: raw.toolId, taskType: raw.taskType, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume, retryAttempts: raw.events.filter((event: any) => event.type === "retry_attempted").length, terminalFailure: raw.terminalOutcome.failureType },
   evidenceRefs: [sourceRef],
 });
 const experience = formExperience({
   episode,
   slice,
-  subject: raw.tool,
-  observation: `${raw.tool} recovered ${raw.operation} after one transient timeout using the same tool.`,
-  interpretation: "For this tool and operation, one bounded retry can recover a transient timeout without adding a capability.",
-  applicability: { workflowType: "tool_recovery", tool: raw.tool, operation: raw.operation },
+  subject: raw.toolId,
+  observation: `Tool ${raw.toolId} returned rate-limit responses and exhausted the configured retry policy before terminal failure.`,
+  interpretation: "For comparable high-volume retrieval work, Tool A should not be retried under the same policy without an alternate fallback strategy.",
+  applicability: { workflowType: "tool_recovery", taskType: raw.taskType, toolId: raw.toolId, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume },
   confidence: 0.9,
 });
 const candidate = formCandidateMemory({
   experience,
   memoryType: "TOOL_RECOVERY_EXPERIENCE",
   summary: experience.interpretation,
-  proposedInfluence: ["tool_retry"],
+  proposedInfluence: ["tool_selection", "retry_policy", "fallback_policy"],
 });
-const admission = admitCandidateMemory({ candidate, reason: "Observed successful bounded recovery with the same tool and no capability expansion." });
+const admission = admitCandidateMemory({ candidate, reason: "Observed terminal tool failure with evidence-backed scope for a changed retry and fallback strategy." });
 if (admission.status !== "ADMITTED") throw new Error(`CANDIDATE_NOT_ADMITTED:${admission.reason}`);
 const admittedCandidate = admission.candidate;
 const executionMemory = formExecutionMemory({ candidate: admittedCandidate, admittedAt: completedAt });
@@ -104,8 +105,9 @@ const output = {
   schema: "engram.tool-recovery-durable-learning/v1",
   sourceEvidencePath: sourceRef,
   sourceEvidenceSha256: digest,
-  completion: { executionId: started.executionId, status: "SUCCESS", recovery: raw.recovery.strategy },
+  completion: { executionId: started.executionId, status: "FAILURE", failureType: "RETRY_EXHAUSTED" },
   admission: { status: admission.status, reason: admission.reason, evidenceState: admission.evidenceState },
+  experience: { observation: experience.observation, interpretation: experience.interpretation, applicability: experience.applicability },
   executionMemoryId: executionMemory.id,
   lineageIds: { executionId: started.executionId, episodeId: episode.id, executionSliceId: slice.id, experienceId: experience.id, candidateMemoryId: admittedCandidate.id },
   evidenceRefs: [sourceRef],

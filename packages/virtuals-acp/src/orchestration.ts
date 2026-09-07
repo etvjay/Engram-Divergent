@@ -27,6 +27,34 @@ export const AcpCatalogSnapshotSchema = z.object({
 });
 export type AcpCatalogSnapshot = z.infer<typeof AcpCatalogSnapshotSchema>;
 
+export const AcpCatalogCandidateSchema = z.object({
+  candidateKey: z.string().min(1),
+  agentId: z.string().min(1),
+  offeringId: z.string().min(1),
+  priceUsdc: z.number().nonnegative(),
+  slaMinutes: z.number().positive(),
+});
+export type AcpCatalogCandidate = z.infer<typeof AcpCatalogCandidateSchema>;
+
+export function verifyFrozenAcpContract(input: {
+  frozenCandidates: AcpCatalogCandidate[];
+  contractCandidates: AcpCatalogCandidate[];
+  maximumSpendUsdc: number;
+  maximumLatencySeconds: number;
+}): void {
+  const frozen = new Map(input.frozenCandidates.map((candidate) => [candidate.candidateKey, AcpCatalogCandidateSchema.parse(candidate)]));
+  if (input.contractCandidates.length !== frozen.size) throw new Error("ACP_CANDIDATE_SET_CHANGED");
+  for (const rawCandidate of input.contractCandidates) {
+    const candidate = AcpCatalogCandidateSchema.parse(rawCandidate);
+    const expected = frozen.get(candidate.candidateKey);
+    if (!expected) throw new Error("ACP_UNKNOWN_CANDIDATE");
+    if (candidate.priceUsdc > input.maximumSpendUsdc) throw new Error("ACP_PRICE_ABOVE_MAX_SPEND");
+    if (candidate.agentId !== expected.agentId || candidate.offeringId !== expected.offeringId) throw new Error("ACP_OFFERING_MISMATCH");
+    if (candidate.priceUsdc !== expected.priceUsdc) throw new Error("ACP_PRICE_CHANGED");
+    if (candidate.slaMinutes * 60 > input.maximumLatencySeconds) throw new Error("ACP_SLA_OUTSIDE_CONTRACT");
+  }
+}
+
 export const AcpExecutionPlanSchema = z.object({
   arm: z.enum(["A0", "A2"]),
   taskId: z.string().min(1),

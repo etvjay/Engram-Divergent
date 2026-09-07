@@ -1,0 +1,20 @@
+{
+  "toolId": "tool-a-market-data",
+  "toolVersion": "2.4.1",
+  "taskType": "structured_data_retrieval",
+  "workloadClass": "high_volume_api",
+  "urgency": "ROUTINE",
+  "requestVolume": "HIGH",
+  "events": [
+    {"type": "tool_selected", "toolId": "tool-a-market-data"},
+    {"type": "request_started", "requestId": "req-001"},
+    {"type": "rate_limited", "retryAfterSeconds": 1},
+    {"type": "retry_attempted", "attempt": 1},
+    {"type": "rate_limited", "retryAfterSeconds": 1},
+    {"type": "retry_attempted", "attempt": 2},
+    {"type": "timeout", "elapsedSeconds": 30},
+    {"type": "fallback_not_used", "reason": "no alternate tool configured"},
+    {"type": "terminal_outcome", "status": "FAILURE", "failureType": "RETRY_EXHAUSTED"}
+  ],
+  "terminalOutcome": {"status": "FAILURE", "failureType": "RETRY_EXHAUSTED"}
+}
