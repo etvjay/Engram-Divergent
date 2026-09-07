@@ -47,12 +47,15 @@ export function formExecutionEpisode(input: {
     throw new Error("EXECUTION_NOT_TERMINAL");
   }
   const ordered = [...input.events].sort((a, b) => a.sequenceNo - b.sequenceNo);
+  let previousEventTime = execution.startedAt.getTime();
   for (let index = 0; index < ordered.length; index += 1) {
     const event = ordered[index]!;
     if (event.executionId !== execution.id) throw new Error("EXECUTION_EVENT_ID_MISMATCH");
     if (event.sequenceNo !== index) throw new Error("EXECUTION_EVENT_SEQUENCE_INVALID");
+    if (event.occurredAt.getTime() < previousEventTime) throw new Error("EXECUTION_EVENT_CHRONOLOGY_INVALID");
     if (event.occurredAt.getTime() < execution.startedAt.getTime()) throw new Error("EXECUTION_EVENT_BEFORE_START");
     if (event.occurredAt.getTime() > execution.completedAt.getTime()) throw new Error("EXECUTION_EVENT_AFTER_COMPLETION");
+    previousEventTime = event.occurredAt.getTime();
   }
   return ExecutionEpisodeSchema.parse({
     id: randomUUID(),
