@@ -1,0 +1,11 @@
+{
+  "tool": "market-data-client",
+  "version": "2.4.1",
+  "operation": "fetch_market_data",
+  "request": {"symbol": "BTC"},
+  "attempts": [
+    {"attempt": 1, "status": "TIMEOUT", "elapsedSeconds": 30, "error": "UPSTREAM_TIMEOUT"},
+    {"attempt": 2, "status": "SUCCESS", "elapsedSeconds": 2, "response": {"symbol": "BTC", "price": 65000, "currency": "USD"}}
+  ],
+  "recovery": {"strategy": "retry_same_tool_once", "result": "SUCCESS"}
+}
