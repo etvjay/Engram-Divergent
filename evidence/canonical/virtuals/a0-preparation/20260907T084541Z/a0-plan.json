@@ -1,0 +1,97 @@
+{
+  "schema": "engram.virtuals.a0-execution-contract/v1",
+  "state": "A0_PREPARED",
+  "task": {
+    "taskId": "crypto-market-data-btc-v1",
+    "taskVersion": 1,
+    "description": "Retrieve current market data for BTC from one eligible ACP provider.",
+    "input": {
+      "symbol": "BTC"
+    },
+    "requiredOutput": "structured response containing current price and market-data fields",
+    "sameInputForA0AndA2": true
+  },
+  "candidateSet": [
+    {
+      "candidateKey": "hermes-data-provider:crypto-market-data",
+      "agentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+      "offeringId": "019fe6bb-2166-7d64-bb59-f500142b438a",
+      "priceUsdc": 0.01,
+      "slaMinutes": 5
+    },
+    {
+      "candidateKey": "chainalpha:get-market-data",
+      "agentId": "019e9b27-6da0-7487-885c-4d703a147c35",
+      "offeringId": "019eb9ff-00f5-78a6-bea1-d33f23c11611",
+      "priceUsdc": 0.03,
+      "slaMinutes": 5
+    }
+  ],
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "candidateOrdering": [
+    "hermes-data-provider:crypto-market-data",
+    "chainalpha:get-market-data"
+  ],
+  "maximumSpendUsdc": 0.03,
+  "maximumLatencySeconds": 300,
+  "verificationCriteria": {
+    "requiredLifecycle": [
+      "job_created",
+      "funded",
+      "submitted",
+      "completed"
+    ],
+    "requiredDeliverable": "parseable structured market-data response for BTC",
+    "requiredEvidence": [
+      "ACP job history",
+      "payment/receipt evidence",
+      "completion status",
+      "deliverable digest"
+    ],
+    "failureStates": [
+      "rejected",
+      "expired",
+      "timed_out",
+      "malformed_deliverable",
+      "missing_receipt"
+    ]
+  },
+  "model": {
+    "model": "qwen2.5-7b-4k:latest",
+    "temperature": 0,
+    "repetitions": 10,
+    "sameModelForA0AndA2": true,
+    "identity": "qwen2.5-7b-4k:latest"
+  },
+  "tools": {
+    "set": [
+      "acp_catalog_snapshot",
+      "acp_job_history"
+    ],
+    "capabilities": true
+  },
+  "mandate": {
+    "signerPolicy": "ACP_ONLY",
+    "text": "Use only the frozen candidate set; no parallel jobs; one bounded smoke request maximum."
+  },
+  "utility": {
+    "successValue": 1,
+    "costPenalty": "actual_cost_usdc / 0.03",
+    "latencyPenalty": "max(0, observed_seconds - 300) / 300",
+    "failurePenalty": 1,
+    "policyViolationPenalty": 1,
+    "aggregate": "successValue - costPenalty - latencyPenalty - failurePenalty - policyViolationPenalty"
+  },
+  "fallbackBehavior": {
+    "beforeAuthorization": "STOP",
+    "afterTerminalFailure": "record evidence; do not silently substitute candidates"
+  },
+  "a2TreatmentProtocol": {
+    "status": "DEFINED_NOT_READY",
+    "freshProcess": true,
+    "sameTaskFamily": true,
+    "sameCandidateUniverse": true,
+    "requiresAuthenticAdmittedA0Memory": true
+  },
+  "testedGitSha": "c6931f2f2e6c917e0924c327c86f676eb1633bf5"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "engram.virtuals.authorization-requirements/v1",
+  "requiredFor": [
+    "ACP_JOB_CREATE",
+    "ACP_JOB_FUND",
+    "ACP_SIGNING",
+    "BASE_FUNDS_MOVEMENT"
+  ],
+  "signerPolicy": "ACP_ONLY",
+  "maximumSpendUsdc": 0.03,
+  "noSecretsIncluded": true,
+  "currentAuthorization": "NOT_AUTHORIZED"
+}

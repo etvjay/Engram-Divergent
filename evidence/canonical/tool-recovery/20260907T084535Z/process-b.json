@@ -1,0 +1,43 @@
+{
+  "schema": "engram.tool-recovery-durable-learning/v2",
+  "processBoundary": {
+    "sourceProcessCompleted": true,
+    "freshRuntime": true,
+    "inMemoryObjectsReused": false
+  },
+  "recall": {
+    "memoryFound": true,
+    "applicable": true,
+    "eligible": true
+  },
+  "unrelatedTask": {
+    "memoryRecalled": true,
+    "applicable": false,
+    "eligible": false,
+    "influenceGrantIssued": false
+  },
+  "positiveAuthorization": "AUTHORIZED",
+  "negativeAuthorization": "REJECTED:INFLUENCE_EFFECT_DENIED:increase_budget",
+  "unauthorizedInfluenceEscapes": 0,
+  "ids": {
+    "executionMemoryId": "f52030ca-98f6-4887-8775-c8189f2d2ac2",
+    "memorySliceId": "9a297551-a83f-4c8d-9523-e188949c0b74",
+    "influenceGrantId": "0ce14994-5517-4752-bad3-34cf9cf12708"
+  },
+  "allowedEffects": [
+    "tool_selection",
+    "retry_policy",
+    "fallback_policy"
+  ],
+  "deniedEffects": [
+    "increase_budget",
+    "new_signer",
+    "new_wallet",
+    "new_asset",
+    "new_capability"
+  ],
+  "evidenceRefs": [
+    "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json"
+  ],
+  "lineageValidation": []
+}

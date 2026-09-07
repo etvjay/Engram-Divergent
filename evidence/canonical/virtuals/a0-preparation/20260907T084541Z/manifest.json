@@ -1,0 +1,27 @@
+{
+  "schema": "engram.virtuals.live-preparation/canonical-v1",
+  "evidenceState": "PREPARED_UNAUTHORIZED",
+  "generatedAt": "2026-09-07T08:45:41.174Z",
+  "testedGitSha": "c6931f2f2e6c917e0924c327c86f676eb1633bf5",
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "normalizedCandidateDigest": "6e0256f5113c358511240a2a6c0b3b8e20ecfdebb0f69072e7ca0ef49833c6f5",
+  "candidateSnapshot": "candidate-snapshot.json",
+  "a0Plan": "a0-plan.json",
+  "authorizationRequirements": "authorization-requirements.json",
+  "contract": "live-benchmark-contract-draft.json",
+  "artifactSha256": {
+    "candidate-snapshot.json": "1fb42fa4920ce7f3a04e9fb2555c57201868954f2f9e32e1375a7222f199d464",
+    "a0-plan.json": "5ce2c8cfa4d2e20c45ac715a4f5c81ddecfae253b9646130792a45abf85f4450",
+    "authorization-requirements.json": "a2e2452a95f6e40e4a2633cc0ef5aa0f079b8474a291dbf0fd80360c2ed17d8f",
+    "live-benchmark-contract-draft.json": "a1815ec5db382ace522d8d75c50458efa615f47d012914e379258a423eaaf0ce"
+  },
+  "bundleSha256": "ec6e0080cca9146b3800808ff851a0b8eb1514fb0a65435c4e0d2068d5ed8086",
+  "sideEffects": {
+    "jobCreated": false,
+    "jobFunded": false,
+    "signerInvoked": false,
+    "baseInvoked": false,
+    "fundsMoved": false
+  },
+  "stopGate": "A0_PREPARED"
+}

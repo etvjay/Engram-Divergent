@@ -25,6 +25,7 @@
     "demo:sibyl:behavioral:seed": "tsx scripts/sibyl-behavioral-graph-demo.ts seed",
     "demo:sibyl:behavioral:load": "tsx scripts/sibyl-behavioral-graph-demo.ts load",
     "evidence:sibyl:capture": "tsx scripts/sibyl-evidence-capture.ts",
+    "evidence:validate": "tsx scripts/validate-canonical-evidence.ts",
     "virtuals:acp:ingest": "tsx scripts/virtuals-acp-ingest.ts",
     "virtuals:acp:prepare": "tsx scripts/acp-live-prepare.ts",
     "tool-recovery:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/tool-recovery-durable-learning.test.ts",

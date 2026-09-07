@@ -1,0 +1,18 @@
+{
+  "schema": "engram.tool-recovery-durable-learning/canonical-v1",
+  "evidenceState": "LOCAL_PASS",
+  "generatedAt": "2026-09-07T08:45:40.668Z",
+  "testedGitSha": "c6931f2f2e6c917e0924c327c86f676eb1633bf5",
+  "sourceFixture": "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json",
+  "sourceFixtureSha256": "934e8c9a6eb1f1aebefbfa18363556f424b56c79484d63f1ec6d58ca77e16849",
+  "processA": "process-a.json",
+  "processB": "process-b.json",
+  "executionMemoryId": "f52030ca-98f6-4887-8775-c8189f2d2ac2",
+  "memorySliceId": "9a297551-a83f-4c8d-9523-e188949c0b74",
+  "influenceGrantId": "0ce14994-5517-4752-bad3-34cf9cf12708",
+  "artifactSha256": {
+    "process-a.json": "7efe5bd79f27e521d43d606d9f5032dc63805ae44761a2ed0d685b3a1d1e44ab",
+    "process-b.json": "740becb5ef4d820279b2cb6bbe91a2002f97cd9127a3b320b7ab3aa38b463fb0"
+  },
+  "bundleSha256": "1813062f1be5f2d5ad1993980bbadce4b6b95f24773fa53d93af3bbd31feb6b4"
+}

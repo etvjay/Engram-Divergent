@@ -1,0 +1,38 @@
+{
+  "schema": "engram.tool-recovery-durable-learning/v1",
+  "sourceEvidencePath": "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json",
+  "sourceEvidenceSha256": "934e8c9a6eb1f1aebefbfa18363556f424b56c79484d63f1ec6d58ca77e16849",
+  "completion": {
+    "executionId": "8a9d63d8-bd4b-4fb8-9808-0191f9b11492",
+    "status": "FAILURE",
+    "failureType": "RETRY_EXHAUSTED"
+  },
+  "admission": {
+    "status": "ADMITTED",
+    "reason": "Observed terminal tool failure with evidence-backed scope for a changed retry and fallback strategy.",
+    "evidenceState": "OBSERVED"
+  },
+  "experience": {
+    "observation": "Tool tool-a-market-data returned rate-limit responses and exhausted the configured retry policy before terminal failure.",
+    "interpretation": "For comparable high-volume retrieval work, Tool A should not be retried under the same policy without an alternate fallback strategy.",
+    "applicability": {
+      "workflowType": "tool_recovery",
+      "taskType": "structured_data_retrieval",
+      "toolId": "tool-a-market-data",
+      "workloadClass": "high_volume_api",
+      "urgency": "ROUTINE",
+      "requestVolume": "HIGH"
+    }
+  },
+  "executionMemoryId": "f52030ca-98f6-4887-8775-c8189f2d2ac2",
+  "lineageIds": {
+    "executionId": "8a9d63d8-bd4b-4fb8-9808-0191f9b11492",
+    "episodeId": "f37bfe3b-2b48-4d83-b7b2-f547fc2996cb",
+    "executionSliceId": "1e690bbc-a4de-4d73-8359-f62335f3752a",
+    "experienceId": "c951cd4c-9467-43d0-8236-ed61cdc200d0",
+    "candidateMemoryId": "352f87b5-f6bd-41b1-a13d-b6553e3f65a3"
+  },
+  "evidenceRefs": [
+    "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json"
+  ]
+}

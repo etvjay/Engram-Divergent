@@ -1,0 +1,63 @@
+{
+  "source": "/home/ubuntu/sibylengram/Engram-Divergent/evidence/virtuals/catalog/20260907T062655Z/normalized-candidates.json",
+  "digest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "candidates": [
+    {
+      "candidateKey": "hermes-data-provider:crypto-market-data",
+      "agentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+      "agentName": "Hermes Data Provider",
+      "providerWallet": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+      "offeringId": "019fe6bb-2166-7d64-bb59-f500142b438a",
+      "offeringName": "Crypto & Market Data",
+      "description": "Automated pay-per-call data service for cryptocurrency prices and related market endpoints.",
+      "price": 0.01,
+      "currency": "USDC",
+      "priceType": "fixed",
+      "slaMinutes": 5,
+      "requirements": {
+        "type": "object",
+        "required": [
+          "endpoint"
+        ],
+        "endpointExamples": [
+          "crypto/price"
+        ],
+        "paramsExample": {
+          "symbol": "BTC"
+        }
+      },
+      "deliverable": {
+        "type": "object",
+        "description": "JSON data response from the requested endpoint"
+      },
+      "chainIds": [
+        4663,
+        8453
+      ],
+      "onlineStatus": "not provided",
+      "successMetrics": "not provided",
+      "rawAgentIndex": 4
+    },
+    {
+      "candidateKey": "chainalpha:get-market-data",
+      "agentId": "019e9b27-6da0-7487-885c-4d703a147c35",
+      "agentName": "ChainAlpha",
+      "providerWallet": "0x562c6c518ddc126650e6ec89a7c8092a52aca1d7",
+      "offeringId": "019eb9ff-00f5-78a6-bea1-d33f23c11611",
+      "offeringName": "get_market_data",
+      "description": "Real-time market data retrieval for any token or pair, including current price, volume, liquidity, and price change.",
+      "price": 0.03,
+      "currency": "USDC",
+      "priceType": "fixed",
+      "slaMinutes": 5,
+      "requirements": "Optional token contract address or ticker symbol; no input returns top market movers.",
+      "deliverable": "Structured market data with current price, volume, liquidity, price change, key metrics, and trend summary.",
+      "chainIds": [
+        8453
+      ],
+      "onlineStatus": "not provided",
+      "successMetrics": "not provided",
+      "rawAgentIndex": 14
+    }
+  ]
+}

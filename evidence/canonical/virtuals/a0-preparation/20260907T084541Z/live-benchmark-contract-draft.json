@@ -1,0 +1,98 @@
+{
+  "schema": "engram.live-benchmark-contract-draft/v1",
+  "status": "DRAFT_STOP_BEFORE_EXECUTION",
+  "evidenceMaturity": "UNVERIFIED",
+  "catalogSnapshot": {
+    "manifest": "evidence/virtuals/catalog/20260907T062655Z/manifest.json",
+    "digest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76"
+  },
+  "task": {
+    "taskId": "crypto-market-data-btc-v1",
+    "taskVersion": 1,
+    "description": "Retrieve current market data for BTC from one eligible ACP provider.",
+    "input": {
+      "symbol": "BTC"
+    },
+    "requiredOutput": "structured response containing current price and market-data fields",
+    "sameInputForA0AndA2": true
+  },
+  "candidates": [
+    {
+      "candidateKey": "hermes-data-provider:crypto-market-data",
+      "agentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+      "offeringId": "019fe6bb-2166-7d64-bb59-f500142b438a",
+      "providerWallet": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+      "priceUsdc": 0.01,
+      "slaMinutes": 5
+    },
+    {
+      "candidateKey": "chainalpha:get-market-data",
+      "agentId": "019e9b27-6da0-7487-885c-4d703a147c35",
+      "offeringId": "019eb9ff-00f5-78a6-bea1-d33f23c11611",
+      "providerWallet": "0x562c6c518ddc126650e6ec89a7c8092a52aca1d7",
+      "priceUsdc": 0.03,
+      "slaMinutes": 5
+    }
+  ],
+  "constraints": {
+    "maximumSpendUsdc": 0.03,
+    "maximumLatencySeconds": 300,
+    "sameCandidateSnapshot": true,
+    "sameToolsAndCapabilities": true,
+    "sameMandate": true,
+    "noParallelJobs": true,
+    "oneBoundedSmokeRequestMaximum": true
+  },
+  "verification": {
+    "requiredLifecycle": [
+      "job_created",
+      "funded",
+      "submitted",
+      "completed"
+    ],
+    "requiredDeliverable": "parseable structured market-data response for BTC",
+    "requiredEvidence": [
+      "ACP job history",
+      "payment/receipt evidence",
+      "completion status",
+      "deliverable digest"
+    ],
+    "failureStates": [
+      "rejected",
+      "expired",
+      "timed_out",
+      "malformed_deliverable",
+      "missing_receipt"
+    ]
+  },
+  "utility": {
+    "successValue": 1,
+    "costPenalty": "actual_cost_usdc / 0.03",
+    "latencyPenalty": "max(0, observed_seconds - 300) / 300",
+    "failurePenalty": 1,
+    "policyViolationPenalty": 1,
+    "aggregate": "successValue - costPenalty - latencyPenalty - failurePenalty - policyViolationPenalty"
+  },
+  "model": {
+    "model": "qwen2.5-7b-4k:latest",
+    "temperature": 0,
+    "repetitions": 10,
+    "sameModelForA0AndA2": true
+  },
+  "causalControls": {
+    "A0": "same task, frozen candidates, tools, environment, mandate, and model with no eligible Engram MemorySlice",
+    "A2": "same controls plus eligible Engram MemorySlice and InfluenceGrant from a fresh process",
+    "onlyIntendedTreatmentDifference": "eligible Engram execution memory",
+    "candidateSnapshot": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76"
+  },
+  "baseConsequence": {
+    "status": "NOT_INCLUDED_IN_THIS_DRAFT",
+    "reason": "No Base transaction is authorized before ACP candidate and lifecycle evidence are validated."
+  },
+  "authorization": {
+    "jobCreation": "NOT_AUTHORIZED",
+    "funding": "NOT_AUTHORIZED",
+    "signing": "NOT_AUTHORIZED",
+    "fundsMovement": "NOT_AUTHORIZED"
+  }
+}
