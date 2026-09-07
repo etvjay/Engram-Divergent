@@ -37,3 +37,19 @@ export function assertAgentProposalAuthorizedByGrant(
     assertInfluenceAllowed(grant, effect);
   }
 }
+
+/** Stronger boundary for behavioral-memory consumers. */
+export function assertBehavioralProposalAuthorizedByGrant(
+  proposal: AgentDecisionProposal,
+  grant: InfluenceGrant,
+  consumerAgentId: string,
+  now = new Date(),
+): void {
+  if (consumerAgentId !== grant.consumerAgentId) {
+    throw new Error("AGENT_PROPOSAL_CONSUMER_AGENT_MISMATCH");
+  }
+  if (grant.expiresAt && grant.expiresAt.getTime() <= now.getTime()) {
+    throw new Error("INFLUENCE_GRANT_EXPIRED");
+  }
+  assertAgentProposalAuthorizedByGrant(proposal, grant);
+}
