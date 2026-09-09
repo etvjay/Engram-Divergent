@@ -162,7 +162,7 @@ Virtuals ACP execution
   → bounded future provider/terms influence
 ```
 
-Current evidence state: local ACP-to-Sibyl durable-learning path is `LOCAL_PASS`. Live ACP execution is `UNVERIFIED / NOT YET AUTHORIZED`; no live job, funding, signer action, or Base transaction is included.
+Current evidence state: local ACP-to-Sibyl durable-learning path is `LOCAL_PASS`. The live A0 attempt created job `77776`, but funding failed at zero wallet balance before receipt; no terminal outcome or A0-derived memory exists. No A2 or Base action occurred.
 
 ### Tool / workflow recovery
 

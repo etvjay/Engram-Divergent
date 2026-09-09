@@ -1,25 +1,55 @@
 {
-  "canonicalSha": "53d4367ec6c630633a4d22a12ddc9555fe34cd16",
+  "canonicalSha": "38c42df2286d8922176dabd75852d04f33c68501",
   "systemMap": {
-    "entrySurfaces": ["npm scripts", "direct TypeScript modules", "fixture process runners"],
-    "unsupportedSurfaces": ["REST", "MCP", "SDK", "Web"],
-    "localComposedCore": ["experience", "memory-core", "runtime", "Sibyl"],
+    "entrySurfaces": [
+      "npm scripts",
+      "direct TypeScript modules",
+      "fixture process runners"
+    ],
+    "unsupportedSurfaces": [
+      "REST",
+      "MCP",
+      "SDK",
+      "Web"
+    ],
+    "localComposedCore": [
+      "experience",
+      "memory-core",
+      "runtime",
+      "Sibyl"
+    ],
     "externalPlanes": {
-      "data": ["Virtuals ACP catalog/history adapter"],
-      "reasoning": ["Qwen adapter", "benchmark adapters"],
-      "authority": ["InfluenceGrant", "agent proposal authorization"],
-      "execution": ["fixture process runners", "ACP orchestration state machine"],
-      "observability": ["canonical evidence", "evaluation ledger"],
-      "payment": ["not invoked; Base remains unverified"]
+      "data": [
+        "Virtuals ACP catalog/history adapter"
+      ],
+      "reasoning": [
+        "Qwen adapter",
+        "benchmark adapters"
+      ],
+      "authority": [
+        "InfluenceGrant",
+        "agent proposal authorization"
+      ],
+      "execution": [
+        "fixture process runners",
+        "ACP orchestration state machine"
+      ],
+      "observability": [
+        "canonical evidence",
+        "evaluation ledger"
+      ],
+      "payment": [
+        "not invoked; Base remains unverified"
+      ]
     }
   },
   "artifactChain": {
-    "localToolAndHandoff": "evidence → completion → Episode → ExecutionSlice → Experience → CandidateMemory → ExecutionMemory → Sibyl → MemorySlice → InfluenceGrant → proposal",
-    "liveProvider": "preparation → model decision (blocked) → no job → no terminal receipt"
+    "localToolAndHandoff": "evidence \u2192 completion \u2192 Episode \u2192 ExecutionSlice \u2192 Experience \u2192 CandidateMemory \u2192 ExecutionMemory \u2192 Sibyl \u2192 MemorySlice \u2192 InfluenceGrant \u2192 proposal",
+    "liveProvider": "preparation \u2192 valid A0 decision \u2192 job created \u2192 funding blocked by zero wallet balance"
   },
   "stateMachine": {
     "local": "COMPOSED",
-    "provider": "PRE_JOB_BLOCKED",
+    "provider": "JOB_CREATED_FUNDING_BLOCKED",
     "terminalOutcome": "not reached for live provider"
   },
   "transportEquivalence": "NOT_APPLICABLE_NO_DECLARED_PUBLIC_TRANSPORTS",
@@ -35,13 +65,13 @@
   "modeStatus": {
     "toolRecovery": "LOCAL_PASS",
     "agentHandoff": "LOCAL_PASS",
-    "providerContinuity": "PRE_JOB_BLOCKED",
+    "providerContinuity": "BLOCKED_FUNDING_BALANCE_ZERO",
     "base": "UNVERIFIED"
   },
   "coldHuman": "PASS_FOR_REPLAY_DEMO",
   "coldAgent": "NOT_PROVEN_NO_API_MCP_SURFACE",
   "coldDeveloper": "PASS_FOR_REPOSITORY_CLI; NOT_PROVEN_FOR_SDK",
-  "P0GapsRemaining": 4,
+  "P0GapsRemaining": 3,
   "P1GapsRemaining": 5,
   "authorityViolations": 0,
   "finalVerdict": "REQUEST_CHANGES"

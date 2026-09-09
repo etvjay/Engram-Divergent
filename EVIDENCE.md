@@ -10,12 +10,14 @@
 
 ## Provider continuity
 
-- State: `PRE_JOB_BLOCKED` / `UNVERIFIED`
-- Tested preparation source: `c6931f2f2e6c917e0924c327c86f676eb1633bf5`
+- State: `BLOCKED_FUNDING_BALANCE_ZERO`
+- Tested SHA: `53d4367ec6c630633a4d22a12ddc9555fe34cd16`
 - Canonical preparation: `evidence/canonical/virtuals/a0-preparation/20260907T084541Z/`
-- Canonical A0 attempt: `evidence/canonical/virtuals/a0-live-attempt/20260907T085000Z/`
-- Result: Qwen decision timed out before job creation.
-- Limitation: no live ACP job, outcome, spend, or utility result.
+- Canonical A0 execution: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/`
+- Result: one valid Qwen decision and one authentic ACP job creation; funding failed before receipt because the ACP wallet balance was zero.
+- Job ID: `77776`
+- Spend: `0 USDC`
+- Limitation: no terminal provider outcome, U0, A0 memory, or A2.
 
 ## Tool recovery
 

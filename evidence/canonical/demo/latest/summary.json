@@ -6,12 +6,15 @@
   "useCases": [
     {
       "id": "provider-continuity",
-      "evidenceState": "PRE_JOB_BLOCKED",
-      "source": "evidence/canonical/virtuals/a0-live-attempt/20260907T085000Z/",
+      "evidenceState": "BLOCKED_FUNDING_BALANCE_ZERO",
+      "source": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/",
       "preparation": "A0_PREPARED",
+      "jobId": "77776",
+      "jobCreated": true,
+      "jobFunded": false,
       "freshProcess": false,
       "authorizedInfluence": false,
-      "limitation": "A0 model decision timed out before job creation; no live provider execution occurred."
+      "limitation": "A0 job was created, but funding failed before receipt because the ACP wallet balance was zero; no terminal provider outcome occurred."
     },
     {
       "id": "tool-recovery",

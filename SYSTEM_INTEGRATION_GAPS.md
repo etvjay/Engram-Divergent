@@ -21,7 +21,7 @@ Audit target: `53d4367ec6c630633a4d22a12ddc9555fe34cd16`
 
 | ID | Layer | Current behavior | Expected behavior | Severity | Status |
 |---|---|---|---|---|---|
-| WH-001 | External execution | A0 Qwen decision timed out before provider selection | Valid first A0 decision from frozen contract | P0 | BLOCKED_EXTERNAL |
+| WH-001 | External execution | A0 Qwen decision timed out before provider selection | Valid first A0 decision from frozen contract | P0 | CLOSED_BY_PARTIAL_EXTERNAL_PASS; funding is now the blocker |
 | WH-002 | ACP adapter | History read/normalization exists; create/fund/observe live boundary is not wired to a verified provider CLI contract | One authenticated ACP job flows through create → fund → terminal history | P0 | OPEN |
 | WH-003 | Live Engram | Fixture ACP process proves formation; live ACP ingestion does not yet invoke the full generic formation path | Authentic ACP outcome forms Episode through ExecutionMemory/Sibyl | P0 | OPEN |
 | WH-004 | Provider evaluation | No A0, no U0, no A2, no DeltaU | Live A0/A2 matched comparison | P0 | BLOCKED_EXTERNAL |
@@ -44,7 +44,7 @@ Audit target: `53d4367ec6c630633a4d22a12ddc9555fe34cd16`
 ## Verdict
 
 ```text
-P0 remaining: 4
+P0 remaining: 3
 P1 remaining: 5
 authority violations observed: 0
 final verdict: REQUEST_CHANGES

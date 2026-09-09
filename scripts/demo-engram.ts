@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const root = process.cwd();
 const providerPrep = await json("evidence/canonical/virtuals/a0-preparation/20260907T084541Z/manifest.json");
-const providerAttempt = await json("evidence/canonical/virtuals/a0-live-attempt/20260907T085000Z/manifest.json");
+const providerExecution = await json("evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/manifest.json");
 const tool = await json("evidence/canonical/tool-recovery/20260907T084535Z/process-b.json");
 const handoff = await json("evidence/canonical/agent-handoff/20260907T085900Z/process-b.json");
 const summary = {
@@ -14,12 +14,15 @@ const summary = {
   useCases: [
     {
       id: "provider-continuity",
-      evidenceState: providerAttempt.evidenceState,
-      source: "evidence/canonical/virtuals/a0-live-attempt/20260907T085000Z/",
+      evidenceState: providerExecution.evidenceState,
+      source: "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/",
       preparation: providerPrep.stopGate,
+      jobId: providerExecution.jobId,
+      jobCreated: providerExecution.jobCreated,
+      jobFunded: providerExecution.jobFunded,
       freshProcess: false,
       authorizedInfluence: false,
-      limitation: "A0 model decision timed out before job creation; no live provider execution occurred.",
+      limitation: "A0 job was created, but funding failed before receipt because the ACP wallet balance was zero; no terminal provider outcome occurred.",
     },
     {
       id: "tool-recovery",

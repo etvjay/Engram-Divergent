@@ -10,7 +10,7 @@
 | Unauthorized influence escapes = 0 | `LOCAL_PASS` |
 | Tool recovery | `LOCAL_PASS` |
 | Cross-agent handoff | `LOCAL_PASS` |
-| Live Virtuals A0 | `PRE_JOB_BLOCKED` / `UNVERIFIED` |
+| Live Virtuals A0 | `BLOCKED_FUNDING_BALANCE_ZERO` / `PARTIAL_EXTERNAL_PASS` |
 | Live Virtuals A2 | `NOT_EXECUTED` |
 | Live causal uplift | `NOT_PROVEN` |
 | Engram > raw history | `NOT_PROVEN` |
