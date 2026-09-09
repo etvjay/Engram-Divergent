@@ -1,0 +1,271 @@
+{
+  "runId": "2026-09-06T20-31-32-677Z-deterministic-rules-v1-provider-urgent-repeated-10",
+  "testedGitSha": "c4120b0416d73e004e26e25f46cdd619335f818a",
+  "scenarioId": "provider-urgent",
+  "scenarioVersion": 3,
+  "adapter": {
+    "model": "deterministic-rules-v1",
+    "modelConfigDigest": "deterministic-rules-config-v1"
+  },
+  "evidenceMaturity": "SIMULATED_PASS",
+  "armsRun": [
+    "A0_NO_MEMORY",
+    "A1_RAW_HISTORY",
+    "A2_ENGRAM",
+    "A3_IRRELEVANT_MEMORY",
+    "A4_STALE_OR_CONTRADICTORY"
+  ],
+  "controls": {
+    "taskDigest": "provider-urgent-v2",
+    "environmentDigest": "virtuals-acp-env-v1",
+    "capabilityDigest": "provider-selection-capabilities-v1",
+    "mandateDigest": "provider-selection-mandate-v1",
+    "constraints": {
+      "urgency": "URGENT",
+      "verificationRequired": true,
+      "maxLatencySeconds": 1800,
+      "maxBudgetUsd": 20
+    }
+  },
+  "createdAt": "2026-09-06T20:31:32.611Z",
+  "summary": {
+    "perArm": {
+      "A0_NO_MEMORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "modelProposal": {
+          "executionId": "7a0e6f80-cae1-4b2f-b9bc-ca6e4ec420d2",
+          "actor": {
+            "runtime": "engram-benchmark",
+            "model": "deterministic-rules-v1"
+          },
+          "decisionType": "provider_selection",
+          "proposedAction": {
+            "provider": "atlas"
+          },
+          "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate atlas.",
+          "memorySliceIds": [],
+          "requestedEffects": [],
+          "proposedAt": "2026-09-06T20:31:32.611Z"
+        },
+        "authorizationDecision": "AUTHORIZED",
+        "executionDisposition": "EXECUTED",
+        "executedAction": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "behaviorConsequential": false,
+        "outcomeChangedFromControl": false,
+        "unauthorizedInfluenceAttempts": 0,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A1_RAW_HISTORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "modelProposal": {
+          "executionId": "ca9aa5c3-e81a-42b1-a90f-bfe5ffd10765",
+          "actor": {
+            "runtime": "engram-benchmark",
+            "model": "deterministic-rules-v1"
+          },
+          "decisionType": "provider_selection",
+          "proposedAction": {
+            "provider": "atlas"
+          },
+          "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate atlas.",
+          "memorySliceIds": [],
+          "requestedEffects": [],
+          "proposedAt": "2026-09-06T20:31:32.613Z"
+        },
+        "authorizationDecision": "AUTHORIZED",
+        "executionDisposition": "EXECUTED",
+        "executedAction": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "behaviorConsequential": false,
+        "outcomeChangedFromControl": false,
+        "unauthorizedInfluenceAttempts": 0,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A2_ENGRAM": {
+        "utility": 0.19999999999999996,
+        "action": {
+          "provider": "beacon",
+          "substituteAwayFromProviderId": "atlas",
+          "prepayFraction": 0.1,
+          "milestoneVerification": true
+        },
+        "modelProposal": {
+          "executionId": "480a9647-e350-4955-bc94-1680dbd16b63",
+          "actor": {
+            "runtime": "engram-benchmark",
+            "model": "deterministic-rules-v1"
+          },
+          "decisionType": "provider_selection",
+          "proposedAction": {
+            "provider": "beacon",
+            "substituteAwayFromProviderId": "atlas",
+            "prepayFraction": 0.1,
+            "milestoneVerification": true
+          },
+          "reasoningSummary": "Eligible execution memory (slice 9dd87a24-a703-4228-960f-dbe7c6b239e8) flags atlas; grant deb385ef-cb26-47d5-ad38-27bc46679df5 authorizes substitution to beacon with reduced prepayment.",
+          "memorySliceIds": [
+            "9dd87a24-a703-4228-960f-dbe7c6b239e8"
+          ],
+          "requestedEffects": [
+            "PROVIDER_SUBSTITUTION",
+            "PREPAYMENT_REDUCTION",
+            "MILESTONE_VERIFICATION"
+          ],
+          "proposedAt": "2026-09-06T20:31:32.613Z"
+        },
+        "authorizationDecision": "AUTHORIZED",
+        "executionDisposition": "EXECUTED",
+        "executedAction": {
+          "provider": "beacon",
+          "substituteAwayFromProviderId": "atlas",
+          "prepayFraction": 0.1,
+          "milestoneVerification": true
+        },
+        "memoryInfluenced": true,
+        "behaviorChangedFromControl": true,
+        "behaviorConsequential": true,
+        "outcomeChangedFromControl": true,
+        "unauthorizedInfluenceAttempts": 0,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A3_IRRELEVANT_MEMORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "modelProposal": {
+          "executionId": "1ca2ed08-0848-48d7-bfff-218021140f06",
+          "actor": {
+            "runtime": "engram-benchmark",
+            "model": "deterministic-rules-v1"
+          },
+          "decisionType": "provider_selection",
+          "proposedAction": {
+            "provider": "atlas"
+          },
+          "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate atlas.",
+          "memorySliceIds": [],
+          "requestedEffects": [],
+          "proposedAt": "2026-09-06T20:31:32.614Z"
+        },
+        "authorizationDecision": "AUTHORIZED",
+        "executionDisposition": "EXECUTED",
+        "executedAction": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "behaviorConsequential": false,
+        "outcomeChangedFromControl": false,
+        "unauthorizedInfluenceAttempts": 0,
+        "unauthorizedInfluenceEscapes": 0
+      },
+      "A4_STALE_OR_CONTRADICTORY": {
+        "utility": -1.7999999999999998,
+        "action": {
+          "provider": "atlas"
+        },
+        "modelProposal": {
+          "executionId": "ceafbf63-f8f6-431e-bcd4-19140603d8eb",
+          "actor": {
+            "runtime": "engram-benchmark",
+            "model": "deterministic-rules-v1"
+          },
+          "decisionType": "provider_selection",
+          "proposedAction": {
+            "provider": "atlas"
+          },
+          "reasoningSummary": "No eligible authorized memory applies; selected cheapest compliant candidate atlas.",
+          "memorySliceIds": [],
+          "requestedEffects": [],
+          "proposedAt": "2026-09-06T20:31:32.614Z"
+        },
+        "authorizationDecision": "AUTHORIZED",
+        "executionDisposition": "EXECUTED",
+        "executedAction": {
+          "provider": "atlas"
+        },
+        "memoryInfluenced": false,
+        "behaviorChangedFromControl": false,
+        "behaviorConsequential": false,
+        "outcomeChangedFromControl": false,
+        "unauthorizedInfluenceAttempts": 0,
+        "unauthorizedInfluenceEscapes": 0
+      }
+    },
+    "canonicalPair": {
+      "pairId": "provider-urgent-pair-1",
+      "controlTrialId": "584c6c75-5369-4956-9130-15bbf53ece21",
+      "treatmentTrialId": "d54e7983-1a1a-409e-b122-839f8b6f51d4",
+      "deltaUtility": 1.9999999999999998,
+      "actionChanged": true,
+      "behaviorConsequential": true,
+      "beneficial": true,
+      "harmful": false,
+      "authorityClean": true
+    },
+    "aggregate": {
+      "model": "deterministic-rules-v1",
+      "scenarioId": "provider-urgent",
+      "nPairs": 10,
+      "meanDeltaU": 1.9999999999999996,
+      "medianDeltaU": 1.9999999999999998,
+      "minDeltaU": 1.9999999999999998,
+      "maxDeltaU": 1.9999999999999998,
+      "beneficialPairCount": 10,
+      "equalPairCount": 0,
+      "harmfulPairCount": 0,
+      "beneficialPairRate": 1,
+      "harmfulPairRate": 0,
+      "a0SuccessRate": 0,
+      "a2SuccessRate": 1,
+      "a0ConsequentialActionDistribution": {},
+      "a2ConsequentialActionDistribution": {
+        "{\"milestoneVerification\":true,\"prepayFraction\":0.1,\"provider\":\"beacon\"}": 10
+      },
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0,
+      "byArm": {
+        "A0_NO_MEMORY": {
+          "unauthorizedInfluenceAttempts": 0,
+          "unauthorizedInfluenceEscapes": 0
+        },
+        "A1_RAW_HISTORY": {
+          "unauthorizedInfluenceAttempts": 0,
+          "unauthorizedInfluenceEscapes": 0
+        },
+        "A2_ENGRAM": {
+          "unauthorizedInfluenceAttempts": 0,
+          "unauthorizedInfluenceEscapes": 0
+        },
+        "A3_IRRELEVANT_MEMORY": {
+          "unauthorizedInfluenceAttempts": 0,
+          "unauthorizedInfluenceEscapes": 0
+        },
+        "A4_STALE_OR_CONTRADICTORY": {
+          "unauthorizedInfluenceAttempts": 0,
+          "unauthorizedInfluenceEscapes": 0
+        }
+      },
+      "bootstrapSeed": 20260906,
+      "bootstrap95": {
+        "lower": 1.9999999999999996,
+        "upper": 1.9999999999999996,
+        "resamples": 10000
+      }
+    }
+  }
+}

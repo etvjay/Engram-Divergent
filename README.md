@@ -193,7 +193,7 @@ The local longitudinal evaluation now covers the same three domains without addi
 
 - `evidence/canonical/longitudinal/latest/summary.json`
 - `A0_NO_MEMORY`, `A1_RAW_HISTORY`, `A2_INITIAL_ENGRAM_MEMORY`, `A3_IRRELEVANT_MEMORY`, `A4_STALE_OR_CONTRADICTORY`, `A5_EVALUATED_UPDATED_MEMORY`
-- 24 observations across 3 deterministic seeds
+- 240 observations across 30 deterministic seeds
 - `DeltaU A2-A0 = 1.90`
 - `DeltaU A5-A2 = 0.02`
 - success rate: `0.75`
@@ -254,8 +254,10 @@ For system-level integration review:
 - [`SYSTEM_WHOLENESS_RECEIPT.json`](./SYSTEM_WHOLENESS_RECEIPT.json) — canonical integration receipt;
 - [`DEMO.md`](./DEMO.md) — short replay narrative;
 - [`EVIDENCE.md`](./EVIDENCE.md) — reviewer evidence index;
-- [`CLAIM_MATRIX.md`](./CLAIM_MATRIX.md) — evidence-bounded claims.
-
+- [`docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md`](./docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md) - three-use-case narrative, benchmark tables, evaluation interpretation, and limits;
+- [`evidence/canonical/longitudinal/latest/arm-summary.csv`](./evidence/canonical/longitudinal/latest/arm-summary.csv) - per-arm benchmark table;
+- [`evidence/canonical/longitudinal/latest/utility-by-arm.svg`](./evidence/canonical/longitudinal/latest/utility-by-arm.svg) - utility visualization;
+- [`CLAIM_MATRIX.md`](./CLAIM_MATRIX.md) - evidence-bounded claims.
 ## Fresh-session demos
 
 Use one Sibyl DB and tenant across separate processes:

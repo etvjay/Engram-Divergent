@@ -1,11 +1,13 @@
 {
   "schema": "engram.closed-loop-canonical/v1",
   "evidenceState": "LOCAL_PASS_WITH_EXTERNAL_LIMITS",
-  "testedGitSha": "188541bd1c010a177a3a0c42c448f4fe839ea527",
+  "testedGitSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
   "artifacts": {
+    "arm-summary.csv": "f1015b7f918b388bf00389e6f81e7f165b672c0fb49f774609c069b32b25e43c",
     "cross-model.json": "03a289b377f456a2893e8178f2607d93e2d592552dc4c7a4cb044f134fa221a5",
     "mcp-smoke.json": "f99eac63353c9f31951cfe54b05d48bbcfc8f1d30469eefbf1d813b43ce61ee8",
-    "summary.json": "9040022fb6efcd8114259cb2fcafab8960c6c67a46ec7a66b72720bf826bb941"
+    "summary.json": "a491829a23483d3c821f337e76581ea81225287dbf2886ba78ef6f9156d2ef53",
+    "utility-by-arm.svg": "59dd489db654dc227feae66e3ea41273c2a1f86f8f599e60fe19590080cfc2c6"
   },
   "summary": "summary.json",
   "crossModel": "cross-model.json",
@@ -17,11 +19,38 @@
       "cross-agent-fleet-handoff"
     ],
     "seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
       11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
       23,
-      47
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
     ],
-    "observations": 24,
+    "observations": 240,
     "memoryDirectives": [
       "STRENGTHEN",
       "WEAKEN",

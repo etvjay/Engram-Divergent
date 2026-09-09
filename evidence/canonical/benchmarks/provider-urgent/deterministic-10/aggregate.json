@@ -1,0 +1,50 @@
+{
+  "model": "deterministic-rules-v1",
+  "scenarioId": "provider-urgent",
+  "nPairs": 10,
+  "meanDeltaU": 1.9999999999999996,
+  "medianDeltaU": 1.9999999999999998,
+  "minDeltaU": 1.9999999999999998,
+  "maxDeltaU": 1.9999999999999998,
+  "beneficialPairCount": 10,
+  "equalPairCount": 0,
+  "harmfulPairCount": 0,
+  "beneficialPairRate": 1,
+  "harmfulPairRate": 0,
+  "a0SuccessRate": 0,
+  "a2SuccessRate": 1,
+  "a0ConsequentialActionDistribution": {},
+  "a2ConsequentialActionDistribution": {
+    "{\"milestoneVerification\":true,\"prepayFraction\":0.1,\"provider\":\"beacon\"}": 10
+  },
+  "unauthorizedInfluenceAttempts": 0,
+  "unauthorizedInfluenceEscapes": 0,
+  "byArm": {
+    "A0_NO_MEMORY": {
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0
+    },
+    "A1_RAW_HISTORY": {
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0
+    },
+    "A2_ENGRAM": {
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0
+    },
+    "A3_IRRELEVANT_MEMORY": {
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0
+    },
+    "A4_STALE_OR_CONTRADICTORY": {
+      "unauthorizedInfluenceAttempts": 0,
+      "unauthorizedInfluenceEscapes": 0
+    }
+  },
+  "bootstrapSeed": 20260906,
+  "bootstrap95": {
+    "lower": 1.9999999999999996,
+    "upper": 1.9999999999999996,
+    "resamples": 10000
+  }
+}

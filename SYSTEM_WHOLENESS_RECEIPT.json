@@ -81,5 +81,5 @@
   "finalVerdict": "REQUEST_CHANGES",
   "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP funding/terminal/A2 and cross-model",
   "canonicalEvidence": "evidence/canonical/longitudinal/latest/",
-  "testedSourceSha": "188541bd1c010a177a3a0c42c448f4fe839ea527"
+  "testedSourceSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b"
 }

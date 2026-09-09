@@ -50,7 +50,7 @@
 
 - State: `LOCAL_PASS`
 - Canonical summary: `evidence/canonical/longitudinal/latest/summary.json`
-- Runs: 3 deterministic seeds / 24 observations
+- Runs: 30 deterministic seeds / 240 observations
 - Arms: A0 through A5, including raw history, irrelevant, stale/contradictory, and evaluated-updated memory
 - `DeltaU A2-A0`: `1.90`
 - `DeltaU A5-A2`: `0.02`
@@ -62,6 +62,12 @@
 - Memory lifecycle: six directives, immutable prior versions, fresh-process Sibyl persistence
 - Cross-agent controls: raw history/events redacted, obsolete version non-influential, updated version used by Agent C
 - Cross-model probe: `BLOCKED_EXTERNAL` after Ollama socket closure under the full prompt; no result inferred
+- Canonical narrative: `docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md`
+- Per-arm table: `evidence/canonical/longitudinal/latest/arm-summary.csv`
+- Utility figure: `evidence/canonical/longitudinal/latest/utility-by-arm.svg`
+- Provider repeated benchmark tables:
+  - `evidence/canonical/benchmarks/provider-urgent/deterministic-10/`
+  - `evidence/canonical/benchmarks/provider-urgent/qwen-10/`
 
 ## Agent surface
 
