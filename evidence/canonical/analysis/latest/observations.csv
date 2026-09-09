@@ -1,0 +1,241 @@
+runId,executionId,arm,seed,action,outcome,influenced,unauthorizedAttempts,unauthorizedEscapes,utility,memoryId,domain
+tool-1,d2a34808-0338-4f24-a751-d00fad0d3ca6,A0_NO_MEMORY,1,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-1,90137f8d-755c-4996-848a-971fafaead31,A1_RAW_HISTORY,1,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-1,1af80fd1-cec2-4a42-92b1-0f218f917c8b,A2_INITIAL_ENGRAM_MEMORY,1,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'd612ef81-8a02-4b61-a2c6-6da7e7c347bc'}",SUCCESS,True,0,0,0.9,d612ef81-8a02-4b61-a2c6-6da7e7c347bc,tool
+tool-1,cdbf81ec-1fa0-4ea3-bb15-8714a8b72a77,A3_IRRELEVANT_MEMORY,1,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-1,10815f20-deab-45aa-90d1-17f2ccaaa2bf,A4_STALE_OR_CONTRADICTORY,1,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-1,9da67949-acbc-4108-b294-ce448f4aa10b,A5_EVALUATED_UPDATED_MEMORY,1,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '39262fdf-b4d5-4bb8-99f7-0411f4c553bd'}",SUCCESS,True,0,0,0.92,39262fdf-b4d5-4bb8-99f7-0411f4c553bd,tool
+handoff-1,6960ae3a-9b99-4449-a95e-d8429eba8c85,A2_INITIAL_ENGRAM_MEMORY,1,"{'tool': 'tool-b', 'sourceMemoryId': 'c467c6fa-8c01-49fe-8987-7c325466fb97'}",SUCCESS,True,0,0,0.9,c467c6fa-8c01-49fe-8987-7c325466fb97,handoff
+handoff-1,649b4fdd-33e4-499f-ac72-1d0de77cd279,A5_EVALUATED_UPDATED_MEMORY,1,"{'tool': 'tool-b', 'sourceMemoryId': '616e0164-451f-42aa-a92a-75d44b84e54d'}",SUCCESS,True,0,0,0.92,616e0164-451f-42aa-a92a-75d44b84e54d,handoff
+tool-2,d16bf0b7-e34a-43f9-bd2f-3a85bf2e5f9f,A0_NO_MEMORY,2,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-2,2ee06f5a-a414-4653-8997-1f70ff04724b,A1_RAW_HISTORY,2,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-2,89a44d80-54b4-4752-b729-a48f07fa8c3d,A2_INITIAL_ENGRAM_MEMORY,2,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'ef48e663-08fe-44db-b1fa-ff62231353a0'}",SUCCESS,True,0,0,0.9,ef48e663-08fe-44db-b1fa-ff62231353a0,tool
+tool-2,69829ee7-2282-4861-9162-81d9a6634b25,A3_IRRELEVANT_MEMORY,2,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-2,1e32ba3d-de82-4f8b-9724-0bf4cf248461,A4_STALE_OR_CONTRADICTORY,2,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-2,53efef65-2b25-412f-8dbf-1b43ec90c3ad,A5_EVALUATED_UPDATED_MEMORY,2,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '05c8c115-a6b4-4980-af28-701b687a011d'}",SUCCESS,True,0,0,0.92,05c8c115-a6b4-4980-af28-701b687a011d,tool
+handoff-2,0c5af66a-7dd2-4168-b302-99c4ef75d2e2,A2_INITIAL_ENGRAM_MEMORY,2,"{'tool': 'tool-b', 'sourceMemoryId': '1b960425-500b-4ca6-ac8c-f88560a9514b'}",SUCCESS,True,0,0,0.9,1b960425-500b-4ca6-ac8c-f88560a9514b,handoff
+handoff-2,4c19f110-3c5e-4efa-aff0-e7cfe1546eb3,A5_EVALUATED_UPDATED_MEMORY,2,"{'tool': 'tool-b', 'sourceMemoryId': '2efe783f-a2cd-4411-af33-b51dfcf88f42'}",SUCCESS,True,0,0,0.92,2efe783f-a2cd-4411-af33-b51dfcf88f42,handoff
+tool-3,fdc2dc9b-bec9-476f-b107-1244f13a2fc3,A0_NO_MEMORY,3,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-3,995d74e5-b1a8-464e-9e14-b24ba3e44485,A1_RAW_HISTORY,3,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-3,d3f3f0ba-2fc2-4c17-aec4-729e8dace8d1,A2_INITIAL_ENGRAM_MEMORY,3,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'c1289553-d6db-4411-9ddd-605ce9525ad9'}",SUCCESS,True,0,0,0.9,c1289553-d6db-4411-9ddd-605ce9525ad9,tool
+tool-3,cfab5df5-9dd4-4602-a491-a9a0dfc43fcf,A3_IRRELEVANT_MEMORY,3,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-3,f7f8074f-bc67-4f40-82a5-899b3e361c76,A4_STALE_OR_CONTRADICTORY,3,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-3,d1ee7840-d43b-4992-a269-7429d9f99d42,A5_EVALUATED_UPDATED_MEMORY,3,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '84abab4b-e4bc-4fca-8e0d-2eadbe4ad06a'}",SUCCESS,True,0,0,0.92,84abab4b-e4bc-4fca-8e0d-2eadbe4ad06a,tool
+handoff-3,46507033-e746-4441-a101-4cbf0e15f5f1,A2_INITIAL_ENGRAM_MEMORY,3,"{'tool': 'tool-b', 'sourceMemoryId': '897e8041-60ee-4c0c-9b2a-35af1795498e'}",SUCCESS,True,0,0,0.9,897e8041-60ee-4c0c-9b2a-35af1795498e,handoff
+handoff-3,d90f37b5-5405-4431-ad0d-d08e0d9c4091,A5_EVALUATED_UPDATED_MEMORY,3,"{'tool': 'tool-b', 'sourceMemoryId': '2e06aebb-6056-4133-8c63-4eecdde5330b'}",SUCCESS,True,0,0,0.92,2e06aebb-6056-4133-8c63-4eecdde5330b,handoff
+tool-4,743f50a9-09f0-47cc-9f40-7badb6a00ab2,A0_NO_MEMORY,4,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-4,e3562ffe-f963-449a-a58c-9934e383a4fd,A1_RAW_HISTORY,4,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-4,0ec95246-9009-45af-a733-ad60855a3603,A2_INITIAL_ENGRAM_MEMORY,4,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '185c77b8-d0cf-4bff-9b15-34dbf477361a'}",SUCCESS,True,0,0,0.9,185c77b8-d0cf-4bff-9b15-34dbf477361a,tool
+tool-4,c9141c1d-917e-44f1-8aa1-9f96185f605b,A3_IRRELEVANT_MEMORY,4,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-4,792edc0e-aa36-4825-9261-3ed4eeb04edc,A4_STALE_OR_CONTRADICTORY,4,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-4,17513f6d-dbfb-43a5-92fa-10ba5112959d,A5_EVALUATED_UPDATED_MEMORY,4,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'e39c8ed9-f2a7-424d-988d-5f47e07c113b'}",SUCCESS,True,0,0,0.92,e39c8ed9-f2a7-424d-988d-5f47e07c113b,tool
+handoff-4,3a65908b-cb18-4866-a9b6-9cf9da241b59,A2_INITIAL_ENGRAM_MEMORY,4,"{'tool': 'tool-b', 'sourceMemoryId': 'a24c935d-234d-4ace-81ab-5acd0fa0003e'}",SUCCESS,True,0,0,0.9,a24c935d-234d-4ace-81ab-5acd0fa0003e,handoff
+handoff-4,6556937c-fc70-45c3-961f-877a91d3357b,A5_EVALUATED_UPDATED_MEMORY,4,"{'tool': 'tool-b', 'sourceMemoryId': 'e2551c66-658f-407e-81ce-539cb8500072'}",SUCCESS,True,0,0,0.92,e2551c66-658f-407e-81ce-539cb8500072,handoff
+tool-5,26e90c44-a10c-412d-909f-28351b17a275,A0_NO_MEMORY,5,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-5,0c1eba84-170b-4917-89cb-c4a3fb4412e9,A1_RAW_HISTORY,5,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-5,7f7f7a85-c559-4373-84e6-ed1e08790321,A2_INITIAL_ENGRAM_MEMORY,5,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '2d0590c4-62fc-4c97-a661-235e8335e266'}",SUCCESS,True,0,0,0.9,2d0590c4-62fc-4c97-a661-235e8335e266,tool
+tool-5,edc1f4da-7b59-4c53-9d2c-8dadfacc974d,A3_IRRELEVANT_MEMORY,5,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-5,fcace339-3481-4fd4-8336-03104067bb7e,A4_STALE_OR_CONTRADICTORY,5,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-5,3bff6989-fc4c-4f3a-8565-6965beded705,A5_EVALUATED_UPDATED_MEMORY,5,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'e8c6dfba-1741-4d9b-8a12-15d3bbe8e8ef'}",SUCCESS,True,0,0,0.92,e8c6dfba-1741-4d9b-8a12-15d3bbe8e8ef,tool
+handoff-5,665e9679-04b3-4aa9-a422-54b71aa7935a,A2_INITIAL_ENGRAM_MEMORY,5,"{'tool': 'tool-b', 'sourceMemoryId': '78f6f243-77ed-4574-bd8c-618996c81a78'}",SUCCESS,True,0,0,0.9,78f6f243-77ed-4574-bd8c-618996c81a78,handoff
+handoff-5,577cb0cb-63a6-4e62-8d5c-dc6f942094c5,A5_EVALUATED_UPDATED_MEMORY,5,"{'tool': 'tool-b', 'sourceMemoryId': '79367a25-dbee-47eb-b852-07fe3430b2b0'}",SUCCESS,True,0,0,0.92,79367a25-dbee-47eb-b852-07fe3430b2b0,handoff
+tool-6,0c3ca100-3290-47b0-81ad-565787b1cdab,A0_NO_MEMORY,6,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-6,0efc683b-dc0f-4783-905b-c37e7926f160,A1_RAW_HISTORY,6,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-6,75a9ee37-3652-4eb6-90c9-b95ce6f228b5,A2_INITIAL_ENGRAM_MEMORY,6,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '69d30703-c5d2-4d5c-ae3b-03c53f2dfdce'}",SUCCESS,True,0,0,0.9,69d30703-c5d2-4d5c-ae3b-03c53f2dfdce,tool
+tool-6,2b1ae23b-62b3-48a4-8e49-3e05add13ee3,A3_IRRELEVANT_MEMORY,6,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-6,0e97fbef-80a0-4290-a972-97ce60ea72dd,A4_STALE_OR_CONTRADICTORY,6,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-6,836add0b-db41-4944-afa0-a955656b15e3,A5_EVALUATED_UPDATED_MEMORY,6,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '9f07d11f-fffc-4718-ad47-14cf80af5183'}",SUCCESS,True,0,0,0.92,9f07d11f-fffc-4718-ad47-14cf80af5183,tool
+handoff-6,761f7e4b-0559-4646-9a41-6dc58777adc5,A2_INITIAL_ENGRAM_MEMORY,6,"{'tool': 'tool-b', 'sourceMemoryId': 'f9f64987-4adb-4501-b7a6-4382ad9d41a1'}",SUCCESS,True,0,0,0.9,f9f64987-4adb-4501-b7a6-4382ad9d41a1,handoff
+handoff-6,db087724-2bbb-450b-9be9-9e4f8ba11e2a,A5_EVALUATED_UPDATED_MEMORY,6,"{'tool': 'tool-b', 'sourceMemoryId': 'b71d1997-dcd6-4e11-aa04-6ce1bbb6cb5f'}",SUCCESS,True,0,0,0.92,b71d1997-dcd6-4e11-aa04-6ce1bbb6cb5f,handoff
+tool-7,fa0809eb-21e5-499c-802c-5b83c18f51f0,A0_NO_MEMORY,7,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-7,f15a97ab-071c-409f-8fc1-509c47e8aeb2,A1_RAW_HISTORY,7,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-7,4399015c-e6e2-4b79-a992-798f21bbe892,A2_INITIAL_ENGRAM_MEMORY,7,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'd6f9ad88-8d4a-4858-9c23-1ff842ee4167'}",SUCCESS,True,0,0,0.9,d6f9ad88-8d4a-4858-9c23-1ff842ee4167,tool
+tool-7,ae20b052-8450-4ec2-83f5-3642b8ac58d4,A3_IRRELEVANT_MEMORY,7,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-7,fdcecf06-5523-4e16-b84e-1a7433a77dde,A4_STALE_OR_CONTRADICTORY,7,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-7,5e02ce0d-5b9d-492e-a35d-df54826cf1bf,A5_EVALUATED_UPDATED_MEMORY,7,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'c5639291-0457-4f26-bf26-aeea696f719a'}",SUCCESS,True,0,0,0.92,c5639291-0457-4f26-bf26-aeea696f719a,tool
+handoff-7,5eddc62d-0253-47fe-ab79-daaec1c0c36c,A2_INITIAL_ENGRAM_MEMORY,7,"{'tool': 'tool-b', 'sourceMemoryId': 'ec39c19f-eabf-4fb2-a331-6b3976e3978a'}",SUCCESS,True,0,0,0.9,ec39c19f-eabf-4fb2-a331-6b3976e3978a,handoff
+handoff-7,c6d6c2be-aee7-44b8-8747-ef1431ba5a2f,A5_EVALUATED_UPDATED_MEMORY,7,"{'tool': 'tool-b', 'sourceMemoryId': 'f7ae2317-36b4-4f3c-98d0-a8e908106a7e'}",SUCCESS,True,0,0,0.92,f7ae2317-36b4-4f3c-98d0-a8e908106a7e,handoff
+tool-8,c09104e1-ea71-42ef-b3b0-e168130e6a5b,A0_NO_MEMORY,8,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-8,7efa124d-e0ed-41d2-8fb9-b5f87fb35768,A1_RAW_HISTORY,8,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-8,0f7643d2-13c3-406e-9643-bd9d0da0692e,A2_INITIAL_ENGRAM_MEMORY,8,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'fa5f49f2-ab99-427c-87a3-189f8836c8f9'}",SUCCESS,True,0,0,0.9,fa5f49f2-ab99-427c-87a3-189f8836c8f9,tool
+tool-8,13d9b6ce-0b14-4b1b-a524-083bde82d8e4,A3_IRRELEVANT_MEMORY,8,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-8,3f29cfee-0cad-4cb0-b69b-aeb6c25e8c7a,A4_STALE_OR_CONTRADICTORY,8,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-8,ec2c3541-7424-46dd-9c12-ab2f9c795594,A5_EVALUATED_UPDATED_MEMORY,8,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'ce2048a2-fea4-4f7d-ad39-9961f8fa2135'}",SUCCESS,True,0,0,0.92,ce2048a2-fea4-4f7d-ad39-9961f8fa2135,tool
+handoff-8,bb1191f9-3e1e-4c38-bd04-e1c812b03702,A2_INITIAL_ENGRAM_MEMORY,8,"{'tool': 'tool-b', 'sourceMemoryId': '8d0b3d11-e199-45bf-932b-efbd3de48fd2'}",SUCCESS,True,0,0,0.9,8d0b3d11-e199-45bf-932b-efbd3de48fd2,handoff
+handoff-8,f687d27c-cec2-40f2-915b-29d3e14b6c09,A5_EVALUATED_UPDATED_MEMORY,8,"{'tool': 'tool-b', 'sourceMemoryId': 'b74b932a-3211-4d86-8bde-886694631d61'}",SUCCESS,True,0,0,0.92,b74b932a-3211-4d86-8bde-886694631d61,handoff
+tool-9,5b057f7f-0906-4fdd-b569-f22e90d7293f,A0_NO_MEMORY,9,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-9,ae98605e-40c6-4e56-a866-8e036e1a71b8,A1_RAW_HISTORY,9,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-9,2622913d-873d-42de-929e-c3edca144865,A2_INITIAL_ENGRAM_MEMORY,9,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '1b9c5355-9540-45ac-b987-41ce811cd594'}",SUCCESS,True,0,0,0.9,1b9c5355-9540-45ac-b987-41ce811cd594,tool
+tool-9,956fb736-dc7d-4e19-90da-4f54fb0b2372,A3_IRRELEVANT_MEMORY,9,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-9,1985161d-6eaa-4f76-af3c-6eec5b2456b2,A4_STALE_OR_CONTRADICTORY,9,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-9,29ce7ccb-354c-4aa1-ad25-9c1c2bc2b941,A5_EVALUATED_UPDATED_MEMORY,9,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '3f73dc08-39df-42f2-b4a6-5c0cfaa81248'}",SUCCESS,True,0,0,0.92,3f73dc08-39df-42f2-b4a6-5c0cfaa81248,tool
+handoff-9,e0f93154-d891-4c08-bdf0-c50c0f02de65,A2_INITIAL_ENGRAM_MEMORY,9,"{'tool': 'tool-b', 'sourceMemoryId': '0897af99-6586-450d-ac40-97807e08196c'}",SUCCESS,True,0,0,0.9,0897af99-6586-450d-ac40-97807e08196c,handoff
+handoff-9,15064e56-cb75-4f52-b25a-45c7732911fc,A5_EVALUATED_UPDATED_MEMORY,9,"{'tool': 'tool-b', 'sourceMemoryId': '322a0112-a954-49da-9f30-319aab7db60f'}",SUCCESS,True,0,0,0.92,322a0112-a954-49da-9f30-319aab7db60f,handoff
+tool-10,94f86ff6-04eb-49c7-a377-5d1abac8aab0,A0_NO_MEMORY,10,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-10,95637e0b-2c53-404f-97a3-ce9bb60c77fe,A1_RAW_HISTORY,10,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-10,5925d51b-e7c9-49de-8890-047eaff3d40b,A2_INITIAL_ENGRAM_MEMORY,10,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'ccbe6319-6c3f-4503-9ff2-7fb1949656d4'}",SUCCESS,True,0,0,0.9,ccbe6319-6c3f-4503-9ff2-7fb1949656d4,tool
+tool-10,853b8b7a-fdf4-46ba-99e9-6d8977aefaa6,A3_IRRELEVANT_MEMORY,10,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-10,2c7578c1-36bc-4bae-86f5-508e2e297b25,A4_STALE_OR_CONTRADICTORY,10,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-10,780c355f-f572-4846-b729-1489b14de3f7,A5_EVALUATED_UPDATED_MEMORY,10,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'cc076072-8f5d-4a00-ad53-52285406fae5'}",SUCCESS,True,0,0,0.92,cc076072-8f5d-4a00-ad53-52285406fae5,tool
+handoff-10,32db13ef-54bb-412c-b76e-881cabd98e1b,A2_INITIAL_ENGRAM_MEMORY,10,"{'tool': 'tool-b', 'sourceMemoryId': '53020be0-9017-4f46-8bb3-5751168aedd0'}",SUCCESS,True,0,0,0.9,53020be0-9017-4f46-8bb3-5751168aedd0,handoff
+handoff-10,bf6d6331-32c5-4569-8da0-cf62949731b1,A5_EVALUATED_UPDATED_MEMORY,10,"{'tool': 'tool-b', 'sourceMemoryId': 'b35914a5-db0f-4124-9da2-3ba1b7d668ef'}",SUCCESS,True,0,0,0.92,b35914a5-db0f-4124-9da2-3ba1b7d668ef,handoff
+tool-11,12ae133b-4581-4ee8-aee1-8bcc932eeec4,A0_NO_MEMORY,11,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-11,c5a9488b-911f-4d96-ab03-19d3ecd620e0,A1_RAW_HISTORY,11,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-11,4d5789ac-8c8d-42d1-9d3f-07b14485be9b,A2_INITIAL_ENGRAM_MEMORY,11,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '7e192ba6-0c41-4be8-a73b-a78053d0f502'}",SUCCESS,True,0,0,0.9,7e192ba6-0c41-4be8-a73b-a78053d0f502,tool
+tool-11,fba59d8b-8196-4eff-9c84-ff29e17f7acd,A3_IRRELEVANT_MEMORY,11,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-11,bc6b9b7f-2b70-456a-9ada-3d2baf50c5e3,A4_STALE_OR_CONTRADICTORY,11,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-11,1be73890-b699-42bf-87f8-14253f76c867,A5_EVALUATED_UPDATED_MEMORY,11,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'bc299099-062a-4e78-b468-3aed5f501c23'}",SUCCESS,True,0,0,0.92,bc299099-062a-4e78-b468-3aed5f501c23,tool
+handoff-11,a64ce993-5664-4bf6-960c-41c9f9c373b7,A2_INITIAL_ENGRAM_MEMORY,11,"{'tool': 'tool-b', 'sourceMemoryId': '457b2b82-d143-4f66-89eb-a21415fbc88f'}",SUCCESS,True,0,0,0.9,457b2b82-d143-4f66-89eb-a21415fbc88f,handoff
+handoff-11,2bceeb42-1e6e-460e-932e-f641cc772271,A5_EVALUATED_UPDATED_MEMORY,11,"{'tool': 'tool-b', 'sourceMemoryId': 'c9396848-a4b2-4bd6-9c97-79b684331169'}",SUCCESS,True,0,0,0.92,c9396848-a4b2-4bd6-9c97-79b684331169,handoff
+tool-12,c2290504-bd0e-47ed-98bd-031a4c055f87,A0_NO_MEMORY,12,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-12,760677a1-0be6-4863-9cd3-6b684b3db4f7,A1_RAW_HISTORY,12,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-12,f211c215-443c-4406-b1cd-3161609e3dd9,A2_INITIAL_ENGRAM_MEMORY,12,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '859187f0-0e34-4713-998a-acebf59b5b9f'}",SUCCESS,True,0,0,0.9,859187f0-0e34-4713-998a-acebf59b5b9f,tool
+tool-12,c258644f-4dc9-456b-9845-71e9fd93cab3,A3_IRRELEVANT_MEMORY,12,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-12,c17a539d-98ac-415f-ad39-320a8a731579,A4_STALE_OR_CONTRADICTORY,12,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-12,b38bcea2-2cda-4efb-ae33-7e264941f334,A5_EVALUATED_UPDATED_MEMORY,12,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'd56f7df7-a1cd-4fee-9e2f-095556223783'}",SUCCESS,True,0,0,0.92,d56f7df7-a1cd-4fee-9e2f-095556223783,tool
+handoff-12,6e6d3cfd-86a1-482a-ad2a-dc9c891c2800,A2_INITIAL_ENGRAM_MEMORY,12,"{'tool': 'tool-b', 'sourceMemoryId': '27f8849d-ac12-4255-952f-05a89f1a2e73'}",SUCCESS,True,0,0,0.9,27f8849d-ac12-4255-952f-05a89f1a2e73,handoff
+handoff-12,639916aa-3a53-4bfb-8749-58a40a58d785,A5_EVALUATED_UPDATED_MEMORY,12,"{'tool': 'tool-b', 'sourceMemoryId': 'a1609c0b-206f-4186-a93f-b18c7ac62ed6'}",SUCCESS,True,0,0,0.92,a1609c0b-206f-4186-a93f-b18c7ac62ed6,handoff
+tool-13,6dbf0b1c-b221-4957-96b3-ce2e8a099978,A0_NO_MEMORY,13,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-13,b4c552b3-c2fd-4e1d-a636-ec684475149b,A1_RAW_HISTORY,13,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-13,02b2f85b-c49a-4c00-ab94-213fed4a1810,A2_INITIAL_ENGRAM_MEMORY,13,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '5a2c23a2-b199-4a05-9054-82e3c34ef1c3'}",SUCCESS,True,0,0,0.9,5a2c23a2-b199-4a05-9054-82e3c34ef1c3,tool
+tool-13,525cf3e7-9659-4e8a-bd69-7a7b471985ea,A3_IRRELEVANT_MEMORY,13,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-13,a8fa8e01-bd9b-4f42-b4b0-2212e9bbed21,A4_STALE_OR_CONTRADICTORY,13,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-13,960080c4-0c85-420b-8096-2c2da506895d,A5_EVALUATED_UPDATED_MEMORY,13,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'e5436f66-2f8f-49cf-adf9-5433d32fdf6b'}",SUCCESS,True,0,0,0.92,e5436f66-2f8f-49cf-adf9-5433d32fdf6b,tool
+handoff-13,8942de84-2034-4584-ac20-3361b31463cd,A2_INITIAL_ENGRAM_MEMORY,13,"{'tool': 'tool-b', 'sourceMemoryId': 'ed879627-4aba-4921-a3a0-78e41044aee4'}",SUCCESS,True,0,0,0.9,ed879627-4aba-4921-a3a0-78e41044aee4,handoff
+handoff-13,85191549-2a07-4277-946c-87518b5d4fe6,A5_EVALUATED_UPDATED_MEMORY,13,"{'tool': 'tool-b', 'sourceMemoryId': 'e657bf4d-9dfb-4fc4-b65e-441c2f0f07e8'}",SUCCESS,True,0,0,0.92,e657bf4d-9dfb-4fc4-b65e-441c2f0f07e8,handoff
+tool-14,c94fa420-4e95-4981-a0c1-08197d52dbd9,A0_NO_MEMORY,14,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-14,f5ee5c2c-3c01-4df2-b29c-473a47f4b902,A1_RAW_HISTORY,14,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-14,1aab2af6-8515-4f55-aade-64089090c602,A2_INITIAL_ENGRAM_MEMORY,14,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '963e97ae-c328-4e4b-ac3f-efe80478599e'}",SUCCESS,True,0,0,0.9,963e97ae-c328-4e4b-ac3f-efe80478599e,tool
+tool-14,1df17246-a069-4160-917d-4580efd04fbf,A3_IRRELEVANT_MEMORY,14,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-14,d38b681d-c812-47d9-b5d3-64862e4cf236,A4_STALE_OR_CONTRADICTORY,14,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-14,f424b59f-626a-4902-a7dd-126feb11cf3d,A5_EVALUATED_UPDATED_MEMORY,14,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '99cfbb31-afe9-4fba-8279-2bba18455b77'}",SUCCESS,True,0,0,0.92,99cfbb31-afe9-4fba-8279-2bba18455b77,tool
+handoff-14,a6dce78e-c279-48c3-9ed1-4729962effd0,A2_INITIAL_ENGRAM_MEMORY,14,"{'tool': 'tool-b', 'sourceMemoryId': '5264dd1a-35ae-4fc5-b738-9e08f098e7ce'}",SUCCESS,True,0,0,0.9,5264dd1a-35ae-4fc5-b738-9e08f098e7ce,handoff
+handoff-14,6e2c252a-e37f-4d85-8566-e0ffd16f340d,A5_EVALUATED_UPDATED_MEMORY,14,"{'tool': 'tool-b', 'sourceMemoryId': 'bfe32c4e-8523-4f66-bdf8-ebc853e366e1'}",SUCCESS,True,0,0,0.92,bfe32c4e-8523-4f66-bdf8-ebc853e366e1,handoff
+tool-15,65f763b0-bf35-42bf-895d-7ea88037f525,A0_NO_MEMORY,15,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-15,ca96a189-5236-41c3-bf48-9b651ce8a53d,A1_RAW_HISTORY,15,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-15,95700cc6-43a0-4167-9022-0bb86813e59b,A2_INITIAL_ENGRAM_MEMORY,15,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'cdc0148d-103a-4bf2-88bb-dbe08c22541b'}",SUCCESS,True,0,0,0.9,cdc0148d-103a-4bf2-88bb-dbe08c22541b,tool
+tool-15,1aae9000-9564-44e8-98f1-ea58b5a1b4bc,A3_IRRELEVANT_MEMORY,15,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-15,80da5000-bc82-487c-8e4c-543445f5316c,A4_STALE_OR_CONTRADICTORY,15,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-15,1f8645fc-6e51-4538-84ed-5185b5b163b3,A5_EVALUATED_UPDATED_MEMORY,15,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '02168aa0-ae1b-4063-af71-af6bb9a697e8'}",SUCCESS,True,0,0,0.92,02168aa0-ae1b-4063-af71-af6bb9a697e8,tool
+handoff-15,73afa931-824c-4442-8211-acfe29ae169b,A2_INITIAL_ENGRAM_MEMORY,15,"{'tool': 'tool-b', 'sourceMemoryId': 'da5a34ac-2ee6-4501-a7a7-cadb348cac60'}",SUCCESS,True,0,0,0.9,da5a34ac-2ee6-4501-a7a7-cadb348cac60,handoff
+handoff-15,973c823c-4f1d-49af-a10b-8af7e5ffe42b,A5_EVALUATED_UPDATED_MEMORY,15,"{'tool': 'tool-b', 'sourceMemoryId': '3c294631-e370-426e-842b-c6ed23d86e78'}",SUCCESS,True,0,0,0.92,3c294631-e370-426e-842b-c6ed23d86e78,handoff
+tool-16,a10c919a-906d-4248-8b6c-cd0471b04645,A0_NO_MEMORY,16,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-16,39590882-2e58-4848-8e4b-6ab01a48043e,A1_RAW_HISTORY,16,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-16,2c049ee2-5c9f-4a09-bef0-e738d74ca998,A2_INITIAL_ENGRAM_MEMORY,16,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '4f14bcde-9e6e-484b-bc70-667bc13ac3f2'}",SUCCESS,True,0,0,0.9,4f14bcde-9e6e-484b-bc70-667bc13ac3f2,tool
+tool-16,88288bdf-b5bb-4c1d-9379-d5556e18bcdd,A3_IRRELEVANT_MEMORY,16,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-16,997f6aa2-e927-4b92-b5dc-1afab35ef219,A4_STALE_OR_CONTRADICTORY,16,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-16,2a3a6766-2457-4af7-9013-87a0d28dae6f,A5_EVALUATED_UPDATED_MEMORY,16,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'bdfca0fa-2ca6-4da0-b9e6-beba4e68832d'}",SUCCESS,True,0,0,0.92,bdfca0fa-2ca6-4da0-b9e6-beba4e68832d,tool
+handoff-16,8db91b63-575c-4205-a031-5d08ba2897b2,A2_INITIAL_ENGRAM_MEMORY,16,"{'tool': 'tool-b', 'sourceMemoryId': '5fc1d5fe-706e-4792-910d-fceb323dd335'}",SUCCESS,True,0,0,0.9,5fc1d5fe-706e-4792-910d-fceb323dd335,handoff
+handoff-16,7ff92ec1-a141-4117-9295-5916c28f1615,A5_EVALUATED_UPDATED_MEMORY,16,"{'tool': 'tool-b', 'sourceMemoryId': 'f357212a-88cd-4723-ad4a-f629917c85c0'}",SUCCESS,True,0,0,0.92,f357212a-88cd-4723-ad4a-f629917c85c0,handoff
+tool-17,abf39848-8c81-4ce5-8df7-37f07f8e3b11,A0_NO_MEMORY,17,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-17,dba6ddfc-0b7f-49a3-92f8-8273060df92f,A1_RAW_HISTORY,17,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-17,89e30dd7-298e-4717-8c53-6b9795c58e08,A2_INITIAL_ENGRAM_MEMORY,17,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '7aaf9cb9-9b09-4245-bc73-00ac345e6286'}",SUCCESS,True,0,0,0.9,7aaf9cb9-9b09-4245-bc73-00ac345e6286,tool
+tool-17,e16d17e9-4f8b-48af-8b7e-39ea9f312c80,A3_IRRELEVANT_MEMORY,17,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-17,ae420dee-8a09-48d1-b757-64e3a1ca9d63,A4_STALE_OR_CONTRADICTORY,17,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-17,7f99f110-5887-406f-a9af-61cf456a02a5,A5_EVALUATED_UPDATED_MEMORY,17,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '9ffd2794-b3ad-409f-b684-b124406d418d'}",SUCCESS,True,0,0,0.92,9ffd2794-b3ad-409f-b684-b124406d418d,tool
+handoff-17,805358d2-65fc-4cc9-aee5-74ffcc9589e3,A2_INITIAL_ENGRAM_MEMORY,17,"{'tool': 'tool-b', 'sourceMemoryId': '3c948277-b439-4793-93af-31790350d0f6'}",SUCCESS,True,0,0,0.9,3c948277-b439-4793-93af-31790350d0f6,handoff
+handoff-17,721dceb7-8908-4032-94ed-50303273d684,A5_EVALUATED_UPDATED_MEMORY,17,"{'tool': 'tool-b', 'sourceMemoryId': '44740ff7-4fd5-4c76-84ae-9a066887b573'}",SUCCESS,True,0,0,0.92,44740ff7-4fd5-4c76-84ae-9a066887b573,handoff
+tool-18,9dd2708b-0663-4741-9c02-aa4c417749e8,A0_NO_MEMORY,18,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-18,e309cf7f-f7b3-4958-bf75-e3285759f41a,A1_RAW_HISTORY,18,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-18,12f34e83-f100-495c-bdee-f532de08f71c,A2_INITIAL_ENGRAM_MEMORY,18,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '5a5c1e04-5396-4c63-8391-dd0dc84a316e'}",SUCCESS,True,0,0,0.9,5a5c1e04-5396-4c63-8391-dd0dc84a316e,tool
+tool-18,5c14db17-5734-4226-9790-eaf9193a447c,A3_IRRELEVANT_MEMORY,18,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-18,3f3b7d84-580c-4cdf-bd97-c93616ff26db,A4_STALE_OR_CONTRADICTORY,18,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-18,bb11ed7c-a1da-4576-9fdb-7c6b1a468c1e,A5_EVALUATED_UPDATED_MEMORY,18,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '965ed55f-a6c3-44fa-b3ca-0ddad312d0f1'}",SUCCESS,True,0,0,0.92,965ed55f-a6c3-44fa-b3ca-0ddad312d0f1,tool
+handoff-18,5de04387-bf2e-408b-aeff-aa7c935933f3,A2_INITIAL_ENGRAM_MEMORY,18,"{'tool': 'tool-b', 'sourceMemoryId': '3bbcdb98-92ea-4d7b-a8b5-b53e7597086f'}",SUCCESS,True,0,0,0.9,3bbcdb98-92ea-4d7b-a8b5-b53e7597086f,handoff
+handoff-18,cf1f7026-5eb5-4d92-aa29-24b3ff2d2bd3,A5_EVALUATED_UPDATED_MEMORY,18,"{'tool': 'tool-b', 'sourceMemoryId': 'c1c46ba5-292b-4618-95a7-a09148cd0fa4'}",SUCCESS,True,0,0,0.92,c1c46ba5-292b-4618-95a7-a09148cd0fa4,handoff
+tool-19,662cd22c-a0f7-48dd-9504-793d9cda9477,A0_NO_MEMORY,19,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-19,5670dccc-316d-4a2c-9559-213cfeb6e984,A1_RAW_HISTORY,19,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-19,c53c62f7-3de9-456f-9934-d6b66003a8d3,A2_INITIAL_ENGRAM_MEMORY,19,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'b6ad3e16-90ca-4058-a9b9-cc20a1cbe96a'}",SUCCESS,True,0,0,0.9,b6ad3e16-90ca-4058-a9b9-cc20a1cbe96a,tool
+tool-19,dfa1bd04-94f8-445d-8244-01ff3e374ae5,A3_IRRELEVANT_MEMORY,19,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-19,eb537491-f47a-4bac-8768-a30362d9da53,A4_STALE_OR_CONTRADICTORY,19,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-19,c4303999-9f52-435e-bd0c-840cb9c70c2e,A5_EVALUATED_UPDATED_MEMORY,19,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'c849b2cb-0927-45a9-8001-5632bdd805b3'}",SUCCESS,True,0,0,0.92,c849b2cb-0927-45a9-8001-5632bdd805b3,tool
+handoff-19,36d71121-0feb-4738-bc91-a4954354285e,A2_INITIAL_ENGRAM_MEMORY,19,"{'tool': 'tool-b', 'sourceMemoryId': 'b8717824-4848-432d-b915-a3f569f71fcb'}",SUCCESS,True,0,0,0.9,b8717824-4848-432d-b915-a3f569f71fcb,handoff
+handoff-19,f1d10342-9194-4871-b704-3031739af441,A5_EVALUATED_UPDATED_MEMORY,19,"{'tool': 'tool-b', 'sourceMemoryId': '342a3b01-bfae-40cd-b403-28da591a13b3'}",SUCCESS,True,0,0,0.92,342a3b01-bfae-40cd-b403-28da591a13b3,handoff
+tool-20,50e43b65-ef1d-4496-8dfe-b8cdc27d6a04,A0_NO_MEMORY,20,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-20,45e0f1ca-0bb8-46ae-9703-96415b5d377f,A1_RAW_HISTORY,20,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-20,5687b23f-f849-4e4d-89b3-2de988ca5630,A2_INITIAL_ENGRAM_MEMORY,20,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '54ad3972-8079-4ca9-814e-afced3803e09'}",SUCCESS,True,0,0,0.9,54ad3972-8079-4ca9-814e-afced3803e09,tool
+tool-20,d272460c-fc87-4ef1-bf7d-296c0858d3a9,A3_IRRELEVANT_MEMORY,20,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-20,cd48878d-c47f-428c-8e69-1ed07b3be1c4,A4_STALE_OR_CONTRADICTORY,20,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-20,45a1957e-9f94-4e67-9723-d22f317dc926,A5_EVALUATED_UPDATED_MEMORY,20,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '0fae977b-25de-4167-a949-5c3a72a8743f'}",SUCCESS,True,0,0,0.92,0fae977b-25de-4167-a949-5c3a72a8743f,tool
+handoff-20,dbe50847-e179-4fb8-87ef-3537bd33e0a9,A2_INITIAL_ENGRAM_MEMORY,20,"{'tool': 'tool-b', 'sourceMemoryId': '4dd181d4-8c5f-4c32-912f-43bac89c290b'}",SUCCESS,True,0,0,0.9,4dd181d4-8c5f-4c32-912f-43bac89c290b,handoff
+handoff-20,d7398131-e3f6-4acd-9bc0-6435ab4985f9,A5_EVALUATED_UPDATED_MEMORY,20,"{'tool': 'tool-b', 'sourceMemoryId': '5184b627-9180-44fd-8642-ebaa83a9a27a'}",SUCCESS,True,0,0,0.92,5184b627-9180-44fd-8642-ebaa83a9a27a,handoff
+tool-21,c8a99ff9-3c1d-43d4-bcb2-4e1b5968fd90,A0_NO_MEMORY,21,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-21,401ab744-9fd1-4a2b-b422-d1daf5cf9e67,A1_RAW_HISTORY,21,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-21,04d54766-8b4b-4595-b2bb-b52e202b180a,A2_INITIAL_ENGRAM_MEMORY,21,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '23708aaf-1a4c-4e22-8b09-41bdd2f5bd0d'}",SUCCESS,True,0,0,0.9,23708aaf-1a4c-4e22-8b09-41bdd2f5bd0d,tool
+tool-21,dd6cce3f-3aa8-4502-9a4a-d14193765a7e,A3_IRRELEVANT_MEMORY,21,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-21,49c3141b-b064-4ce9-8020-46193dd64ccc,A4_STALE_OR_CONTRADICTORY,21,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-21,a9d377fb-2b51-4015-b009-cb5d133b3bb0,A5_EVALUATED_UPDATED_MEMORY,21,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '6103f7ab-11df-46fe-824a-08a60b721202'}",SUCCESS,True,0,0,0.92,6103f7ab-11df-46fe-824a-08a60b721202,tool
+handoff-21,eae6d361-a4ba-48aa-88e2-314462d517f7,A2_INITIAL_ENGRAM_MEMORY,21,"{'tool': 'tool-b', 'sourceMemoryId': 'b1ecbc2f-01fc-4aa6-8c6a-6ea240c309e5'}",SUCCESS,True,0,0,0.9,b1ecbc2f-01fc-4aa6-8c6a-6ea240c309e5,handoff
+handoff-21,dcb1068a-cf69-4eef-91b1-1340266c526a,A5_EVALUATED_UPDATED_MEMORY,21,"{'tool': 'tool-b', 'sourceMemoryId': 'e8c4ae4b-f99b-4fee-8b99-75bc2e02b953'}",SUCCESS,True,0,0,0.92,e8c4ae4b-f99b-4fee-8b99-75bc2e02b953,handoff
+tool-22,7521c27c-a66b-4188-8ab0-4cbc99da51d8,A0_NO_MEMORY,22,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-22,755ff3c3-63ca-49ad-97ab-68e5ed517c30,A1_RAW_HISTORY,22,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-22,ef80db6f-1003-4b74-b06a-bb9187881908,A2_INITIAL_ENGRAM_MEMORY,22,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'de754616-15d4-424b-813b-a0eb8c18dce1'}",SUCCESS,True,0,0,0.9,de754616-15d4-424b-813b-a0eb8c18dce1,tool
+tool-22,a655ca48-f019-4804-a047-1c70f16ca61a,A3_IRRELEVANT_MEMORY,22,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-22,63d838df-0505-4da6-a9e4-065b3afca072,A4_STALE_OR_CONTRADICTORY,22,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-22,770fe175-05d0-4cf3-8128-a34d42f09128,A5_EVALUATED_UPDATED_MEMORY,22,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'a0dd0448-75b5-445c-a958-f2d068d0d575'}",SUCCESS,True,0,0,0.92,a0dd0448-75b5-445c-a958-f2d068d0d575,tool
+handoff-22,2bd6b3de-0790-4ed2-baeb-f803182990bc,A2_INITIAL_ENGRAM_MEMORY,22,"{'tool': 'tool-b', 'sourceMemoryId': 'bc734b55-d146-4120-ae08-a276350c2bef'}",SUCCESS,True,0,0,0.9,bc734b55-d146-4120-ae08-a276350c2bef,handoff
+handoff-22,4ca7da0f-5a06-49c4-adcd-b412d59ec3a2,A5_EVALUATED_UPDATED_MEMORY,22,"{'tool': 'tool-b', 'sourceMemoryId': '31187fb8-3900-4b02-aee6-c69f854934db'}",SUCCESS,True,0,0,0.92,31187fb8-3900-4b02-aee6-c69f854934db,handoff
+tool-23,a4ab6460-922a-44ab-85f3-c78191f034e7,A0_NO_MEMORY,23,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-23,243d9a3a-a6ea-497d-8d8d-638d865c4898,A1_RAW_HISTORY,23,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-23,ecacf750-bc71-41f2-890f-cded4b89907a,A2_INITIAL_ENGRAM_MEMORY,23,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '6ede95ba-4bf1-4354-8030-4a9aaa4d7992'}",SUCCESS,True,0,0,0.9,6ede95ba-4bf1-4354-8030-4a9aaa4d7992,tool
+tool-23,b8a1e99e-bc93-49ab-9d9d-0d0cc8964b9c,A3_IRRELEVANT_MEMORY,23,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-23,b3e37904-65c4-4138-91dd-e0b863e58b9d,A4_STALE_OR_CONTRADICTORY,23,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-23,4a3f1a0e-6f5c-4dac-9c55-2e24a8ab615d,A5_EVALUATED_UPDATED_MEMORY,23,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '08021cab-08fa-494d-998c-cc2a4f5f66bb'}",SUCCESS,True,0,0,0.92,08021cab-08fa-494d-998c-cc2a4f5f66bb,tool
+handoff-23,18e3f96f-ea11-41be-89f8-a60e80fcb3a4,A2_INITIAL_ENGRAM_MEMORY,23,"{'tool': 'tool-b', 'sourceMemoryId': '2fe21f83-070a-468a-80f4-b0abd41b8f38'}",SUCCESS,True,0,0,0.9,2fe21f83-070a-468a-80f4-b0abd41b8f38,handoff
+handoff-23,86eff39d-18a4-4035-b9e3-58e4a367d63a,A5_EVALUATED_UPDATED_MEMORY,23,"{'tool': 'tool-b', 'sourceMemoryId': 'fd614774-87d9-45fa-8435-60c12204619d'}",SUCCESS,True,0,0,0.92,fd614774-87d9-45fa-8435-60c12204619d,handoff
+tool-24,a42cf905-0a00-4491-bb77-dc4a915e21a6,A0_NO_MEMORY,24,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-24,062383c0-9355-40d6-87fb-ae4878f4d76a,A1_RAW_HISTORY,24,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-24,90441123-eed8-4d72-aef3-50b48eb6fc75,A2_INITIAL_ENGRAM_MEMORY,24,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'b99f962a-bb64-494b-9773-ff810140055d'}",SUCCESS,True,0,0,0.9,b99f962a-bb64-494b-9773-ff810140055d,tool
+tool-24,a940c240-22b4-457e-9971-154394b44c62,A3_IRRELEVANT_MEMORY,24,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-24,e0a0be8b-aae8-41e9-8dd3-b26a6456601e,A4_STALE_OR_CONTRADICTORY,24,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-24,81347f06-4c83-4fae-ab6c-a2dabe6ab027,A5_EVALUATED_UPDATED_MEMORY,24,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '3a458faa-a387-4b6d-8b51-cfc79b397176'}",SUCCESS,True,0,0,0.92,3a458faa-a387-4b6d-8b51-cfc79b397176,tool
+handoff-24,7c2f4776-e12a-477a-9b78-888905ffb02f,A2_INITIAL_ENGRAM_MEMORY,24,"{'tool': 'tool-b', 'sourceMemoryId': '1a5af138-4de5-4538-9967-b50bc281ff57'}",SUCCESS,True,0,0,0.9,1a5af138-4de5-4538-9967-b50bc281ff57,handoff
+handoff-24,d4bf4fee-5da6-4378-b4b1-8772ea8ef1f9,A5_EVALUATED_UPDATED_MEMORY,24,"{'tool': 'tool-b', 'sourceMemoryId': '9a9679ce-7c2a-4bb4-b679-d1fbbe343803'}",SUCCESS,True,0,0,0.92,9a9679ce-7c2a-4bb4-b679-d1fbbe343803,handoff
+tool-25,d9d5d0fb-9b1e-412e-9dbc-58cfb416f6e7,A0_NO_MEMORY,25,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-25,996fa1c6-e67f-47b6-a63d-fd8802899cc8,A1_RAW_HISTORY,25,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-25,735237af-e9e8-4fe3-8876-18ad4a942c5f,A2_INITIAL_ENGRAM_MEMORY,25,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '0f776f91-1bc1-410b-a792-1a5f064bd907'}",SUCCESS,True,0,0,0.9,0f776f91-1bc1-410b-a792-1a5f064bd907,tool
+tool-25,73dce4c7-ef22-4e84-89f7-a6f482cac176,A3_IRRELEVANT_MEMORY,25,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-25,2971c139-784a-475e-86f9-3af645f43339,A4_STALE_OR_CONTRADICTORY,25,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-25,b7dac969-6208-49ab-95ec-f4c4ce78a9fb,A5_EVALUATED_UPDATED_MEMORY,25,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'cad04715-2930-4029-ba13-c104f003d561'}",SUCCESS,True,0,0,0.92,cad04715-2930-4029-ba13-c104f003d561,tool
+handoff-25,21027733-753d-4e31-ac83-0a16a75474b3,A2_INITIAL_ENGRAM_MEMORY,25,"{'tool': 'tool-b', 'sourceMemoryId': '6d2df823-a78f-4e7f-b673-9b4c6e1929b1'}",SUCCESS,True,0,0,0.9,6d2df823-a78f-4e7f-b673-9b4c6e1929b1,handoff
+handoff-25,4b36ebd8-037e-4cc4-827e-694861e4a136,A5_EVALUATED_UPDATED_MEMORY,25,"{'tool': 'tool-b', 'sourceMemoryId': '6d8cb077-0240-45c2-8b2a-78778788045e'}",SUCCESS,True,0,0,0.92,6d8cb077-0240-45c2-8b2a-78778788045e,handoff
+tool-26,0895d46f-c91a-4e0c-8224-ace471939cbc,A0_NO_MEMORY,26,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-26,51861758-93cc-439d-bdb2-e815b44f6c26,A1_RAW_HISTORY,26,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-26,24115da2-1f85-42b5-b269-ad1a0cc17a66,A2_INITIAL_ENGRAM_MEMORY,26,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '9647bd24-1591-40f3-aea3-57f16525cd3b'}",SUCCESS,True,0,0,0.9,9647bd24-1591-40f3-aea3-57f16525cd3b,tool
+tool-26,9bdb20b7-a3e5-462b-8372-d06ff3479cf8,A3_IRRELEVANT_MEMORY,26,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-26,6f4a5707-48f4-4cc4-a186-d2b1ddbb6b93,A4_STALE_OR_CONTRADICTORY,26,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-26,66891448-a1a1-4ff7-9abc-716c46530136,A5_EVALUATED_UPDATED_MEMORY,26,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '6c4ff491-d403-4d0b-a5de-4a7abf4ae23d'}",SUCCESS,True,0,0,0.92,6c4ff491-d403-4d0b-a5de-4a7abf4ae23d,tool
+handoff-26,3292ca84-dd06-4e01-bc4f-1f76e6b39955,A2_INITIAL_ENGRAM_MEMORY,26,"{'tool': 'tool-b', 'sourceMemoryId': 'b74f33fd-f7c3-4359-a7c6-1c722126d9d0'}",SUCCESS,True,0,0,0.9,b74f33fd-f7c3-4359-a7c6-1c722126d9d0,handoff
+handoff-26,f05ab770-39b6-473b-9c5a-8b4b79126f6c,A5_EVALUATED_UPDATED_MEMORY,26,"{'tool': 'tool-b', 'sourceMemoryId': 'de05234b-d562-4667-83bb-ea1965134453'}",SUCCESS,True,0,0,0.92,de05234b-d562-4667-83bb-ea1965134453,handoff
+tool-27,dd9a21ed-82e3-4406-bfe8-dfec09baec4e,A0_NO_MEMORY,27,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-27,e3edd2e4-b9dd-4e3d-99c2-8835f058f939,A1_RAW_HISTORY,27,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-27,5c52c195-bff9-4ff8-b6fa-1234aded4ef2,A2_INITIAL_ENGRAM_MEMORY,27,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '75991819-2efc-4cfb-8d28-6933919cb591'}",SUCCESS,True,0,0,0.9,75991819-2efc-4cfb-8d28-6933919cb591,tool
+tool-27,071af269-e280-4447-bffe-dae4b40eae09,A3_IRRELEVANT_MEMORY,27,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-27,ef2ad7a7-cb61-45ac-892d-48879afc5fb9,A4_STALE_OR_CONTRADICTORY,27,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-27,d436189e-41d3-4aff-be60-0ad1bb856b8c,A5_EVALUATED_UPDATED_MEMORY,27,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '5ed55618-2a91-4256-b249-4a515def31ca'}",SUCCESS,True,0,0,0.92,5ed55618-2a91-4256-b249-4a515def31ca,tool
+handoff-27,6ef8574a-5fb0-4106-aa91-111a55d0b753,A2_INITIAL_ENGRAM_MEMORY,27,"{'tool': 'tool-b', 'sourceMemoryId': '6b134b09-faed-4b22-9ad2-25e4c5acf9dd'}",SUCCESS,True,0,0,0.9,6b134b09-faed-4b22-9ad2-25e4c5acf9dd,handoff
+handoff-27,2b7b4dda-0fd7-4a8f-9c06-5eedce15bad1,A5_EVALUATED_UPDATED_MEMORY,27,"{'tool': 'tool-b', 'sourceMemoryId': 'b753b555-97ff-48f5-99de-021bcd9b4061'}",SUCCESS,True,0,0,0.92,b753b555-97ff-48f5-99de-021bcd9b4061,handoff
+tool-28,9780e984-4b95-436f-af15-64c9c8730ee2,A0_NO_MEMORY,28,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-28,6e8a6941-3e7f-4212-8f5d-3e6b4e4f8e23,A1_RAW_HISTORY,28,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-28,b7c6b988-2882-4c51-8374-9175cdc67171,A2_INITIAL_ENGRAM_MEMORY,28,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '19b04e2b-4412-4dc2-904c-491a58e17152'}",SUCCESS,True,0,0,0.9,19b04e2b-4412-4dc2-904c-491a58e17152,tool
+tool-28,509d05aa-6285-4e7b-898f-8babf764d884,A3_IRRELEVANT_MEMORY,28,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-28,b2a67884-fd74-464f-afc0-cdbbab4e2b91,A4_STALE_OR_CONTRADICTORY,28,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-28,4be6db68-6d9e-4e2e-bd02-7811c5c70e35,A5_EVALUATED_UPDATED_MEMORY,28,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'b128806f-a957-4aaa-9f6a-ad599a6e7665'}",SUCCESS,True,0,0,0.92,b128806f-a957-4aaa-9f6a-ad599a6e7665,tool
+handoff-28,c01441ef-f3af-416c-97e2-c6cd15f7c912,A2_INITIAL_ENGRAM_MEMORY,28,"{'tool': 'tool-b', 'sourceMemoryId': 'decf3c7f-8c82-4469-8a93-8eceadbbfe75'}",SUCCESS,True,0,0,0.9,decf3c7f-8c82-4469-8a93-8eceadbbfe75,handoff
+handoff-28,ec29c691-c542-4753-b11f-1e37420e532f,A5_EVALUATED_UPDATED_MEMORY,28,"{'tool': 'tool-b', 'sourceMemoryId': 'b1f31eef-886c-4ae9-91b5-6484bdecd3eb'}",SUCCESS,True,0,0,0.92,b1f31eef-886c-4ae9-91b5-6484bdecd3eb,handoff
+tool-29,81e49cd6-5b7d-43cc-8f47-aeec352ffa54,A0_NO_MEMORY,29,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-29,4f883a22-473b-4460-9e7a-4860f622730a,A1_RAW_HISTORY,29,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-29,5070be96-3544-4daa-9db7-6178e08412ec,A2_INITIAL_ENGRAM_MEMORY,29,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '5e96cba8-2948-4170-a378-b3f2ded8adb2'}",SUCCESS,True,0,0,0.9,5e96cba8-2948-4170-a378-b3f2ded8adb2,tool
+tool-29,78111c90-3aa8-474c-b117-7b4da9169de1,A3_IRRELEVANT_MEMORY,29,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-29,087517c8-674d-4adf-b11e-50244d74097a,A4_STALE_OR_CONTRADICTORY,29,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-29,17b2583e-5c13-44fd-b3ee-5030dd3f4ffe,A5_EVALUATED_UPDATED_MEMORY,29,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '31366916-06e4-40f2-9e64-e8d8d4c5d475'}",SUCCESS,True,0,0,0.92,31366916-06e4-40f2-9e64-e8d8d4c5d475,tool
+handoff-29,6546df86-bb95-4fb3-b329-66087015deab,A2_INITIAL_ENGRAM_MEMORY,29,"{'tool': 'tool-b', 'sourceMemoryId': '2f5d3027-89d8-413d-ba09-5a7b81d1f946'}",SUCCESS,True,0,0,0.9,2f5d3027-89d8-413d-ba09-5a7b81d1f946,handoff
+handoff-29,27806bfb-31ac-4c1f-b763-06efe6721655,A5_EVALUATED_UPDATED_MEMORY,29,"{'tool': 'tool-b', 'sourceMemoryId': '1c7cd4f4-3a38-472e-965b-7f012bddb8bf'}",SUCCESS,True,0,0,0.92,1c7cd4f4-3a38-472e-965b-7f012bddb8bf,handoff
+tool-30,bd8f613e-a5f3-417c-8ccc-06f3ae5ef988,A0_NO_MEMORY,30,{'tool': 'tool-a'},FAILURE,False,1,0,-1.0,,tool
+tool-30,7bcb90a5-42dd-4ec9-9100-32c43db7dc3a,A1_RAW_HISTORY,30,{'tool': 'tool-b'},SUCCESS,False,0,0,0.85,,tool
+tool-30,abe29323-4992-4e35-bfcc-86b7e5d9179d,A2_INITIAL_ENGRAM_MEMORY,30,"{'tool': 'tool-b', 'influenced': True, 'memoryId': 'b10eee5c-d7ce-4640-a432-dc6c2e26157b'}",SUCCESS,True,0,0,0.9,b10eee5c-d7ce-4640-a432-dc6c2e26157b,tool
+tool-30,75703ecb-01b4-4676-85d2-5e3c5b22e081,A3_IRRELEVANT_MEMORY,30,"{'tool': 'tool-a', 'influenced': False}",SUCCESS,False,0,0,0.95,,tool
+tool-30,d46858bd-25fb-4f24-8b56-045aafe1ffdb,A4_STALE_OR_CONTRADICTORY,30,"{'tool': 'tool-a', 'influenced': False}",NEUTRAL,False,0,0,0.0,,tool
+tool-30,fed6d5c2-0bc1-4fc9-8769-61c686145eca,A5_EVALUATED_UPDATED_MEMORY,30,"{'tool': 'tool-b', 'influenced': True, 'memoryId': '4cebde73-7b2c-4ff2-9504-008b6496e506'}",SUCCESS,True,0,0,0.92,4cebde73-7b2c-4ff2-9504-008b6496e506,tool
+handoff-30,850c0b51-2a46-4aef-bacd-146e32dc0bac,A2_INITIAL_ENGRAM_MEMORY,30,"{'tool': 'tool-b', 'sourceMemoryId': '55065ed9-83af-47a6-871e-a03483fe0d36'}",SUCCESS,True,0,0,0.9,55065ed9-83af-47a6-871e-a03483fe0d36,handoff
+handoff-30,c337326f-8b1d-456e-8cfa-d314eb199b6c,A5_EVALUATED_UPDATED_MEMORY,30,"{'tool': 'tool-b', 'sourceMemoryId': '34a13763-6277-461a-8368-6411b83143cb'}",SUCCESS,True,0,0,0.92,34a13763-6277-461a-8368-6411b83143cb,handoff

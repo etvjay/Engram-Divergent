@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Engram use-case-evidence-matrix derived from canonical metrics.",
+  "data": {
+    "values": [
+      {
+        "evidence": "Persistent experience",
+        "Provider / commerce": 2,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Fresh-process recall",
+        "Provider / commerce": 2,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Behavioral influence",
+        "Provider / commerce": 2,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Outcome evaluation",
+        "Provider / commerce": 2,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Memory revision",
+        "Provider / commerce": 1,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Scoped applicability",
+        "Provider / commerce": 0,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Authority containment",
+        "Provider / commerce": 1,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Cross-agent reuse",
+        "Provider / commerce": 1,
+        "Tool / recovery": 2,
+        "Agent / handoff": 2
+      },
+      {
+        "evidence": "Economic consequence",
+        "Provider / commerce": 0,
+        "Tool / recovery": 0,
+        "Agent / handoff": 0
+      },
+      {
+        "evidence": "Live causal uplift",
+        "Provider / commerce": 0,
+        "Tool / recovery": 0,
+        "Agent / handoff": 0
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "evidence",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "Provider / commerce",
+      "type": "quantitative"
+    }
+  }
+}

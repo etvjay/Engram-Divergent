@@ -33,5 +33,120 @@
       "authorityPreserved": true,
       "authorizedInfluence": true
     }
-  ]
+  ],
+  "analysis": {
+    "source": "evidence/canonical/longitudinal/latest/summary.json",
+    "domainCounts": {
+      "handoff": 60,
+      "tool": 180
+    },
+    "providerObservationsInLongitudinal": 0,
+    "metrics": {
+      "count": 240,
+      "meanUtility": 0.5550000000000008,
+      "deltaUA2A0": 1.899999999999999,
+      "deltaUA5A2": 0.020000000000002238,
+      "successRate": 0.75,
+      "harmfulPairRate": 0.125,
+      "beneficialPairRate": 0.75,
+      "unauthorizedAttempts": 30,
+      "unauthorizedEscapes": 0,
+      "byArm": {
+        "A0_NO_MEMORY": {
+          "count": 30,
+          "meanUtility": -1,
+          "successRate": 0
+        },
+        "A1_RAW_HISTORY": {
+          "count": 30,
+          "meanUtility": 0.8500000000000003,
+          "successRate": 1
+        },
+        "A2_INITIAL_ENGRAM_MEMORY": {
+          "count": 60,
+          "meanUtility": 0.899999999999999,
+          "successRate": 1
+        },
+        "A3_IRRELEVANT_MEMORY": {
+          "count": 30,
+          "meanUtility": 0.9499999999999995,
+          "successRate": 1
+        },
+        "A4_STALE_OR_CONTRADICTORY": {
+          "count": 30,
+          "meanUtility": 0,
+          "successRate": 0
+        },
+        "A5_EVALUATED_UPDATED_MEMORY": {
+          "count": 60,
+          "meanUtility": 0.9200000000000013,
+          "successRate": 1
+        }
+      }
+    },
+    "scorecard": [
+      {
+        "use_case": "provider-continuity",
+        "formation": "LOCALLY_PROVEN",
+        "applicability": "LOCALLY_PROVEN",
+        "authority": "LOCALLY_PROVEN",
+        "consequence": "MODEL_PROVEN",
+        "benefit": "UNVERIFIED",
+        "learning": "LOCALLY_PROVEN",
+        "continuity": "PARTIAL_EXTERNAL",
+        "external_maturity": "PARTIAL_EXTERNAL",
+        "evidence": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/; evidence/canonical/benchmarks/provider-urgent/"
+      },
+      {
+        "use_case": "tool-recovery",
+        "formation": "LOCALLY_PROVEN",
+        "applicability": "LOCALLY_PROVEN",
+        "authority": "LOCALLY_PROVEN",
+        "consequence": "LOCALLY_PROVEN",
+        "benefit": "LOCALLY_PROVEN",
+        "learning": "LOCALLY_PROVEN",
+        "continuity": "LOCALLY_PROVEN",
+        "external_maturity": "LOCAL_PASS",
+        "evidence": "evidence/canonical/tool-recovery/20260907T084535Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json"
+      },
+      {
+        "use_case": "agent-handoff",
+        "formation": "LOCALLY_PROVEN",
+        "applicability": "LOCALLY_PROVEN",
+        "authority": "LOCALLY_PROVEN",
+        "consequence": "LOCALLY_PROVEN",
+        "benefit": "LOCALLY_PROVEN",
+        "learning": "LOCALLY_PROVEN",
+        "continuity": "LOCALLY_PROVEN",
+        "external_maturity": "LOCAL_PASS",
+        "evidence": "evidence/canonical/agent-handoff/20260907T085900Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json"
+      }
+    ],
+    "heldout": {
+      "tool": {
+        "cases": 10,
+        "eligibleCases": 4,
+        "policyMatches": 10,
+        "overapplication": 0,
+        "unauthorizedEscapes": 0
+      },
+      "handoff": {
+        "cases": 9,
+        "correctEligibility": 9,
+        "rawHistoryExposed": 0,
+        "credentialTransfers": 0,
+        "mandateTransfers": 0,
+        "signerAuthorityTransfers": 0,
+        "obsoleteInfluence": 0,
+        "unauthorizedEscapes": 0
+      }
+    },
+    "figures": [
+      "evidence/canonical/analysis/latest/utility-by-arm.png",
+      "evidence/canonical/analysis/latest/learning-delta.png",
+      "evidence/canonical/analysis/latest/memory-lifecycle.png",
+      "evidence/canonical/analysis/latest/authority-containment.png",
+      "evidence/canonical/analysis/latest/use-case-evidence-matrix.png"
+    ]
+  }
 }

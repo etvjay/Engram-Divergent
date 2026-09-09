@@ -1,0 +1,27 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Engram learning-delta derived from canonical metrics.",
+  "data": {
+    "values": [
+      {
+        "comparison": "A2 - A0",
+        "delta_u": 1.899999999999999
+      },
+      {
+        "comparison": "A5 - A2",
+        "delta_u": 0.020000000000002238
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "comparison",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "delta_u",
+      "type": "quantitative"
+    }
+  }
+}

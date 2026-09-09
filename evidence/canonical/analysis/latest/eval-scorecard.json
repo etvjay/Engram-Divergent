@@ -1,0 +1,50 @@
+{
+  "schema": "engram.eval-scorecard/v1",
+  "gates": [
+    "formation",
+    "applicability",
+    "authority",
+    "consequence",
+    "benefit",
+    "learning",
+    "continuity"
+  ],
+  "rows": [
+    {
+      "use_case": "provider-continuity",
+      "formation": "LOCALLY_PROVEN",
+      "applicability": "LOCALLY_PROVEN",
+      "authority": "LOCALLY_PROVEN",
+      "consequence": "MODEL_PROVEN",
+      "benefit": "UNVERIFIED",
+      "learning": "LOCALLY_PROVEN",
+      "continuity": "PARTIAL_EXTERNAL",
+      "external_maturity": "PARTIAL_EXTERNAL",
+      "evidence": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/; evidence/canonical/benchmarks/provider-urgent/"
+    },
+    {
+      "use_case": "tool-recovery",
+      "formation": "LOCALLY_PROVEN",
+      "applicability": "LOCALLY_PROVEN",
+      "authority": "LOCALLY_PROVEN",
+      "consequence": "LOCALLY_PROVEN",
+      "benefit": "LOCALLY_PROVEN",
+      "learning": "LOCALLY_PROVEN",
+      "continuity": "LOCALLY_PROVEN",
+      "external_maturity": "LOCAL_PASS",
+      "evidence": "evidence/canonical/tool-recovery/20260907T084535Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json"
+    },
+    {
+      "use_case": "agent-handoff",
+      "formation": "LOCALLY_PROVEN",
+      "applicability": "LOCALLY_PROVEN",
+      "authority": "LOCALLY_PROVEN",
+      "consequence": "LOCALLY_PROVEN",
+      "benefit": "LOCALLY_PROVEN",
+      "learning": "LOCALLY_PROVEN",
+      "continuity": "LOCALLY_PROVEN",
+      "external_maturity": "LOCAL_PASS",
+      "evidence": "evidence/canonical/agent-handoff/20260907T085900Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json"
+    }
+  ]
+}

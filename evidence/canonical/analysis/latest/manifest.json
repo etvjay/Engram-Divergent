@@ -1,9 +1,16 @@
 {
-  "schema": "engram.analysis-render-bundle/v1",
+  "schema": "engram.analysis-render-bundle/v2",
   "source": "evidence/canonical/longitudinal/latest/summary.json",
   "source_sha256": "a491829a23483d3c821f337e76581ea81225287dbf2886ba78ef6f9156d2ef53",
   "tested_source_sha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
+  "analysis_code_sha": "51b488de5ca3594d772fd09de8a1a4cfca7d4907",
+  "metric_version": "engram-analysis/v2",
   "observations": 240,
+  "domain_counts": {
+    "handoff": 60,
+    "tool": 180
+  },
+  "provider_observations_in_longitudinal": 0,
   "seeds": [
     1,
     2,
@@ -48,6 +55,19 @@
     "tableau": "IMPORT_READY_NO_CONNECTOR",
     "powerbi": "IMPORT_READY_NO_CONNECTOR"
   },
+  "filters": {
+    "longitudinal_domains": [
+      "handoff",
+      "tool"
+    ],
+    "provider_family": "separate canonical benchmark family"
+  },
+  "groupings": [
+    "domain",
+    "arm",
+    "seed",
+    "model"
+  ],
   "metrics": {
     "deltaUA2A0": 1.899999999999999,
     "deltaUA5A2": 0.020000000000002238,
@@ -56,13 +76,28 @@
       0.020000000000000018
     ]
   },
+  "scorecard": "eval-scorecard.json",
+  "heldout": "heldout-evaluation.json",
   "artifacts": [
     "arm-metrics.csv",
+    "authority-containment.png",
+    "authority-containment.vega-lite.json",
     "dashboard-import.csv",
     "engram-analysis.html",
+    "eval-scorecard.csv",
+    "eval-scorecard.json",
+    "heldout-evaluation.json",
+    "learning-delta.png",
+    "learning-delta.vega-lite.json",
+    "memory-lifecycle.png",
+    "memory-lifecycle.vega-lite.json",
+    "model-backed-evaluation.json",
+    "observations.csv",
     "paired-a5-vs-a2.csv",
     "provider-benchmark-metrics.csv",
     "provider-delta-u.png",
+    "use-case-evidence-matrix.png",
+    "use-case-evidence-matrix.vega-lite.json",
     "utility-by-arm.png",
     "utility-by-arm.vega-lite.json"
   ],
@@ -70,7 +105,7 @@
     "python": "3.11.16",
     "pandas": "3.0.5",
     "numpy": "2.4.6",
-    "scipy": "see scipy",
+    "scipy": "1.17.1",
     "matplotlib": "3.11.1",
     "seaborn": "0.13.2"
   }

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Engram authority-containment derived from canonical metrics.",
+  "data": {
+    "values": [
+      {
+        "metric": "unauthorized attempts",
+        "count": 30
+      },
+      {
+        "metric": "rejections/contained",
+        "count": 30
+      },
+      {
+        "metric": "unauthorized escapes",
+        "count": 0
+      },
+      {
+        "metric": "disclosure violations",
+        "count": 0
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "metric",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative"
+    }
+  }
+}

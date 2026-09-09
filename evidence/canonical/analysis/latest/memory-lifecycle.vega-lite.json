@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Engram memory-lifecycle derived from canonical metrics.",
+  "data": {
+    "values": [
+      {
+        "directive": "STRENGTHEN",
+        "count": 30
+      },
+      {
+        "directive": "WEAKEN",
+        "count": 0
+      },
+      {
+        "directive": "QUALIFY",
+        "count": 30
+      },
+      {
+        "directive": "SUPERSEDE",
+        "count": 0
+      },
+      {
+        "directive": "INVALIDATE",
+        "count": 0
+      },
+      {
+        "directive": "NO_CHANGE",
+        "count": 0
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "directive",
+      "type": "nominal"
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative"
+    }
+  }
+}

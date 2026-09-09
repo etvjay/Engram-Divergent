@@ -1,0 +1,4 @@
+use_case,formation,applicability,authority,consequence,benefit,learning,continuity,external_maturity,evidence
+provider-continuity,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,MODEL_PROVEN,UNVERIFIED,LOCALLY_PROVEN,PARTIAL_EXTERNAL,PARTIAL_EXTERNAL,evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/; evidence/canonical/benchmarks/provider-urgent/
+tool-recovery,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCAL_PASS,evidence/canonical/tool-recovery/20260907T084535Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json
+agent-handoff,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCALLY_PROVEN,LOCAL_PASS,evidence/canonical/agent-handoff/20260907T085900Z/; evidence/canonical/longitudinal/latest/heldout-evaluation.json

@@ -1,61 +1,85 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Engram utility by lifecycle arm from canonical evidence.",
+  "description": "Engram utility-by-arm derived from canonical metrics.",
   "data": {
-    "url": "../../analysis/latest/arm-metrics.csv"
+    "values": [
+      {
+        "arm": "A0_NO_MEMORY",
+        "observations": 30,
+        "mean_utility": -1.0,
+        "std_utility": 0.0,
+        "success_rate": 0.0,
+        "harmful_rate": 1.0,
+        "influenced_rate": 0.0,
+        "unauthorized_attempts": 30,
+        "unauthorized_escapes": 0
+      },
+      {
+        "arm": "A1_RAW_HISTORY",
+        "observations": 30,
+        "mean_utility": 0.85,
+        "std_utility": 0.0,
+        "success_rate": 1.0,
+        "harmful_rate": 0.0,
+        "influenced_rate": 0.0,
+        "unauthorized_attempts": 0,
+        "unauthorized_escapes": 0
+      },
+      {
+        "arm": "A2_INITIAL_ENGRAM_MEMORY",
+        "observations": 60,
+        "mean_utility": 0.9,
+        "std_utility": 0.0,
+        "success_rate": 1.0,
+        "harmful_rate": 0.0,
+        "influenced_rate": 1.0,
+        "unauthorized_attempts": 0,
+        "unauthorized_escapes": 0
+      },
+      {
+        "arm": "A3_IRRELEVANT_MEMORY",
+        "observations": 30,
+        "mean_utility": 0.95,
+        "std_utility": 0.0,
+        "success_rate": 1.0,
+        "harmful_rate": 0.0,
+        "influenced_rate": 0.0,
+        "unauthorized_attempts": 0,
+        "unauthorized_escapes": 0
+      },
+      {
+        "arm": "A4_STALE_OR_CONTRADICTORY",
+        "observations": 30,
+        "mean_utility": 0.0,
+        "std_utility": 0.0,
+        "success_rate": 0.0,
+        "harmful_rate": 0.0,
+        "influenced_rate": 0.0,
+        "unauthorized_attempts": 0,
+        "unauthorized_escapes": 0
+      },
+      {
+        "arm": "A5_EVALUATED_UPDATED_MEMORY",
+        "observations": 60,
+        "mean_utility": 0.92,
+        "std_utility": 0.0,
+        "success_rate": 1.0,
+        "harmful_rate": 0.0,
+        "influenced_rate": 1.0,
+        "unauthorized_attempts": 0,
+        "unauthorized_escapes": 0
+      }
+    ]
   },
-  "mark": {
-    "type": "bar",
-    "cornerRadiusTopLeft": 5,
-    "cornerRadiusTopRight": 5
-  },
+  "mark": "bar",
   "encoding": {
     "x": {
       "field": "arm",
-      "type": "nominal",
-      "sort": [
-        "A0_NO_MEMORY",
-        "A1_RAW_HISTORY",
-        "A2_INITIAL_ENGRAM_MEMORY",
-        "A3_IRRELEVANT_MEMORY",
-        "A4_STALE_OR_CONTRADICTORY",
-        "A5_EVALUATED_UPDATED_MEMORY"
-      ],
-      "axis": {
-        "labelAngle": -30
-      }
+      "type": "nominal"
     },
     "y": {
-      "field": "mean_utility",
-      "type": "quantitative",
-      "title": "Mean utility"
-    },
-    "color": {
-      "field": "arm",
-      "type": "nominal",
-      "legend": null
-    },
-    "tooltip": [
-      {
-        "field": "arm",
-        "type": "nominal"
-      },
-      {
-        "field": "observations",
-        "type": "quantitative"
-      },
-      {
-        "field": "mean_utility",
-        "type": "quantitative"
-      },
-      {
-        "field": "success_rate",
-        "type": "quantitative"
-      },
-      {
-        "field": "harmful_rate",
-        "type": "quantitative"
-      }
-    ]
+      "field": "observations",
+      "type": "quantitative"
+    }
   }
 }
