@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "action": "create-job-from-offering",
+  "protocol": "v2",
+  "jobId": "77776",
+  "provider": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+  "offering": "Crypto & Market Data",
+  "chainId": 8453,
+  "requirements": {
+    "endpoint": "crypto/price",
+    "params": {
+      "symbol": "BTC"
+    }
+  },
+  "timestamp": "2026-09-09T10:47:37Z"
+}

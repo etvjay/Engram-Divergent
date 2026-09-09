@@ -1,0 +1,10 @@
+{
+  "status": "FAILED_BEFORE_RECEIPT",
+  "jobId": "77776",
+  "chainId": 8453,
+  "amountUsdc": 0.01,
+  "asset": "USDC",
+  "receipt": null,
+  "txHash": null,
+  "error": "ACP wallet_prepareCalls user operation reverted; no funding receipt was produced."
+}

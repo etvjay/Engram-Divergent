@@ -1,0 +1,26 @@
+{
+  "schema": "engram.virtuals.a0-decision/v1",
+  "model": "qwen2.5-7b-4k:latest",
+  "modelConfigDigest": "openai-compatible:qwen2.5-7b-4k:latest:temp=0",
+  "temperature": 0,
+  "arm": "A0_NO_MEMORY",
+  "memorySlices": [],
+  "influenceGrants": [],
+  "task": {
+    "taskId": "crypto-market-data-btc-v1",
+    "input": {
+      "symbol": "BTC"
+    }
+  },
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "selectedProvider": "hermes-data-provider:crypto-market-data",
+  "providerAgentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+  "offeringId": "019fe6bb-2166-7d64-bb59-f500142b438a",
+  "providerWallet": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+  "quotedPriceUsdc": 0.01,
+  "proposal": {
+    "provider": "hermes-data-provider:crypto-market-data"
+  },
+  "reasoningSummary": "Selected provider based on cost and latency constraints.",
+  "proposedAt": "2026-09-09T10:42:13.459Z"
+}

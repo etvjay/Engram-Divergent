@@ -1,0 +1,33 @@
+{
+  "schema": "engram.virtuals.a0-live-execution/canonical-v1",
+  "evidenceState": "BLOCKED_FUNDING_BALANCE_ZERO",
+  "generatedAt": "2026-09-09T10:48:49.866Z",
+  "testedGitSha": "53d4367ec6c630633a4d22a12ddc9555fe34cd16",
+  "preparationBundle": "evidence/canonical/virtuals/a0-preparation/20260907T084541Z/",
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "modelDecision": "decision.json",
+  "jobId": "77776",
+  "chainId": 8453,
+  "provider": "hermes-data-provider:crypto-market-data",
+  "quotedPriceUsdc": 0.01,
+  "jobCreated": true,
+  "jobFunded": false,
+  "terminalOutcome": "NOT_REACHED_JOB_REMAINS_OPEN",
+  "engramFormation": "NOT_STARTED_NO_TERMINAL_EXECUTION",
+  "sideEffects": {
+    "acpJobsCreated": 1,
+    "acpJobsFunded": 0,
+    "totalSpendUsdc": 0,
+    "a2Jobs": 0,
+    "baseTransactions": 0
+  },
+  "artifactSha256": {
+    "funding-result.json": "660d4bff4eb30db4775232b2719e11dda507ec2bd47aa6fe3d5fff58c32653dd",
+    "create-response.json": "d484139cfd52ee7547163508efd61d8bad7ea5f780b1df301436558ce7a2abd3",
+    "decision.json": "d511463b94dbeeee398ef89f5cec86832a6c77a867b07c3c77ffe3a905fa51e0",
+    "wallet-balance.json": "8fdc5a2e7e2bb3aa762e5c11e303a903e74ed0d6d6692e0bea01751d97fd4b5d",
+    "history-before-funding.json": "841a9b6a2699613ebe76329612f51df65b8c0a83a78bd1a5cfbde826115c73e0"
+  },
+  "bundleSha256": "ef12389f134d6627f9b23400b50dd756cd3a6af71193f559233e36fcbac9911d",
+  "stopStatus": "A2_NOT_READY_NO_ADMITTED_MEMORY"
+}
