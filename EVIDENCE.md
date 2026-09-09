@@ -23,7 +23,9 @@
 
 - Model transport diagnostic: `evidence/canonical/analysis/latest/model-transport-diagnostic.json`
 - Model status: Qwen timed out on the first bounded stage; Llama returned six responses but zero valid bounded proposal shapes; no utility aggregate was inferred.
-- ACP session reconstruction diagnostic: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json`
+- ACP-A0-v2 continuous-session experiment: `evidence/canonical/virtuals/a0-v2/2026-09-09T22-50-56-095Z/`
+- A0-v2 result: one job `77914` was created in a continuous SDK session; funding stopped before broadcast because the SDK required job hydration (`Job not loaded`). No retry, replacement, funding receipt, or terminal outcome exists.
+- ACP v1 session reconstruction diagnostic: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json`
 - ACP blocker report: `docs/ACP_SESSION_RECONSTRUCTION_BLOCKER.md`
 - Classification: `ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG`; direct SDK `getSession(8453, "77776")` returned `null`.
 - Testnet pivot readiness: `evidence/canonical/virtuals/testnet-pivot-readiness.json`

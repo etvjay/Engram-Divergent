@@ -31,6 +31,7 @@
     "evidence:validate": "tsx scripts/validate-canonical-evidence.ts",
     "virtuals:acp:ingest": "tsx scripts/virtuals-acp-ingest.ts",
     "virtuals:acp:prepare": "tsx scripts/acp-live-prepare.ts",
+    "acp:a0:v2": "tsx scripts/acp-a0-v2-continuous.ts",
     "tool-recovery:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/tool-recovery-durable-learning.test.ts",
     "agent-handoff:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/agent-handoff-durable-learning.test.ts",
     "agent-surface:mcp": "tsx scripts/engram-mcp.ts",
@@ -45,6 +46,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
+    "@virtuals-protocol/acp-cli": "^1.0.35",
+    "@virtuals-protocol/acp-node-v2": "^0.1.12",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"

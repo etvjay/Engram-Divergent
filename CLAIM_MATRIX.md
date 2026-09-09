@@ -20,7 +20,7 @@
 | Evaluation query surface | `LOCAL_PASS` / read-only MCP resources and tools |
 | Cross-model continuity | `BLOCKED_EXTERNAL` |
 | Model-backed Qwen/Llama utility | `BLOCKED_EXTERNAL` / Qwen first diagnostic stage timed out; Llama 0/6 valid bounded proposal shapes |
-| Live Virtuals A0 | `BLOCKED_EXTERNAL` / `ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG`; job open, history readable, SDK session null |
+| Live Virtuals A0 | `BLOCKED_EXTERNAL` / v1 session null; v2 job `77914` continuous session created but SDK fund stopped at `Job not loaded` before broadcast |
 | Live Virtuals A2 | `NOT_EXECUTED` |
 | Live causal uplift | `NOT_PROVEN` |
 | Engram > raw history | `NOT_PROVEN` |

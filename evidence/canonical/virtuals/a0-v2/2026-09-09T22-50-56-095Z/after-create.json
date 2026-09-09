@@ -1,0 +1,75 @@
+{
+  "schema": "engram.virtuals.a0-v2-continuous/v1",
+  "evidenceState": "PREPARED",
+  "experiment": "ACP-A0-v2",
+  "generatedAt": "2026-09-09T22:50:56.121Z",
+  "testedGitSha": "f439ec917e93593e50b7b3bc7a838e43f02c3ef0",
+  "scientificPurpose": "Remove cross-command/session-rehydration as a confound by keeping the ACP buyer session alive continuously from job creation through funding and terminal observation.",
+  "controls": {
+    "chainId": 8453,
+    "maxSpendUsdc": 0.03,
+    "expectedPriceUsdc": 0.01,
+    "noParallelJobs": true,
+    "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+    "task": {
+      "endpoint": "crypto/price",
+      "params": {
+        "symbol": "BTC"
+      }
+    },
+    "model": {
+      "model": "qwen2.5-7b-4k:latest",
+      "temperature": 0
+    }
+  },
+  "identity": {
+    "agentId": "01a070b3-bd5d-7509-8b5f-535818049bf1",
+    "wallet": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "signerConfigured": true,
+    "signerMaterial": "[REDACTED]"
+  },
+  "decision": {
+    "source": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/decision.json",
+    "selectedProvider": "hermes-data-provider:crypto-market-data",
+    "providerAgentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+    "offeringId": "019fe6bb-2166-7d64-bb59-f500142b438a",
+    "quotedPriceUsdc": 0.01,
+    "reusedFrozenValidDecision": true
+  },
+  "sideEffects": {
+    "jobCreated": true,
+    "funded": false,
+    "replacementJobs": 0
+  },
+  "continuousAgent": {
+    "started": true,
+    "processPid": 1568054,
+    "startObservedAt": "2026-09-09T22:50:59.086Z"
+  },
+  "providerVerification": {
+    "agentId": "019fe6b5-8dd1-7abe-bf53-9411ca6cae28",
+    "wallet": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+    "offeringName": "Crypto & Market Data",
+    "priceUsdc": 0.01,
+    "slaMinutes": 5,
+    "chainId": 8453
+  },
+  "job": {
+    "jobId": "77914",
+    "chainId": 8453,
+    "client": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "provider": "0xa4875a9047677cf37f77d53c1eb45e0701fa7d6c",
+    "offering": "Crypto & Market Data",
+    "createdAt": "2026-09-09T22:51:06.237Z"
+  },
+  "continuousSession": {
+    "found": true,
+    "jobId": "77914",
+    "chainId": 8453,
+    "roles": [
+      "client",
+      "evaluator"
+    ],
+    "sameObjectAcrossPhases": true
+  }
+}

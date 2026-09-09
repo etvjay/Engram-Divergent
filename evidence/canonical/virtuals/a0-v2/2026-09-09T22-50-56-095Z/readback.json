@@ -1,0 +1,40 @@
+{
+  "schema": "engram.virtuals.a0-v2-readback/v1",
+  "observedAt": "2026-09-09T22:51:30Z",
+  "experiment": "ACP-A0-v2",
+  "job": {
+    "jobId": "77914",
+    "chainId": 8453,
+    "status": "open",
+    "historyEntries": 2,
+    "terminalOutcome": null,
+    "client": "0x938813e44ea5b9322e112056fFE60A0aB272FC9",
+    "provider": "0xa4875a904767cf37f77d53C1EB45e0701fa7D6C"
+  },
+  "funding": {
+    "requestedAmountUsdc": "0.01",
+    "attempted": false,
+    "transactionBroadcast": false,
+    "receipt": null,
+    "failure": "SDK session.fund() returned Job not loaded before any funding transaction."
+  },
+  "walletReadback": {
+    "wallet": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "usdc": "0.045238",
+    "nativeBaseWei": "20014250146104",
+    "readBlock": "0x30bc308"
+  },
+  "continuity": {
+    "agentStarted": true,
+    "sessionFoundAfterCreate": true,
+    "sameSessionAcrossCreateAndFund": true,
+    "processPid": 1568054
+  },
+  "sideEffects": {
+    "jobCreated": true,
+    "funded": false,
+    "replacementJobs": 0,
+    "totalSpendUsdc": 0
+  },
+  "decision": "STOP; do not retry or create another A0-v2 job."
+}
