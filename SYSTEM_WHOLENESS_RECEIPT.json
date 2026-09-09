@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "2e2ea5e15b1ef1ace20579e4466e90e4e5055f37",
+  "canonicalSha": "b902aba955acfa10b91423afb9794a84c7fd8dc3",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -102,5 +102,8 @@
   "heldoutEvaluation": "evidence/canonical/analysis/latest/heldout-evaluation.json",
   "evalScorecard": "evidence/canonical/analysis/latest/eval-scorecard.json",
   "modelBacked": "BLOCKED_EXTERNAL",
-  "querySurface": "read-only evaluation MCP resources/tools"
+  "querySurface": "read-only evaluation MCP resources/tools",
+  "externalProviderRead": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json",
+  "modelTransportCanary": "evidence/canonical/analysis/latest/model-transport-canary.json",
+  "finalStatus": "SUBMISSION_FREEZE_BLOCKED_EXTERNAL_PROVIDER"
 }
