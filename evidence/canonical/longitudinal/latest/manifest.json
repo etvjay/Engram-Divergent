@@ -1,0 +1,47 @@
+{
+  "schema": "engram.closed-loop-canonical/v1",
+  "evidenceState": "LOCAL_PASS_WITH_EXTERNAL_LIMITS",
+  "testedGitSha": "188541bd1c010a177a3a0c42c448f4fe839ea527",
+  "artifacts": {
+    "cross-model.json": "03a289b377f456a2893e8178f2607d93e2d592552dc4c7a4cb044f134fa221a5",
+    "mcp-smoke.json": "f99eac63353c9f31951cfe54b05d48bbcfc8f1d30469eefbf1d813b43ce61ee8",
+    "summary.json": "9040022fb6efcd8114259cb2fcafab8960c6c67a46ec7a66b72720bf826bb941"
+  },
+  "summary": "summary.json",
+  "crossModel": "cross-model.json",
+  "mcpSmoke": "mcp-smoke.json",
+  "controls": {
+    "domains": [
+      "provider-commerce-continuity",
+      "tool-workflow-recovery",
+      "cross-agent-fleet-handoff"
+    ],
+    "seeds": [
+      11,
+      23,
+      47
+    ],
+    "observations": 24,
+    "memoryDirectives": [
+      "STRENGTHEN",
+      "WEAKEN",
+      "QUALIFY",
+      "SUPERSEDE",
+      "INVALIDATE",
+      "NO_CHANGE"
+    ],
+    "rawHistoryExposed": false,
+    "unauthorizedEscapes": 0
+  },
+  "providerContinuity": {
+    "state": "BLOCKED_FUNDING_BALANCE_ZERO",
+    "jobId": "77776",
+    "chainId": 8453,
+    "jobCreated": true,
+    "jobFunded": false,
+    "terminalOutcome": "NOT_REACHED",
+    "newJobCreated": false
+  },
+  "crossModelState": "BLOCKED_EXTERNAL",
+  "maturity": "LOCAL_PASS_NOT_LIVE_PROVIDER_PASS"
+}

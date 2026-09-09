@@ -1,6 +1,6 @@
 # System Integration Gap Matrix
 
-Audit target: `53d4367ec6c630633a4d22a12ddc9555fe34cd16`
+Audit target: `188541bd1c010a177a3a0c42c448f4fe839ea527`
 
 ## Component classification
 

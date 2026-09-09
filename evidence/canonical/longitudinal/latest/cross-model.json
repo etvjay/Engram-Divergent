@@ -1,0 +1,26 @@
+{
+  "schema": "engram.cross-model-continuity/v1",
+  "evidenceState": "BLOCKED_EXTERNAL",
+  "observedAt": "2026-09-09T11:20:00Z",
+  "sourceModels": ["qwen2.5-7b-4k:latest", "deterministic"],
+  "consumerModels": ["qwen2.5-7b-4k:latest", "llama3.2-3b-8k:latest"],
+  "modelAvailability": {
+    "qwen2.5-7b-4k:latest": "listed",
+    "llama3.2-3b-8k:latest": "listed"
+  },
+  "transportProbe": {
+    "endpoint": "http://127.0.0.1:11434/v1/chat/completions",
+    "smallJsonRequest": "PASS",
+    "fullBoundedMemoryRequest": "BLOCKED_SOCKET_CLOSED",
+    "error": "UND_ERR_SOCKET: other side closed",
+    "retries": 0,
+    "fabricatedResults": false
+  },
+  "controls": {
+    "candidateSet": ["hermes-data-provider:crypto-market-data", "chainalpha:get_market_data"],
+    "maxBudgetUsd": 0.03,
+    "allowedEffects": ["provider_selection"],
+    "rawHistoryExposed": false
+  },
+  "interpretation": "Model files are available, but the bounded cross-model continuity request did not yield a model response. Retrieval, eligibility, authorization, consequential use, and benefit are unverified for this probe."
+}

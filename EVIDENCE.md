@@ -75,6 +75,8 @@
 
 ```bash
 npm run evidence:validate
+npm run longitudinal:local
+npm run agent-surface:mcp
 npm run tool-recovery:local
 npm run agent-handoff:local
 npm run demo:engram

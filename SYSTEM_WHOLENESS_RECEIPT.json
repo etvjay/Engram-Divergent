@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "38c42df2286d8922176dabd75852d04f33c68501",
+  "canonicalSha": "188541bd1c010a177a3a0c42c448f4fe839ea527",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -45,12 +45,14 @@
   },
   "artifactChain": {
     "localToolAndHandoff": "evidence \u2192 completion \u2192 Episode \u2192 ExecutionSlice \u2192 Experience \u2192 CandidateMemory \u2192 ExecutionMemory \u2192 Sibyl \u2192 MemorySlice \u2192 InfluenceGrant \u2192 proposal",
-    "liveProvider": "preparation \u2192 valid A0 decision \u2192 job created \u2192 funding blocked by zero wallet balance"
+    "liveProvider": "preparation \u2192 valid A0 decision \u2192 job created \u2192 funding blocked by zero wallet balance",
+    "closedLoop": "execution \u2192 influence \u2192 observed outcome \u2192 BehavioralMemoryEvaluation \u2192 versioned directive \u2192 Sibyl \u2192 fresh recall"
   },
   "stateMachine": {
-    "local": "COMPOSED",
+    "local": "CLOSED_LOOP_COMPOSED",
     "provider": "JOB_CREATED_FUNDING_BLOCKED",
-    "terminalOutcome": "not reached for live provider"
+    "terminalOutcome": "not reached for live provider",
+    "agentSurface": "MCP_STDIO_LOCAL_PASS"
   },
   "transportEquivalence": "NOT_APPLICABLE_NO_DECLARED_PUBLIC_TRANSPORTS",
   "authorityContinuity": {
@@ -66,13 +68,17 @@
     "toolRecovery": "LOCAL_PASS",
     "agentHandoff": "LOCAL_PASS",
     "providerContinuity": "BLOCKED_FUNDING_BALANCE_ZERO",
-    "base": "UNVERIFIED"
+    "base": "UNVERIFIED",
+    "closedLoop": "LOCAL_PASS",
+    "crossModel": "BLOCKED_EXTERNAL"
   },
   "coldHuman": "PASS_FOR_REPLAY_DEMO",
-  "coldAgent": "NOT_PROVEN_NO_API_MCP_SURFACE",
-  "coldDeveloper": "PASS_FOR_REPOSITORY_CLI; NOT_PROVEN_FOR_SDK",
+  "coldAgent": "PASS_MCP_STDIO_LIFECYCLE",
+  "coldDeveloper": "PASS_FOR_REPOSITORY_CLI; MCP_EXAMPLE_PASS; SDK_NOT_PROVEN",
   "P0GapsRemaining": 3,
   "P1GapsRemaining": 5,
   "authorityViolations": 0,
-  "finalVerdict": "REQUEST_CHANGES"
+  "finalVerdict": "REQUEST_CHANGES",
+  "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP funding/terminal/A2 and cross-model",
+  "canonicalEvidence": "evidence/canonical/longitudinal/latest/"
 }

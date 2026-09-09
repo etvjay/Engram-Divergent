@@ -1,0 +1,17 @@
+{
+  "schema": "engram.agent-surface.mcp-smoke/v1",
+  "evidenceState": "LOCAL_PASS",
+  "transport": "stdio-jsonrpc",
+  "commands": [
+    "initialize",
+    "tools/list"
+  ],
+  "tools": [
+    "record_complete_execution",
+    "recall_applicable_memory",
+    "request_influence",
+    "submit_outcome_evaluation"
+  ],
+  "rawSibylHistoryExposed": false,
+  "sourceTest": "tests/integration/cold-agent-surface.test.ts"
+}

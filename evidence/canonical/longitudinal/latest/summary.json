@@ -1,0 +1,935 @@
+{
+  "schema": "engram.closed-loop-evaluation/v1",
+  "generatedAt": "2026-09-09T11:09:05.676Z",
+  "seeds": [
+    11,
+    23,
+    47
+  ],
+  "runs": [
+    {
+      "seed": 11,
+      "tool": {
+        "observations": [
+          {
+            "runId": "tool-11",
+            "executionId": "bb569b8b-8128-43be-9522-17a16221e566",
+            "arm": "A0_NO_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-a"
+            },
+            "outcome": "FAILURE",
+            "influenced": false,
+            "unauthorizedAttempts": 1,
+            "unauthorizedEscapes": 0,
+            "utility": -1
+          },
+          {
+            "runId": "tool-11",
+            "executionId": "59efa356-e6b4-4af1-ba60-e92e57d6a6db",
+            "arm": "A1_RAW_HISTORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-b"
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.85
+          },
+          {
+            "runId": "tool-11",
+            "executionId": "ffe1cbfc-b714-4500-899e-22a79cb7b977",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "bf56eb5a-131d-42d7-aa7a-54d486dbb23e"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "bf56eb5a-131d-42d7-aa7a-54d486dbb23e",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "tool-11",
+            "executionId": "655e03d4-b758-49de-8fec-0e5945743ee1",
+            "arm": "A3_IRRELEVANT_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.95
+          },
+          {
+            "runId": "tool-11",
+            "executionId": "4948999b-5379-4f17-8fe4-163d4c276d4e",
+            "arm": "A4_STALE_OR_CONTRADICTORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "NEUTRAL",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0
+          },
+          {
+            "runId": "tool-11",
+            "executionId": "0475f487-b2e4-4e52-9beb-b2eb0f3da647",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "c700c36d-c31e-490f-8410-0e5f7a1eab71"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "c700c36d-c31e-490f-8410-0e5f7a1eab71",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "update": {
+          "strengthen": {
+            "id": "4fef418f-5f39-4c2a-988b-0d000d58d8e1",
+            "priorMemoryId": "bf56eb5a-131d-42d7-aa7a-54d486dbb23e",
+            "evaluationId": "a1f04197-9f59-4c0e-823f-5d1efea8a164",
+            "influencedExecutionId": "ffe1cbfc-b714-4500-899e-22a79cb7b977",
+            "newMemoryId": "b31c46a7-39b7-4b99-911d-7852db881c49",
+            "directive": "STRENGTHEN",
+            "evidenceState": "SIMULATED",
+            "rationale": "STRENGTHEN after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          },
+          "qualify": {
+            "id": "00b8cc6b-fc85-4cfe-9dd7-86e5a6e8f676",
+            "priorMemoryId": "b31c46a7-39b7-4b99-911d-7852db881c49",
+            "evaluationId": "324af8f3-579e-40b4-b8cd-fc434917adbd",
+            "influencedExecutionId": "655e03d4-b758-49de-8fec-0e5945743ee1",
+            "newMemoryId": "c700c36d-c31e-490f-8410-0e5f7a1eab71",
+            "directive": "QUALIFY",
+            "evidenceState": "SIMULATED",
+            "rationale": "QUALIFY after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          }
+        },
+        "rehabilitation": true
+      },
+      "handoff": {
+        "observations": [
+          {
+            "runId": "handoff-11",
+            "executionId": "338e000b-8b47-4ab1-b372-255230d8d4d4",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "03911ce3-178a-4843-b13f-2a2326ff4310"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "03911ce3-178a-4843-b13f-2a2326ff4310",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "handoff-11",
+            "executionId": "5003c367-08e6-4ff5-809c-ecc475d2d989",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 11,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "9a52eba7-6b99-4aab-9e63-631b444b2f42"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "9a52eba7-6b99-4aab-9e63-631b444b2f42",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "controls": {
+          "rawHistoryNotTransferred": true,
+          "sourceEventsNotTransferred": true,
+          "obsoleteNotInfluential": true,
+          "updatedMemoryUsedByC": true
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "tool": {
+        "observations": [
+          {
+            "runId": "tool-23",
+            "executionId": "5a9148d5-9c2e-4feb-8f47-de986396e85a",
+            "arm": "A0_NO_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-a"
+            },
+            "outcome": "FAILURE",
+            "influenced": false,
+            "unauthorizedAttempts": 1,
+            "unauthorizedEscapes": 0,
+            "utility": -1
+          },
+          {
+            "runId": "tool-23",
+            "executionId": "492d614c-ec65-44e6-9a5c-5cda86aca859",
+            "arm": "A1_RAW_HISTORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-b"
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.85
+          },
+          {
+            "runId": "tool-23",
+            "executionId": "326b178d-99d5-4ff6-8052-23ce3bfb1e07",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "9c67394c-cb10-4f30-82ce-51f94c5de26b"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "9c67394c-cb10-4f30-82ce-51f94c5de26b",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "tool-23",
+            "executionId": "ed0272b0-790d-4ce1-932f-3280652a4278",
+            "arm": "A3_IRRELEVANT_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.95
+          },
+          {
+            "runId": "tool-23",
+            "executionId": "dcbc42ad-0ed5-4d24-9e95-cb6ef0b72bf2",
+            "arm": "A4_STALE_OR_CONTRADICTORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "NEUTRAL",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0
+          },
+          {
+            "runId": "tool-23",
+            "executionId": "b7707c62-d5b9-4f9d-9b65-a95c97f221e6",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "87fd2b0c-979b-4b29-b934-d5578b40346c"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "87fd2b0c-979b-4b29-b934-d5578b40346c",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "update": {
+          "strengthen": {
+            "id": "ca8befa1-39dd-47c0-9baa-d8ceb0bcc585",
+            "priorMemoryId": "9c67394c-cb10-4f30-82ce-51f94c5de26b",
+            "evaluationId": "b14902e2-9e18-4037-b400-73c8b9c2d0f8",
+            "influencedExecutionId": "326b178d-99d5-4ff6-8052-23ce3bfb1e07",
+            "newMemoryId": "582cfa5e-8ef5-4bdb-8d95-f3b33fe137c5",
+            "directive": "STRENGTHEN",
+            "evidenceState": "SIMULATED",
+            "rationale": "STRENGTHEN after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          },
+          "qualify": {
+            "id": "2c365ee4-d589-46f3-ace9-17a7bd14a42b",
+            "priorMemoryId": "582cfa5e-8ef5-4bdb-8d95-f3b33fe137c5",
+            "evaluationId": "4b420b76-adb0-4a13-9f02-e8740bcefda1",
+            "influencedExecutionId": "ed0272b0-790d-4ce1-932f-3280652a4278",
+            "newMemoryId": "87fd2b0c-979b-4b29-b934-d5578b40346c",
+            "directive": "QUALIFY",
+            "evidenceState": "SIMULATED",
+            "rationale": "QUALIFY after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          }
+        },
+        "rehabilitation": true
+      },
+      "handoff": {
+        "observations": [
+          {
+            "runId": "handoff-23",
+            "executionId": "60d22719-0341-49ad-9e71-2c6ff0212f19",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "6eed2e90-23b9-49bd-a69c-61f608bcb55b"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "6eed2e90-23b9-49bd-a69c-61f608bcb55b",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "handoff-23",
+            "executionId": "c9ccd0de-544d-4f7d-9275-92eaa007f982",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 23,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "9157af5f-ac8c-4ab6-97e7-226f06773708"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "9157af5f-ac8c-4ab6-97e7-226f06773708",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "controls": {
+          "rawHistoryNotTransferred": true,
+          "sourceEventsNotTransferred": true,
+          "obsoleteNotInfluential": true,
+          "updatedMemoryUsedByC": true
+        }
+      }
+    },
+    {
+      "seed": 47,
+      "tool": {
+        "observations": [
+          {
+            "runId": "tool-47",
+            "executionId": "7ed1cffd-dd28-485b-88b4-1f5b7fca0d24",
+            "arm": "A0_NO_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-a"
+            },
+            "outcome": "FAILURE",
+            "influenced": false,
+            "unauthorizedAttempts": 1,
+            "unauthorizedEscapes": 0,
+            "utility": -1
+          },
+          {
+            "runId": "tool-47",
+            "executionId": "85bf8cad-5437-493d-9e14-31165e8e67e1",
+            "arm": "A1_RAW_HISTORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-b"
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.85
+          },
+          {
+            "runId": "tool-47",
+            "executionId": "de8dc826-dba7-4db4-b76f-9ee0521842c0",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "a0ded699-2d0b-4f92-be2c-b12c0eb80dc2"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "a0ded699-2d0b-4f92-be2c-b12c0eb80dc2",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "tool-47",
+            "executionId": "3f920de4-e16c-4143-b7ec-b3db7d70243c",
+            "arm": "A3_IRRELEVANT_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "SUCCESS",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.95
+          },
+          {
+            "runId": "tool-47",
+            "executionId": "16c6d466-92e5-4c15-81f5-a107280cc2ac",
+            "arm": "A4_STALE_OR_CONTRADICTORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-a",
+              "influenced": false
+            },
+            "outcome": "NEUTRAL",
+            "influenced": false,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0
+          },
+          {
+            "runId": "tool-47",
+            "executionId": "b60004ee-c13c-4990-9cb7-b575c0cabb4d",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-b",
+              "influenced": true,
+              "memoryId": "68eacc95-f1eb-4df2-ba81-cf42428021c4"
+            },
+            "outcome": "SUCCESS",
+            "influenced": true,
+            "memoryId": "68eacc95-f1eb-4df2-ba81-cf42428021c4",
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "update": {
+          "strengthen": {
+            "id": "927d9e95-cbcc-43cc-9e6a-c02c8c3dc560",
+            "priorMemoryId": "a0ded699-2d0b-4f92-be2c-b12c0eb80dc2",
+            "evaluationId": "3f52c08b-794c-4bee-94c9-33f5e8ce5ddf",
+            "influencedExecutionId": "de8dc826-dba7-4db4-b76f-9ee0521842c0",
+            "newMemoryId": "a2e046a1-db95-4ef6-9717-d8626052e8af",
+            "directive": "STRENGTHEN",
+            "evidenceState": "SIMULATED",
+            "rationale": "STRENGTHEN after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          },
+          "qualify": {
+            "id": "5c2eb3f5-80c8-4092-871f-a52d96f65cc5",
+            "priorMemoryId": "a2e046a1-db95-4ef6-9717-d8626052e8af",
+            "evaluationId": "be72b2a4-7616-4f77-948a-a1a635f192b1",
+            "influencedExecutionId": "3f920de4-e16c-4143-b7ec-b3db7d70243c",
+            "newMemoryId": "68eacc95-f1eb-4df2-ba81-cf42428021c4",
+            "directive": "QUALIFY",
+            "evidenceState": "SIMULATED",
+            "rationale": "QUALIFY after observed SUCCESS outcome.",
+            "createdAt": "2026-09-09T01:00:00.000Z"
+          }
+        },
+        "rehabilitation": true
+      },
+      "handoff": {
+        "observations": [
+          {
+            "runId": "handoff-47",
+            "executionId": "d52749a8-2bb4-4177-87d2-ab48747b750e",
+            "arm": "A2_INITIAL_ENGRAM_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "4905be55-546a-40b9-9ec8-53675748c6f3"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "4905be55-546a-40b9-9ec8-53675748c6f3",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.9
+          },
+          {
+            "runId": "handoff-47",
+            "executionId": "cff3c761-9718-44fc-ac7e-8367cb5c8833",
+            "arm": "A5_EVALUATED_UPDATED_MEMORY",
+            "seed": 47,
+            "action": {
+              "tool": "tool-b",
+              "sourceMemoryId": "20592468-2346-4d11-8b57-362d86e118cc"
+            },
+            "outcome": "SUCCESS",
+            "memoryId": "20592468-2346-4d11-8b57-362d86e118cc",
+            "influenced": true,
+            "unauthorizedAttempts": 0,
+            "unauthorizedEscapes": 0,
+            "utility": 0.92
+          }
+        ],
+        "controls": {
+          "rawHistoryNotTransferred": true,
+          "sourceEventsNotTransferred": true,
+          "obsoleteNotInfluential": true,
+          "updatedMemoryUsedByC": true
+        }
+      }
+    }
+  ],
+  "observations": [
+    {
+      "runId": "tool-11",
+      "executionId": "bb569b8b-8128-43be-9522-17a16221e566",
+      "arm": "A0_NO_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-a"
+      },
+      "outcome": "FAILURE",
+      "influenced": false,
+      "unauthorizedAttempts": 1,
+      "unauthorizedEscapes": 0,
+      "utility": -1
+    },
+    {
+      "runId": "tool-11",
+      "executionId": "59efa356-e6b4-4af1-ba60-e92e57d6a6db",
+      "arm": "A1_RAW_HISTORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-b"
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.85
+    },
+    {
+      "runId": "tool-11",
+      "executionId": "ffe1cbfc-b714-4500-899e-22a79cb7b977",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "bf56eb5a-131d-42d7-aa7a-54d486dbb23e"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "bf56eb5a-131d-42d7-aa7a-54d486dbb23e",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "tool-11",
+      "executionId": "655e03d4-b758-49de-8fec-0e5945743ee1",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.95
+    },
+    {
+      "runId": "tool-11",
+      "executionId": "4948999b-5379-4f17-8fe4-163d4c276d4e",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "NEUTRAL",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0
+    },
+    {
+      "runId": "tool-11",
+      "executionId": "0475f487-b2e4-4e52-9beb-b2eb0f3da647",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "c700c36d-c31e-490f-8410-0e5f7a1eab71"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "c700c36d-c31e-490f-8410-0e5f7a1eab71",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    },
+    {
+      "runId": "handoff-11",
+      "executionId": "338e000b-8b47-4ab1-b372-255230d8d4d4",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "03911ce3-178a-4843-b13f-2a2326ff4310"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "03911ce3-178a-4843-b13f-2a2326ff4310",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "handoff-11",
+      "executionId": "5003c367-08e6-4ff5-809c-ecc475d2d989",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 11,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "9a52eba7-6b99-4aab-9e63-631b444b2f42"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "9a52eba7-6b99-4aab-9e63-631b444b2f42",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "5a9148d5-9c2e-4feb-8f47-de986396e85a",
+      "arm": "A0_NO_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-a"
+      },
+      "outcome": "FAILURE",
+      "influenced": false,
+      "unauthorizedAttempts": 1,
+      "unauthorizedEscapes": 0,
+      "utility": -1
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "492d614c-ec65-44e6-9a5c-5cda86aca859",
+      "arm": "A1_RAW_HISTORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-b"
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.85
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "326b178d-99d5-4ff6-8052-23ce3bfb1e07",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "9c67394c-cb10-4f30-82ce-51f94c5de26b"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "9c67394c-cb10-4f30-82ce-51f94c5de26b",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "ed0272b0-790d-4ce1-932f-3280652a4278",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.95
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "dcbc42ad-0ed5-4d24-9e95-cb6ef0b72bf2",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "NEUTRAL",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0
+    },
+    {
+      "runId": "tool-23",
+      "executionId": "b7707c62-d5b9-4f9d-9b65-a95c97f221e6",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "87fd2b0c-979b-4b29-b934-d5578b40346c"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "87fd2b0c-979b-4b29-b934-d5578b40346c",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    },
+    {
+      "runId": "handoff-23",
+      "executionId": "60d22719-0341-49ad-9e71-2c6ff0212f19",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "6eed2e90-23b9-49bd-a69c-61f608bcb55b"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "6eed2e90-23b9-49bd-a69c-61f608bcb55b",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "handoff-23",
+      "executionId": "c9ccd0de-544d-4f7d-9275-92eaa007f982",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 23,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "9157af5f-ac8c-4ab6-97e7-226f06773708"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "9157af5f-ac8c-4ab6-97e7-226f06773708",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "7ed1cffd-dd28-485b-88b4-1f5b7fca0d24",
+      "arm": "A0_NO_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-a"
+      },
+      "outcome": "FAILURE",
+      "influenced": false,
+      "unauthorizedAttempts": 1,
+      "unauthorizedEscapes": 0,
+      "utility": -1
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "85bf8cad-5437-493d-9e14-31165e8e67e1",
+      "arm": "A1_RAW_HISTORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-b"
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.85
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "de8dc826-dba7-4db4-b76f-9ee0521842c0",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "a0ded699-2d0b-4f92-be2c-b12c0eb80dc2"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "a0ded699-2d0b-4f92-be2c-b12c0eb80dc2",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "3f920de4-e16c-4143-b7ec-b3db7d70243c",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "SUCCESS",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.95
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "16c6d466-92e5-4c15-81f5-a107280cc2ac",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-a",
+        "influenced": false
+      },
+      "outcome": "NEUTRAL",
+      "influenced": false,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0
+    },
+    {
+      "runId": "tool-47",
+      "executionId": "b60004ee-c13c-4990-9cb7-b575c0cabb4d",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-b",
+        "influenced": true,
+        "memoryId": "68eacc95-f1eb-4df2-ba81-cf42428021c4"
+      },
+      "outcome": "SUCCESS",
+      "influenced": true,
+      "memoryId": "68eacc95-f1eb-4df2-ba81-cf42428021c4",
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    },
+    {
+      "runId": "handoff-47",
+      "executionId": "d52749a8-2bb4-4177-87d2-ab48747b750e",
+      "arm": "A2_INITIAL_ENGRAM_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "4905be55-546a-40b9-9ec8-53675748c6f3"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "4905be55-546a-40b9-9ec8-53675748c6f3",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.9
+    },
+    {
+      "runId": "handoff-47",
+      "executionId": "cff3c761-9718-44fc-ac7e-8367cb5c8833",
+      "arm": "A5_EVALUATED_UPDATED_MEMORY",
+      "seed": 47,
+      "action": {
+        "tool": "tool-b",
+        "sourceMemoryId": "20592468-2346-4d11-8b57-362d86e118cc"
+      },
+      "outcome": "SUCCESS",
+      "memoryId": "20592468-2346-4d11-8b57-362d86e118cc",
+      "influenced": true,
+      "unauthorizedAttempts": 0,
+      "unauthorizedEscapes": 0,
+      "utility": 0.92
+    }
+  ],
+  "summary": {
+    "count": 24,
+    "meanUtility": 0.555,
+    "deltaUA2A0": 1.9,
+    "deltaUA5A2": 0.020000000000000018,
+    "successRate": 0.75,
+    "harmfulPairRate": 0.125,
+    "beneficialPairRate": 0.75,
+    "unauthorizedAttempts": 3,
+    "unauthorizedEscapes": 0,
+    "byArm": {
+      "A0_NO_MEMORY": {
+        "count": 3,
+        "meanUtility": -1,
+        "successRate": 0
+      },
+      "A1_RAW_HISTORY": {
+        "count": 3,
+        "meanUtility": 0.85,
+        "successRate": 1
+      },
+      "A2_INITIAL_ENGRAM_MEMORY": {
+        "count": 6,
+        "meanUtility": 0.9,
+        "successRate": 1
+      },
+      "A3_IRRELEVANT_MEMORY": {
+        "count": 3,
+        "meanUtility": 0.9499999999999998,
+        "successRate": 1
+      },
+      "A4_STALE_OR_CONTRADICTORY": {
+        "count": 3,
+        "meanUtility": 0,
+        "successRate": 0
+      },
+      "A5_EVALUATED_UPDATED_MEMORY": {
+        "count": 6,
+        "meanUtility": 0.92,
+        "successRate": 1
+      }
+    }
+  },
+  "providerContinuity": {
+    "externalState": "BLOCKED_FUNDING_BALANCE_ZERO",
+    "jobId": "77776",
+    "chainId": 8453,
+    "jobCreated": true,
+    "jobFunded": false,
+    "terminalOutcome": "NOT_REACHED",
+    "syntheticLocalSequenceOnly": true
+  }
+}
