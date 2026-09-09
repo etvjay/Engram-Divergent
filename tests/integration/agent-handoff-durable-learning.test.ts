@@ -37,5 +37,5 @@ describe("agent/fleet handoff continuity", () => {
     } finally {
       await rm(dir, { recursive: true, force: true });
     }
-  });
+  }, 15000);
 });

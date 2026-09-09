@@ -1,6 +1,7 @@
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 import { BehavioralMemoryEvaluationSchema, type BehavioralMemoryEvaluation } from "../../evaluation/src/memory-evaluation.js";
+import { MemoryUpdateRecordSchema, type MemoryUpdateRecord } from "../../evaluation/src/memory-lifecycle.js";
 import { CandidateMemorySchema, type CandidateMemory } from "../../memory-core/src/candidate-memory.js";
 import { ExecutionMemorySchema, type ExecutionMemory } from "../../memory-core/src/execution-memory.js";
 import { InfluenceGrantSchema, type InfluenceGrant } from "../../memory-core/src/influence-grant.js";
@@ -149,6 +150,18 @@ export class SibylBehavioralMemoryStore implements BehavioralMemoryStore {
     return rows.filter((row) => row.executionMemoryId === executionMemoryId).map((row) => BehavioralMemoryEvaluationSchema.parse(row));
   }
 
+  async persistMemoryUpdate(value: MemoryUpdateRecord): Promise<void> {
+    const parsed = MemoryUpdateRecordSchema.parse(value);
+    await putImmutable("memory_update", parsed.id, parsed);
+  }
+
+  async listMemoryUpdatesForMemory(executionMemoryId: string): Promise<MemoryUpdateRecord[]> {
+    const evaluations = await this.listBehavioralEvaluationsForMemory(executionMemoryId);
+    const evaluationIds = new Set(evaluations.map((evaluation) => evaluation.id));
+    const rows = await listRaw("memory_update");
+    return rows.filter((row) => evaluationIds.has(String(row.evaluationId))).map((row) => MemoryUpdateRecordSchema.parse(row));
+  }
+
   async loadBehavioralMemoryGraph(executionMemoryId: string): Promise<BehavioralMemoryGraph> {
     const executionMemory = await this.getExecutionMemory(executionMemoryId);
     if (!executionMemory) throw new Error(`EXECUTION_MEMORY_NOT_FOUND:${executionMemoryId}`);
@@ -183,7 +196,8 @@ export class SibylBehavioralMemoryStore implements BehavioralMemoryStore {
     const allGrants = (await listRaw("influence_grant")).map((row) => InfluenceGrantSchema.parse(row));
     const influenceGrants = allGrants.filter((grant) => memorySliceIds.has(grant.memorySliceId));
     const evaluations = await this.listBehavioralEvaluationsForMemory(executionMemoryId);
+    const updates = await this.listMemoryUpdatesForMemory(executionMemoryId);
 
-    return { episodes, executionSlices, experiences, candidateMemory, executionMemory, memorySlices, influenceGrants, evaluations };
+    return { episodes, executionSlices, experiences, candidateMemory, executionMemory, memorySlices, influenceGrants, evaluations, updates };
   }
 }

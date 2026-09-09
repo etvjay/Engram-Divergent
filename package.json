@@ -15,6 +15,8 @@
     "test:virtuals": "vitest run tests/integration/virtuals-acp-evidence.test.ts tests/adapters/virtuals-acp-evidence.test.ts tests/integration/virtuals-acp-orchestration.test.ts tests/integration/acp-live-prepare.test.ts",
     "test:base": "vitest run tests/integration/base-settlement-authority.test.ts tests/integration/base-settlement-receipt.test.ts",
     "test:scenario": "vitest run tests/scenarios/provider-continuity-memory.test.ts",
+    "test:evaluation": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/evaluation/*.test.ts tests/integration/sibyl-memory-update-lifecycle.test.ts tests/integration/cold-agent-surface.test.ts",
+    "longitudinal:local": "tsx scripts/run-longitudinal-evaluation.ts",
     "demo:sibyl:seed": "tsx scripts/sibyl-demo.ts seed",
     "demo:sibyl:recall": "tsx scripts/sibyl-demo.ts recall",
     "demo:sibyl:no-memory-control": "tsx scripts/sibyl-demo.ts control",
@@ -30,9 +32,10 @@
     "virtuals:acp:prepare": "tsx scripts/acp-live-prepare.ts",
     "tool-recovery:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/tool-recovery-durable-learning.test.ts",
     "agent-handoff:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/agent-handoff-durable-learning.test.ts",
+    "agent-surface:mcp": "tsx scripts/engram-mcp.ts",
     "demo:engram": "tsx scripts/demo-engram.ts",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
-    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base"
+    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:evaluation && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base"
   },
   "dependencies": {
     "zod": "^4.0.17"

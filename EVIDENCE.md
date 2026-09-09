@@ -46,7 +46,32 @@
 - Unauthorized escapes: 0
 - Lineage errors: 0
 
-## Reproduction
+## Closed-loop evaluation
+
+- State: `LOCAL_PASS`
+- Canonical summary: `evidence/canonical/longitudinal/latest/summary.json`
+- Runs: 3 deterministic seeds / 24 observations
+- Arms: A0 through A5, including raw history, irrelevant, stale/contradictory, and evaluated-updated memory
+- `DeltaU A2-A0`: `1.90`
+- `DeltaU A5-A2`: `0.02`
+- Success rate: `0.75`
+- Harmful pair rate: `0.125`
+- Beneficial pair rate: `0.75`
+- Unauthorized attempts: `3`
+- Unauthorized escapes: `0`
+- Memory lifecycle: six directives, immutable prior versions, fresh-process Sibyl persistence
+- Cross-agent controls: raw history/events redacted, obsolete version non-influential, updated version used by Agent C
+- Cross-model probe: `BLOCKED_EXTERNAL` after Ollama socket closure under the full prompt; no result inferred
+
+## Agent surface
+
+- State: `LOCAL_PASS`
+- Transport: executable stdio MCP-compatible JSON-RPC boundary
+- Tools: record/complete, recall, request influence, submit evaluation
+- Cold-agent lifecycle: `PASS`
+- Raw Sibyl history: not exposed
+- Authority expansion: rejected by existing grant checks
+
 
 ```bash
 npm run evidence:validate

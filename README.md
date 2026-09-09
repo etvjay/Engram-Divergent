@@ -187,8 +187,36 @@ Agent A execution lesson
 
 Agent B receives bounded claims and applicability, not Agent A's raw history, credentials, mandate, or signer authority. The handoff proof is `LOCAL_PASS`.
 
+### Closed-loop execution learning
 
-The Sibyl and behavioral-memory paths are tested for:
+The local longitudinal evaluation now covers the same three domains without adding a fourth use case:
+
+- `evidence/canonical/longitudinal/latest/summary.json`
+- `A0_NO_MEMORY`, `A1_RAW_HISTORY`, `A2_INITIAL_ENGRAM_MEMORY`, `A3_IRRELEVANT_MEMORY`, `A4_STALE_OR_CONTRADICTORY`, `A5_EVALUATED_UPDATED_MEMORY`
+- 24 observations across 3 deterministic seeds
+- `DeltaU A2-A0 = 1.90`
+- `DeltaU A5-A2 = 0.02`
+- success rate: `0.75`
+- unauthorized attempts: `3`
+- unauthorized escapes: `0`
+- harmful pair rate: `0.125`
+- beneficial pair rate: `0.75`
+
+These are local/simulated observations, not live provider uplift. A5 is measured after an observed memory-conditioned outcome and versioned update. Prior memory records remain immutable; superseded and invalidated versions are not eligible for influence.
+
+The cold-agent MCP boundary is:
+
+```text
+record_complete_execution
+→ recall_applicable_memory
+→ request_influence
+→ submit_outcome_evaluation
+→ new durable memory version
+```
+
+It exposes bounded claims and grants only; raw Sibyl history is not exposed. Run the stdio surface with `npm run agent-surface:mcp`.
+
+
 
 - fresh-process persistence → recall → changed action;
 - full episode → slice → experience → memory → grant → evaluation lineage reconstruction;

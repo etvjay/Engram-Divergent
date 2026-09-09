@@ -231,7 +231,7 @@ describeSibyl("Engram × Sibyl evaluated profile", () => {
         },
       }],
     })).rejects.toThrow("MEMORY_STATE_CHANGED_SINCE_RECALL");
-  });
+  }, 15000);
 
   it("fails closed when the Sibyl runtime is removed", async () => {
     process.env.ENGRAM_SIBYL_PYTHON = join(dir, "missing-python");

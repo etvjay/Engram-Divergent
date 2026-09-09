@@ -1,4 +1,5 @@
 import type { BehavioralMemoryEvaluation } from "../../evaluation/src/memory-evaluation.js";
+import type { MemoryUpdateRecord } from "../../evaluation/src/memory-lifecycle.js";
 import type { CandidateMemory } from "../../memory-core/src/candidate-memory.js";
 import type { ExecutionMemory } from "../../memory-core/src/execution-memory.js";
 import type { InfluenceGrant } from "../../memory-core/src/influence-grant.js";
@@ -16,6 +17,7 @@ export type BehavioralMemoryGraph = {
   memorySlices: MemorySlice[];
   influenceGrants: InfluenceGrant[];
   evaluations: BehavioralMemoryEvaluation[];
+  updates: MemoryUpdateRecord[];
 };
 
 /**
@@ -52,6 +54,8 @@ export interface BehavioralMemoryStore {
   persistBehavioralEvaluation(evaluation: BehavioralMemoryEvaluation): Promise<void>;
   getBehavioralEvaluation(evaluationId: string): Promise<BehavioralMemoryEvaluation | null>;
   listBehavioralEvaluationsForMemory(executionMemoryId: string): Promise<BehavioralMemoryEvaluation[]>;
+  persistMemoryUpdate(update: MemoryUpdateRecord): Promise<void>;
+  listMemoryUpdatesForMemory(executionMemoryId: string): Promise<MemoryUpdateRecord[]>;
 
   loadBehavioralMemoryGraph(executionMemoryId: string): Promise<BehavioralMemoryGraph>;
 }
