@@ -19,8 +19,8 @@
 | Held-out handoff controls | `LOCAL_PASS` / 9 cases, leakage 0 |
 | Evaluation query surface | `LOCAL_PASS` / read-only MCP resources and tools |
 | Cross-model continuity | `BLOCKED_EXTERNAL` |
-| Model-backed Qwen/Llama utility | `UNVERIFIED` / bounded probe timed out before artifact |
-| Live Virtuals A0 | `BLOCKED_FUNDING_BALANCE_ZERO` / `PARTIAL_EXTERNAL_PASS` |
+| Model-backed Qwen/Llama utility | `BLOCKED_EXTERNAL` / Qwen canary timeout; Llama canary schema-invalid |
+| Live Virtuals A0 | `BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE` / job open, wallet USDC and native balance zero |
 | Live Virtuals A2 | `NOT_EXECUTED` |
 | Live causal uplift | `NOT_PROVEN` |
 | Engram > raw history | `NOT_PROVEN` |

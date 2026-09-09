@@ -52,6 +52,8 @@ Each contains `manifest.json`, `pairs.jsonl`, `trials.jsonl`, and `aggregate.jso
 
 Cross-model continuity: `BLOCKED_EXTERNAL` after both the Node and bounded Python transport probes exceeded or encountered socket/timeout failure. No Qwen or Llama utility result is inferred.
 
+The retained canary receipt is `evidence/canonical/analysis/latest/model-transport-canary.json`: Qwen timed out; Llama responded with schema-invalid output. No matched-run result or metric was added.
+
 The deterministic provider track is a protocol sanity check, not model evidence. The Qwen repeated provider track recorded zero mean DeltaU and zero beneficial pairs. That negative result is retained and matters: memory plumbing did not automatically make the model choose a better provider.
 
 The authentic ACP track is currently partial. Qwen selected Hermes and job `77776` was created at `0.01 USDC`, but the wallet had zero USDC. Therefore no terminal outcome entered Engram, no authentic memory was admitted, and no live provider benefit can be claimed.

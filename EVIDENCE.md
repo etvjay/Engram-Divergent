@@ -18,6 +18,8 @@
 - Job ID: `77776`
 - Spend: `0 USDC`
 - Limitation: no terminal provider outcome, U0, A0 memory, or A2.
+- Fresh read reconciliation: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json`
+- Fresh result: job remains open; configured wallet is unchanged; independent Base RPC reports USDC `0` and native balance `0`; economic path stopped as `BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE`.
 
 ## Tool recovery
 

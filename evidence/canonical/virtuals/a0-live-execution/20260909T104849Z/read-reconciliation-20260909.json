@@ -1,0 +1,50 @@
+{
+  "schema": "engram.virtuals.external-provider-read-reconciliation/v1",
+  "evidenceState": "BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE",
+  "observedAt": "2026-09-09T13:13:56Z",
+  "job": {
+    "jobId": "77776",
+    "chainId": 8453,
+    "protocol": "v2",
+    "status": "open",
+    "historyEntries": 2,
+    "terminalOutcome": null,
+    "replacementJobsCreated": 0
+  },
+  "expectedProvider": {
+    "providerName": "Hermes Data Provider",
+    "providerWallet": "0xa4875a904767cf37f77d53C1EB45e0701fa7D6C",
+    "offering": "Crypto & Market Data",
+    "offeringId": "019fe6bb7d64-bb59-f500142b438a"
+  },
+  "jobHistoryRead": {
+    "method": "acp job history --job-id 77776 --chain-id 8453 --json",
+    "result": "open; job.created plus requirement message; no terminal event"
+  },
+  "wallet": {
+    "address": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "network": "base-mainnet",
+    "chainId": 8453,
+    "usdcToken": "0x833589fcd6edb6e08f4c7c32d4f71b54bdA02913",
+    "usdcRawBalance": "0",
+    "nativeRawBalance": "0",
+    "readMethod": "independent Base JSON-RPC eth_call/eth_getBalance"
+  },
+  "fundingPrecondition": {
+    "asset": "USDC",
+    "minimumJobFunding": "0.01 USDC per retained contract",
+    "gasAsset": "native Base asset required for wallet operation",
+    "maximumAuthorizedSpend": "0.01 USDC",
+    "purpose": "fund existing ACP job 77776 only"
+  },
+  "blockedReason": "Configured ACP wallet has zero USDC and zero native Base balance; no funding receipt can be produced.",
+  "sideEffects": {
+    "jobCreated": false,
+    "jobFunded": false,
+    "fundsMoved": false,
+    "providerChanged": false,
+    "replacementCreated": false,
+    "a2Executed": false
+  },
+  "cliCaveat": "ACP job list requested manual approval and was not used; no approval was consumed."
+}

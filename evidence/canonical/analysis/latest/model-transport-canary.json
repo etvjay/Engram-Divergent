@@ -1,0 +1,26 @@
+{
+  "schema": "engram.model-transport-canary/v1",
+  "observedAt": "2026-09-09T13:15:59Z",
+  "evidenceState": "BLOCKED_EXTERNAL",
+  "transport": "http://127.0.0.1:11434/v1/chat/completions",
+  "controls": {
+    "temperature": 0,
+    "maxTokens": 64,
+    "sameCandidateUniverse": true,
+    "sameMandate": true,
+    "matchedPairsCompleted": false
+  },
+  "models": {
+    "qwen2.5-7b-4k:latest": {
+      "status": "BLOCKED_EXTERNAL",
+      "failure": "timeout after 45 seconds; zero response bytes"
+    },
+    "llama3.2-3b-8k:latest": {
+      "status": "SCHEMA_INVALID",
+      "responseReceived": true,
+      "failure": "proposedAction was a string and requestedEffects was an object; required bounded JSON contract not met"
+    }
+  },
+  "interpretation": "Transport remains insufficient for reliable matched model-backed evaluation. No utility, uplift, or cross-model result inferred.",
+  "canonicalMetricsChanged": false
+}
