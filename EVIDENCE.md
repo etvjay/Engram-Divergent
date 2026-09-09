@@ -21,6 +21,8 @@
 - Fresh read reconciliation: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json`
 - Fresh result: job remains open; configured wallet is unchanged; independent Base RPC reports USDC `0` and native balance `0`; economic path stopped as `BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE`.
 
+- Model transport diagnostic: `evidence/canonical/analysis/latest/model-transport-diagnostic.json`
+- Model status: Qwen timed out on the first bounded stage; Llama returned six responses but zero valid bounded proposal shapes; no utility aggregate was inferred.
 - ACP session reconstruction diagnostic: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json`
 - ACP blocker report: `docs/ACP_SESSION_RECONSTRUCTION_BLOCKER.md`
 - Classification: `ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG`; direct SDK `getSession(8453, "77776")` returned `null`.

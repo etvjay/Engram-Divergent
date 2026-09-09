@@ -19,7 +19,7 @@
 | Held-out handoff controls | `LOCAL_PASS` / 9 cases, leakage 0 |
 | Evaluation query surface | `LOCAL_PASS` / read-only MCP resources and tools |
 | Cross-model continuity | `BLOCKED_EXTERNAL` |
-| Model-backed Qwen/Llama utility | `BLOCKED_EXTERNAL` / Qwen canary timeout; Llama canary schema-invalid |
+| Model-backed Qwen/Llama utility | `BLOCKED_EXTERNAL` / Qwen first diagnostic stage timed out; Llama 0/6 valid bounded proposal shapes |
 | Live Virtuals A0 | `BLOCKED_EXTERNAL` / `ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG`; job open, history readable, SDK session null |
 | Live Virtuals A2 | `NOT_EXECUTED` |
 | Live causal uplift | `NOT_PROVEN` |

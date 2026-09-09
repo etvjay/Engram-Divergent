@@ -219,7 +219,27 @@ record_complete_execution
 
 It exposes bounded claims and grants only; raw Sibyl history is not exposed. Run the stdio surface with `npm run agent-surface:mcp`.
 
+### Typed developer SDK
 
+The typed SDK wraps the same bounded agent surface without duplicating memory or authorization semantics:
+
+```ts
+import { EngramClient } from "./packages/agent-surface/src/sdk.js";
+import { SibylBehavioralMemoryStore } from "./packages/sibyl/src/behavioral-store.js";
+
+const engram = new EngramClient({ store: new SibylBehavioralMemoryStore() });
+await engram.recordCompleteExecution({ execution, events, outcome, evidenceRefs });
+const recalled = await engram.recallApplicableMemory({ executionMemoryId, consumerAgentId, consumerExecutionId, context });
+const authorized = await engram.requestInfluence({ consumerAgentId, influenceGrantId, proposal });
+await engram.submitOutcomeEvaluation({ evaluation });
+const scorecard = await engram.getUseCaseScorecard();
+```
+
+The cold-developer integration test is `tests/integration/sibyl-agent-sdk.test.ts` and runs with:
+
+```bash
+npm run test:sdk
+```
 
 - fresh-process persistence → recall → changed action;
 - full episode → slice → experience → memory → grant → evaluation lineage reconstruction;

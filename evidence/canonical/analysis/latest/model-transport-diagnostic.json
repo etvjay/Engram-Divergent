@@ -1,0 +1,197 @@
+{
+  "schema": "engram.model-transport-diagnostic/v1",
+  "generatedAt": "2026-09-09T21:39:56.814277+00:00",
+  "transport": "http://127.0.0.1:11434/v1/chat/completions",
+  "models": [
+    "qwen2.5-7b-4k:latest",
+    "llama3.2-3b-8k:latest"
+  ],
+  "controls": {
+    "temperature": 0,
+    "maxTokens": 128,
+    "sequential": true,
+    "timeoutSeconds": 120,
+    "candidates": [
+      {
+        "provider": "hermes-data-provider:crypto-market-data",
+        "costUsd": 0.01,
+        "latencySeconds": 300
+      },
+      {
+        "provider": "chainalpha:get_market_data",
+        "costUsd": 0.03,
+        "latencySeconds": 300
+      }
+    ],
+    "mandate": {
+      "urgency": "routine",
+      "verificationRequired": true,
+      "maxLatencySeconds": 300,
+      "maxBudgetUsd": 0.03
+    },
+    "allowedEffects": [
+      "provider_selection"
+    ]
+  },
+  "results": [
+    {
+      "model": "qwen2.5-7b-4k:latest",
+      "stage": "tiny_structured",
+      "status": "TIMEOUT",
+      "elapsedSeconds": 120.101,
+      "error": "timed out"
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "tiny_structured",
+      "status": "RESPONSE",
+      "elapsedSeconds": 40.755,
+      "responseBytes": 586,
+      "content": "{\"proposedAction\": \"SELECT * FROM crypto_market_data\", \"reasoningSummary\": \"Selected hermes-data-provider:crypto-market-data due to lower cost and matching latency requirements.\", \"memorySliceIds\": [\"A0_NO_MEMORY\"], \"requestedEffects\": [\"CREATE TABLE crypto_market_data\"]}",
+      "parsed": {
+        "proposedAction": "SELECT * FROM crypto_market_data",
+        "reasoningSummary": "Selected hermes-data-provider:crypto-market-data due to lower cost and matching latency requirements.",
+        "memorySliceIds": [
+          "A0_NO_MEMORY"
+        ],
+        "requestedEffects": [
+          "CREATE TABLE crypto_market_data"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "full_no_memory",
+      "status": "RESPONSE",
+      "elapsedSeconds": 17.082,
+      "responseBytes": 585,
+      "content": "{\"proposedAction\": \"SELECT * FROM crypto_market_data\", \"reasoningSummary\": \"Selected hermes-data-provider:crypto-market-data due to lower cost and matching latency requirements.\", \"memorySliceIds\": [\"A0_NO_MEMORY\"], \"requestedEffects\": [\"CREATE TABLE crypto_market_data\"]}",
+      "parsed": {
+        "proposedAction": "SELECT * FROM crypto_market_data",
+        "reasoningSummary": "Selected hermes-data-provider:crypto-market-data due to lower cost and matching latency requirements.",
+        "memorySliceIds": [
+          "A0_NO_MEMORY"
+        ],
+        "requestedEffects": [
+          "CREATE TABLE crypto_market_data"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "full_memory_slice",
+      "status": "RESPONSE",
+      "elapsedSeconds": 21.657,
+      "responseBytes": 577,
+      "content": "{\n  \"proposedAction\": \"SELECT provider AS 'hermes-data-provider:crypto-market-data'\",\n  \"reasoningSummary\": \"Hermes is the lower-cost candidate for this bounded task.\",\n  \"memorySliceIds\": [\"grants/0/slices/0\"],\n  \"requestedEffects\": [\"provider_selection\"]\n}",
+      "parsed": {
+        "proposedAction": "SELECT provider AS 'hermes-data-provider:crypto-market-data'",
+        "reasoningSummary": "Hermes is the lower-cost candidate for this bounded task.",
+        "memorySliceIds": [
+          "grants/0/slices/0"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "full_memory_grant",
+      "status": "RESPONSE",
+      "elapsedSeconds": 23.547,
+      "responseBytes": 631,
+      "content": "{\n  \"proposedAction\": \"SELECT provider FROM CANDIDATES WHERE costUsd = 0.01\",\n  \"reasoningSummary\": \"Selecting the provider with the lowest cost to meet the budget constraint.\",\n  \"memorySliceIds\": [\"grants/0/allowedEffects\", \"grants/0/constraints/maxBudgetUsd\"],\n  \"requestedEffects\": [\"provider_selection\"]\n}",
+      "parsed": {
+        "proposedAction": "SELECT provider FROM CANDIDATES WHERE costUsd = 0.01",
+        "reasoningSummary": "Selecting the provider with the lowest cost to meet the budget constraint.",
+        "memorySliceIds": [
+          "grants/0/allowedEffects",
+          "grants/0/constraints/maxBudgetUsd"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "matched_A0",
+      "status": "RESPONSE",
+      "elapsedSeconds": 17.862,
+      "responseBytes": 580,
+      "content": "{\"proposedAction\": \"SELECT\", \"reasoningSummary\": \"No provider meets the budget and latency requirements. Hermes Data Provider is the only option within the budget and latency limits.\", \"memorySliceIds\": [\"A0_NO_MEMORY\"], \"requestedEffects\": [\"RETRIEVE\", \"SELECT\"]}",
+      "parsed": {
+        "proposedAction": "SELECT",
+        "reasoningSummary": "No provider meets the budget and latency requirements. Hermes Data Provider is the only option within the budget and latency limits.",
+        "memorySliceIds": [
+          "A0_NO_MEMORY"
+        ],
+        "requestedEffects": [
+          "RETRIEVE",
+          "SELECT"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    },
+    {
+      "model": "llama3.2-3b-8k:latest",
+      "stage": "matched_A2",
+      "status": "RESPONSE",
+      "elapsedSeconds": 20.43,
+      "responseBytes": 576,
+      "content": "{\"proposedAction\": \"select provider hermes-data-provider:crypto-market-data\", \"reasoningSummary\": \"Hermes is the lower-cost candidate for this bounded task.\", \"memorySliceIds\": [\"slices.0\", \"grants.0.allowedEffects\"], \"requestedEffects\": [\"provider_selection\"]}",
+      "parsed": {
+        "proposedAction": "select provider hermes-data-provider:crypto-market-data",
+        "reasoningSummary": "Hermes is the lower-cost candidate for this bounded task.",
+        "memorySliceIds": [
+          "slices.0",
+          "grants.0.allowedEffects"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "validShape": false,
+      "provider": "",
+      "authorizedProposal": false
+    }
+  ],
+  "summary": {
+    "qwen2.5-7b-4k:latest": {
+      "stagesAttempted": 1,
+      "responses": 0,
+      "timeouts": 1,
+      "transportErrors": 0,
+      "invalidResponses": 0,
+      "validShape": 0,
+      "authorizedProposals": 0,
+      "completeMatchedPair": false
+    },
+    "llama3.2-3b-8k:latest": {
+      "stagesAttempted": 6,
+      "responses": 6,
+      "timeouts": 0,
+      "transportErrors": 0,
+      "invalidResponses": 0,
+      "validShape": 0,
+      "authorizedProposals": 0,
+      "completeMatchedPair": false
+    }
+  },
+  "evidenceState": "MODEL_TRANSPORT_DIAGNOSTIC_ONLY"
+}
