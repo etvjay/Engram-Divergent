@@ -220,6 +220,14 @@ npm run demo:engram
 
 It reports `REPLAYED_CANONICAL_LIVE_EVIDENCE` for the provider track, `LOCAL_PASS` for tool recovery, and `LOCAL_PASS` for agent handoff. The machine-readable summary is written to `evidence/canonical/demo/latest/summary.json`.
 
+For system-level integration review:
+
+- [`SYSTEM_INTEGRATION_GAPS.md`](./SYSTEM_INTEGRATION_GAPS.md) — composed/disconnected surfaces and P0–P3 gaps;
+- [`SYSTEM_WHOLENESS_RECEIPT.json`](./SYSTEM_WHOLENESS_RECEIPT.json) — canonical integration receipt;
+- [`DEMO.md`](./DEMO.md) — short replay narrative;
+- [`EVIDENCE.md`](./EVIDENCE.md) — reviewer evidence index;
+- [`CLAIM_MATRIX.md`](./CLAIM_MATRIX.md) — evidence-bounded claims.
+
 ## Fresh-session demos
 
 Use one Sibyl DB and tenant across separate processes:

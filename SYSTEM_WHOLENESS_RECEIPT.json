@@ -1,0 +1,48 @@
+{
+  "canonicalSha": "53d4367ec6c630633a4d22a12ddc9555fe34cd16",
+  "systemMap": {
+    "entrySurfaces": ["npm scripts", "direct TypeScript modules", "fixture process runners"],
+    "unsupportedSurfaces": ["REST", "MCP", "SDK", "Web"],
+    "localComposedCore": ["experience", "memory-core", "runtime", "Sibyl"],
+    "externalPlanes": {
+      "data": ["Virtuals ACP catalog/history adapter"],
+      "reasoning": ["Qwen adapter", "benchmark adapters"],
+      "authority": ["InfluenceGrant", "agent proposal authorization"],
+      "execution": ["fixture process runners", "ACP orchestration state machine"],
+      "observability": ["canonical evidence", "evaluation ledger"],
+      "payment": ["not invoked; Base remains unverified"]
+    }
+  },
+  "artifactChain": {
+    "localToolAndHandoff": "evidence → completion → Episode → ExecutionSlice → Experience → CandidateMemory → ExecutionMemory → Sibyl → MemorySlice → InfluenceGrant → proposal",
+    "liveProvider": "preparation → model decision (blocked) → no job → no terminal receipt"
+  },
+  "stateMachine": {
+    "local": "COMPOSED",
+    "provider": "PRE_JOB_BLOCKED",
+    "terminalOutcome": "not reached for live provider"
+  },
+  "transportEquivalence": "NOT_APPLICABLE_NO_DECLARED_PUBLIC_TRANSPORTS",
+  "authorityContinuity": {
+    "local": "LOCAL_PASS",
+    "violations": 0
+  },
+  "provenanceContinuity": {
+    "canonicalReferencesTracked": true,
+    "canonicalMissingReferences": 0,
+    "testedShasResolvable": true
+  },
+  "modeStatus": {
+    "toolRecovery": "LOCAL_PASS",
+    "agentHandoff": "LOCAL_PASS",
+    "providerContinuity": "PRE_JOB_BLOCKED",
+    "base": "UNVERIFIED"
+  },
+  "coldHuman": "PASS_FOR_REPLAY_DEMO",
+  "coldAgent": "NOT_PROVEN_NO_API_MCP_SURFACE",
+  "coldDeveloper": "PASS_FOR_REPOSITORY_CLI; NOT_PROVEN_FOR_SDK",
+  "P0GapsRemaining": 4,
+  "P1GapsRemaining": 5,
+  "authorityViolations": 0,
+  "finalVerdict": "REQUEST_CHANGES"
+}
