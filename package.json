@@ -29,8 +29,9 @@
     "virtuals:acp:ingest": "tsx scripts/virtuals-acp-ingest.ts",
     "virtuals:acp:prepare": "tsx scripts/acp-live-prepare.ts",
     "tool-recovery:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/tool-recovery-durable-learning.test.ts",
+    "agent-handoff:local": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/agent-handoff-durable-learning.test.ts",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
-    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:virtuals && npm run tool-recovery:local && npm run test:base"
+    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base"
   },
   "dependencies": {
     "zod": "^4.0.17"

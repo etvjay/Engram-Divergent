@@ -18,13 +18,14 @@ function arg(name: string): string {
 const fixture = resolve(arg("--fixture"));
 const sourceRef = arg("--source-ref");
 const out = resolve(arg("--out"));
+const agentId = process.argv.includes("--agent-id") ? arg("--agent-id") : "engram-tool-recovery-fixture-agent";
 const raw = JSON.parse(await readFile(fixture, "utf8")) as any;
 const digest = createHash("sha256").update(await readFile(fixture)).digest("hex");
 const runtimeStore = new SibylRuntimeStore();
 const runtime = new EngramRuntime(runtimeStore, DEFAULT_RUNTIME_POLICIES);
 const behavioral = new SibylBehavioralMemoryStore();
 const started = await runtime.startExecution({
-  agentId: "engram-tool-recovery-fixture-agent",
+  agentId,
   workflowType: "tool_recovery",
   intent: "recover a transient tool failure without expanding capabilities",
   context: { taskType: raw.taskType, toolId: raw.toolId, workloadClass: raw.workloadClass, urgency: raw.urgency, requestVolume: raw.requestVolume },
@@ -105,6 +106,7 @@ const output = {
   schema: "engram.tool-recovery-durable-learning/v1",
   sourceEvidencePath: sourceRef,
   sourceEvidenceSha256: digest,
+  agentId,
   completion: { executionId: started.executionId, status: "FAILURE", failureType: "RETRY_EXHAUSTED" },
   admission: { status: admission.status, reason: admission.reason, evidenceState: admission.evidenceState },
   experience: { observation: experience.observation, interpretation: experience.interpretation, applicability: experience.applicability },
