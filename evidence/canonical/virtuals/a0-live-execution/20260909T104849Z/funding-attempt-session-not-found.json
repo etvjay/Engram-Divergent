@@ -1,0 +1,25 @@
+{
+  "schema": "engram.virtuals.a0-funding-attempt/v1",
+  "observedAt": "2026-09-09T14:23:29Z",
+  "evidenceState": "BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE",
+  "authorization": "explicit user approval received for exactly 0.01 USDC to job 77776",
+  "command": "acp client fund --job-id 77776 --chain-id 8453 --amount 0.01 --json",
+  "result": {
+    "exitCode": 1,
+    "error": "SESSION_NOT_FOUND",
+    "message": "No session found for job 77776. The job may not exist or you may not be a participant.",
+    "transactionBroadcast": false,
+    "receipt": null
+  },
+  "postAttemptReadback": {
+    "jobId": "77776",
+    "chainId": 8453,
+    "status": "open",
+    "historyEntries": 2,
+    "terminalOutcome": null,
+    "usdcBalance": "0.045238",
+    "nativeBaseBalanceWei": "20014250146104",
+    "replacementJobsCreated": 0
+  },
+  "decision": "STOP; do not retry, create replacement, or use alternate funding path."
+}
