@@ -175,6 +175,18 @@ tool failure
 
 The local tool-recovery fixture demonstrates scoped applicability and fresh-process survival. Its evidence state is `LOCAL_PASS`. It does not involve Virtuals, money, or Base.
 
+### Agent / fleet handoff
+
+```text
+Agent A execution lesson
+  → durable Sibyl memory
+  → fresh Agent B process
+  → scoped MemorySlice + InfluenceGrant
+  → bounded strategy change without transferred authority
+```
+
+Agent B receives bounded claims and applicability, not Agent A's raw history, credentials, mandate, or signer authority. The handoff proof is `LOCAL_PASS`.
+
 
 The Sibyl and behavioral-memory paths are tested for:
 
@@ -197,6 +209,16 @@ python -m pip install -r packages/sibyl/requirements.txt
 npm install
 npm run check
 ```
+
+## Unified three-use-case demo
+
+The replay-only demo consumes canonical evidence and performs no new ACP, signer, Base, or funding action:
+
+```bash
+npm run demo:engram
+```
+
+It reports `REPLAYED_CANONICAL_LIVE_EVIDENCE` for the provider track, `LOCAL_PASS` for tool recovery, and `LOCAL_PASS` for agent handoff. The machine-readable summary is written to `evidence/canonical/demo/latest/summary.json`.
 
 ## Fresh-session demos
 

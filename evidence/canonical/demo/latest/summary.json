@@ -1,0 +1,34 @@
+{
+  "product": "Engram",
+  "thesis": "Execution memory that changes what an agent does next.",
+  "replayMode": "REPLAYED_CANONICAL_LIVE_EVIDENCE",
+  "newLiveExecution": false,
+  "useCases": [
+    {
+      "id": "provider-continuity",
+      "evidenceState": "PRE_JOB_BLOCKED",
+      "source": "evidence/canonical/virtuals/a0-live-attempt/20260907T085000Z/",
+      "preparation": "A0_PREPARED",
+      "freshProcess": false,
+      "authorizedInfluence": false,
+      "limitation": "A0 model decision timed out before job creation; no live provider execution occurred."
+    },
+    {
+      "id": "tool-recovery",
+      "evidenceState": "LOCAL_PASS",
+      "source": "evidence/canonical/tool-recovery/20260907T084535Z/",
+      "freshProcess": true,
+      "authorizedInfluence": true,
+      "unauthorizedInfluenceEscapes": 0
+    },
+    {
+      "id": "agent-handoff",
+      "evidenceState": "LOCAL_PASS",
+      "source": "evidence/canonical/agent-handoff/20260907T085900Z/",
+      "crossAgent": true,
+      "boundedDisclosure": true,
+      "authorityPreserved": true,
+      "authorizedInfluence": true
+    }
+  ]
+}
