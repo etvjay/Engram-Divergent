@@ -1,0 +1,55 @@
+{
+  "schema": "engram.virtuals.acp-session-diagnostic/v1",
+  "observedAt": "2026-09-09T21:33:18Z",
+  "evidenceState": "ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG",
+  "toolchain": {
+    "node": "v22.23.2",
+    "npm": "10.9.8",
+    "acpCli": "1.0.35",
+    "acpNodeV2": "0.1.12",
+    "configDirectory": "/home/ubuntu/.config/acp",
+    "environment": "mainnet",
+    "testnetFlag": false
+  },
+  "identity": {
+    "agentId": "01a070b3-bd5d-7509-8b5f-535818049bf1",
+    "activeWallet": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "signerConfigured": true,
+    "signerMaterial": "REDACTED"
+  },
+  "job": {
+    "jobId": "77776",
+    "chainId": 8453,
+    "provider": "0xa4875a904767cf37f77d53C1EB45e0701fa7D6C",
+    "client": "0x938813e44EA5B9322e112056fFE60A0aB272FC9",
+    "evaluator": "0x938813e44EA5B9322e112056fFE60A0aB272FC9",
+    "status": "open",
+    "historyEntries": 2
+  },
+  "checks": {
+    "agentList": "PASS; one active agent matches wallet",
+    "jobList": "PASS; returned zero active jobs",
+    "jobListAll": "BLOCKED_EXTERNAL_MANUAL_APPROVAL_REQUIRED; not consumed",
+    "jobHistory": "PASS; readable",
+    "historyClientMatchesActiveWallet": true,
+    "fundActionAdvertised": true,
+    "sdkSessionFound": false,
+    "sdkHydratedSessions": [],
+    "sdkFetchJob": "NOT_ATTEMPTED_SESSION_NULL",
+    "sdkSupportedChains": [
+      97,
+      4663,
+      8453,
+      46630,
+      84532
+    ]
+  },
+  "fundingAttempts": {
+    "count": 2,
+    "lastResult": "SESSION_NOT_FOUND",
+    "transactionBroadcast": false,
+    "replacementJobs": 0
+  },
+  "classification": "ACP_SESSION_REHYDRATION_OR_PARTICIPATION_BUG",
+  "safeConclusion": "History visibility does not establish fund participation; maintained SDK cannot rehydrate job 77776 for the active agent."
+}
