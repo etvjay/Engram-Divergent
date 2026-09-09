@@ -1,0 +1,23 @@
+{
+  "schema": "engram.virtuals.a0-model-decision-attempt/v1",
+  "model": "qwen2.5-7b-4k:latest",
+  "temperature": 0,
+  "attempt": 1,
+  "maxAttempts": 1,
+  "arm": "A0_NO_MEMORY",
+  "memorySlices": [],
+  "influenceGrants": [],
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "candidateKeys": [
+    "hermes-data-provider:crypto-market-data",
+    "chainalpha:get-market-data"
+  ],
+  "task": {
+    "taskId": "crypto-market-data-btc-v1",
+    "input": {
+      "symbol": "BTC"
+    }
+  },
+  "result": null,
+  "error": "Qwen decision request timed out after 180 seconds; no valid model decision returned. No ACP operation was attempted."
+}

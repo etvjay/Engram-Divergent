@@ -1,0 +1,34 @@
+{
+  "schema": "engram.virtuals.a0-live-attempt/canonical-v1",
+  "evidenceState": "PRE_JOB_BLOCKED",
+  "generatedAt": "2026-09-07T08:50:00Z",
+  "runGitSha": "b621914e9e6112c3d09d8bd988ea29e66356248c",
+  "preparationBundle": "evidence/canonical/virtuals/a0-preparation/20260907T084541Z/",
+  "preparationTestedGitSha": "c6931f2f2e6c917e0924c327c86f676eb1633bf5",
+  "candidateSnapshotDigest": "5479652180e4b879d68d724ee89451b0d7c2aa250557fbd78ff640a381099e76",
+  "model": {
+    "identity": "qwen2.5-7b-4k:latest",
+    "temperature": 0,
+    "attempts": 1
+  },
+  "memoryCondition": {
+    "eligibleMemorySlices": 0,
+    "influenceGrants": 0,
+    "arm": "A0_NO_MEMORY"
+  },
+  "decisionStatus": "BLOCKED_MODEL_DECISION_TIMEOUT",
+  "selectedProvider": null,
+  "jobId": null,
+  "sideEffects": {
+    "acpJobsCreated": 0,
+    "acpJobsFunded": 0,
+    "totalSpendUsdc": 0,
+    "signerInvoked": false,
+    "baseTransactions": 0
+  },
+  "stopStatus": "A2_NOT_READY_NO_ADMITTED_MEMORY",
+  "artifactSha256": {
+    "model-decision.json": "5ba9de68c7cda7983a6aebda253bb085e492535799ac2e30a5a0303ac19215fe"
+  },
+  "bundleSha256": "b3abd7594b8f849f27576a6627aaec3ce01462c5b130904ee9f69ef3e7c64986"
+}
