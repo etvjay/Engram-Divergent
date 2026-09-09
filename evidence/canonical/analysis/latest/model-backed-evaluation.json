@@ -1,0 +1,22 @@
+{
+  "schema": "engram.model-backed-evaluation/v1",
+  "evidenceState": "BLOCKED_EXTERNAL",
+  "transport": "python-urllib-openai-compatible",
+  "models": ["qwen2.5-7b-4k:latest", "llama3.2-3b-8k:latest"],
+  "targetPairsPerModel": 20,
+  "completedPairs": "NOT_RECORDED_BEFORE_TIMEOUT",
+  "controls": {
+    "temperature": 0,
+    "task": "BTC market data",
+    "candidateOrdering": ["hermes-data-provider:crypto-market-data", "chainalpha:get_market_data"],
+    "maxBudgetUsd": 0.03,
+    "memoryDifferenceOnly": true
+  },
+  "failure": {
+    "type": "TRANSPORT_RUN_TIMEOUT",
+    "detail": "The bounded 40-call probe exceeded the execution window before it wrote an artifact.",
+    "retriesForPreference": 0,
+    "fabricatedResults": false
+  },
+  "interpretation": "Model-backed continuity remains BLOCKED_EXTERNAL. No Qwen or Llama utility result is claimed from this attempt."
+}

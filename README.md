@@ -189,8 +189,11 @@ Agent B receives bounded claims and applicability, not Agent A's raw history, cr
 
 ### Closed-loop execution learning
 
-The local longitudinal evaluation now covers the same three domains without adding a fourth use case:
+The local longitudinal evaluation covers tool recovery and cross-agent handoff. It does not contain provider observations; provider continuity is evaluated through its separate retained benchmark and ACP evidence family.
 
+- tool recovery: `180` observations
+- agent handoff: `60` observations
+- provider observations in this longitudinal dataset: `0`
 - `evidence/canonical/longitudinal/latest/summary.json`
 - `A0_NO_MEMORY`, `A1_RAW_HISTORY`, `A2_INITIAL_ENGRAM_MEMORY`, `A3_IRRELEVANT_MEMORY`, `A4_STALE_OR_CONTRADICTORY`, `A5_EVALUATED_UPDATED_MEMORY`
 - 240 observations across 30 deterministic seeds

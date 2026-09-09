@@ -51,6 +51,8 @@
 - State: `LOCAL_PASS`
 - Canonical summary: `evidence/canonical/longitudinal/latest/summary.json`
 - Runs: 30 deterministic seeds / 240 observations
+- Domain coverage: tool recovery `180`; agent handoff `60`; provider `0` in this dataset
+- Provider continuity remains a separate benchmark and ACP evidence family
 - Arms: A0 through A5, including raw history, irrelevant, stale/contradictory, and evaluated-updated memory
 - `DeltaU A2-A0`: `1.90`
 - `DeltaU A5-A2`: `0.02`
@@ -69,8 +71,12 @@
   - `evidence/canonical/benchmarks/provider-urgent/deterministic-10/`
   - `evidence/canonical/benchmarks/provider-urgent/qwen-10/`
 
-- Multi-renderer analysis: `evidence/canonical/analysis/latest/`
+- Evaluation scorecard: `evidence/canonical/analysis/latest/eval-scorecard.json` and `.csv`
+- Held-out contexts: `evidence/canonical/analysis/latest/heldout-evaluation.json`
+- Model-backed state: `evidence/canonical/analysis/latest/model-backed-evaluation.json` (`BLOCKED_EXTERNAL`)
+- Parity check: `analysis/parity_check.py`
 - Analysis environment: `analysis/requirements.txt` and `analysis/analyze_engram.py`
+- Multi-renderer analysis: `evidence/canonical/analysis/latest/`
 
 ## Agent surface
 

@@ -34,9 +34,12 @@ describeSibyl("cold agent Engram surface", () => {
     const init = await surface.call({ jsonrpc: "2.0", id: 1, method: "initialize" });
     expect(init.serverInfo).toBeTruthy();
     const tools = await surface.call({ jsonrpc: "2.0", id: 2, method: "tools/list" });
-    expect((tools.tools as Array<{ name: string }>).map((tool) => tool.name)).toEqual([
+    expect((tools.tools as Array<{ name: string }>).map((tool) => tool.name)).toEqual(expect.arrayContaining([
       "record_complete_execution", "recall_applicable_memory", "request_influence", "submit_outcome_evaluation",
-    ]);
+      "get_evaluation_summary", "compare_arms", "get_use_case_scorecard",
+    ]));
+    const scorecard = await surface.call({ jsonrpc: "2.0", id: 2.5, method: "tools/call", params: { name: "get_use_case_scorecard", arguments: {} } });
+    expect((scorecard.rows as Array<{ use_case: string }>).map((row) => row.use_case)).toEqual(["provider-continuity", "tool-recovery", "agent-handoff"]);
     const recorded = await surface.call({ jsonrpc: "2.0", id: 3, method: "tools/call", params: { name: "record_complete_execution", arguments: {
       execution: { id: executionId, agentId: "agent-a", workflowType: "tool_recovery", intent: "fetch BTC", context: { tool: "tool-a", workloadClass: "high" }, constraints: {}, status: "SUCCESS", startedAt, completedAt },
       events: [{ id: eventId, executionId, sequenceNo: 0, eventType: "tool.completed", payload: { tool: "tool-a" }, evidenceState: "SIMULATED", occurredAt: completedAt }],

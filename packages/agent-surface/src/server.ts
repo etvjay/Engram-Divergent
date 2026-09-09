@@ -6,20 +6,28 @@ import { applyMemoryUpdate, isCurrentMemoryEligible } from "../../evaluation/src
 import { assertBehavioralProposalAuthorizedByGrant, AgentDecisionProposalSchema } from "../../runtime/src/agent-decision.js";
 import { formExecutionEpisode, formExecutionMemory, formExecutionSlice, formExperience, formCandidateMemory, admitCandidateMemory, materializeMemorySlice, materializeInfluenceGrant } from "../../experience/src/formation.js";
 import type { BehavioralMemoryStore } from "../../experience/src/store.js";
+import { createEvaluationQuerySurface } from "./evaluation-query.js";
 
-export const AGENT_SURFACE_TOOLS = ["record_complete_execution", "recall_applicable_memory", "request_influence", "submit_outcome_evaluation"] as const;
+export const AGENT_SURFACE_TOOLS = ["record_complete_execution", "recall_applicable_memory", "request_influence", "submit_outcome_evaluation", "get_evaluation_summary", "compare_arms", "get_memory_update_history", "get_authority_boundary_metrics", "get_use_case_scorecard", "get_evidence_receipt"] as const;
 const SAFE_EFFECTS = ["provider_selection", "tool_selection", "retry_policy", "timeout_policy", "fallback_policy", "verification_policy"];
 
 type JsonRpcRequest = { jsonrpc: "2.0"; id: string | number; method: string; params?: Record<string, unknown> };
 
 export function createAgentSurface(store: BehavioralMemoryStore) {
+  const query = createEvaluationQuerySurface();
   return {
-    listTools: () => AGENT_SURFACE_TOOLS.map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.` })),
+    listTools: () => [
+      ...AGENT_SURFACE_TOOLS.slice(0, 4).map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.` })),
+      ...query.listTools(),
+    ],
+    listResources: () => query.listResources(),
     async call(request: JsonRpcRequest): Promise<Record<string, unknown>> {
       const params = request.params ?? {};
       switch (request.method) {
-        case "initialize": return { protocolVersion: "2026-06-18", capabilities: { tools: {} }, serverInfo: { name: "engram-agent-surface", version: "0.1.0" } };
+        case "initialize": return { protocolVersion: "2026-06-18", capabilities: { tools: {}, resources: {} }, serverInfo: { name: "engram-agent-surface", version: "0.2.0" } };
         case "tools/list": return { tools: this.listTools() };
+        case "resources/list": return { resources: this.listResources().map((uri) => ({ uri })) };
+        case "resources/read": return query.call("get_evaluation_summary");
         case "tools/call": {
           const name = String(params.name ?? "");
           return await this.call({ ...request, method: name, params: (params.arguments as Record<string, unknown> | undefined) ?? {} });
@@ -28,6 +36,12 @@ export function createAgentSurface(store: BehavioralMemoryStore) {
         case "recall_applicable_memory": return recallApplicableMemory(store, params);
         case "request_influence": return requestInfluence(store, params);
         case "submit_outcome_evaluation": return submitOutcomeEvaluation(store, params);
+        case "get_evaluation_summary":
+        case "compare_arms":
+        case "get_memory_update_history":
+        case "get_authority_boundary_metrics":
+        case "get_use_case_scorecard":
+        case "get_evidence_receipt": return query.call(request.method, params);
         default: throw new Error(`AGENT_SURFACE_METHOD_NOT_FOUND:${request.method}`);
       }
     },

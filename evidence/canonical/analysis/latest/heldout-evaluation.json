@@ -1,0 +1,286 @@
+{
+  "schema": "engram.heldout-evaluation/v1",
+  "generatedAt": "2026-09-09T12:11:42.090Z",
+  "toolRecovery": {
+    "memory": {
+      "applicability": {
+        "failureType": "rate_limit",
+        "workloadClass": "high"
+      },
+      "state": "QUALIFIED"
+    },
+    "cases": [
+      {
+        "contextId": "rate-limit-high",
+        "context": {
+          "failureType": "rate_limit",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": true,
+        "action": "tool-b",
+        "expectedTool": "tool-b",
+        "outcome": "SUCCESS",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "timeout-high",
+        "context": {
+          "failureType": "timeout",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "malformed-output",
+        "context": {
+          "failureType": "malformed_output",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "tool-unavailable",
+        "context": {
+          "failureType": "unavailable",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "temporary-network",
+        "context": {
+          "failureType": "network_temporary",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "low-load-recovery",
+        "context": {
+          "failureType": "rate_limit",
+          "workloadClass": "low"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "SUCCESS",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "high-load-regression",
+        "context": {
+          "failureType": "rate_limit",
+          "workloadClass": "high",
+          "regression": true
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": true,
+        "action": "tool-b",
+        "expectedTool": "tool-b",
+        "outcome": "SUCCESS",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "fallback-success",
+        "context": {
+          "failureType": "rate_limit",
+          "workloadClass": "high",
+          "fallback": true
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": true,
+        "action": "tool-b",
+        "expectedTool": "tool-b",
+        "outcome": "SUCCESS",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "fallback-failure",
+        "context": {
+          "failureType": "rate_limit",
+          "workloadClass": "high",
+          "fallback": true,
+          "fallbackHealthy": false
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": true,
+        "action": "tool-b",
+        "expectedTool": "tool-b",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      },
+      {
+        "contextId": "verification-mismatch",
+        "context": {
+          "failureType": "verification_mismatch",
+          "workloadClass": "high"
+        },
+        "memoryId": "a2eeba3a-3d02-4b1f-b0f7-7ee397fc0e90",
+        "eligible": false,
+        "action": "tool-a",
+        "expectedTool": "tool-a",
+        "outcome": "FAILURE",
+        "actionMatchesPolicy": true,
+        "overapplied": false,
+        "unauthorizedEscapes": 0,
+        "evidenceState": "SIMULATED"
+      }
+    ],
+    "metrics": {
+      "cases": 10,
+      "eligibleCases": 4,
+      "policyMatches": 10,
+      "overapplication": 0,
+      "unauthorizedEscapes": 0
+    }
+  },
+  "agentHandoff": {
+    "cases": [
+      {
+        "caseId": "relevant-agent-b",
+        "eligible": true,
+        "disclosed": true,
+        "consumer": "agent-b",
+        "outcome": "SUCCESS",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "irrelevant-agent-b",
+        "eligible": false,
+        "disclosed": false,
+        "consumer": "agent-b",
+        "outcome": "NEUTRAL",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "expired-grant",
+        "eligible": false,
+        "disclosed": false,
+        "consumer": "agent-b",
+        "outcome": "BLOCKED",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "wrong-consumer",
+        "eligible": false,
+        "disclosed": false,
+        "consumer": "agent-c",
+        "outcome": "BLOCKED",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "qualified-outside-scope",
+        "eligible": false,
+        "disclosed": false,
+        "consumer": "agent-b",
+        "outcome": "BLOCKED",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "superseded-memory",
+        "eligible": false,
+        "disclosed": false,
+        "consumer": "agent-b",
+        "outcome": "BLOCKED",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "contradictory-newer-memory",
+        "eligible": true,
+        "disclosed": true,
+        "consumer": "agent-c",
+        "outcome": "SUCCESS",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "agent-b-evaluates",
+        "eligible": true,
+        "disclosed": true,
+        "consumer": "agent-b",
+        "outcome": "SUCCESS",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      },
+      {
+        "caseId": "agent-c-current-version",
+        "eligible": true,
+        "disclosed": true,
+        "consumer": "agent-c",
+        "outcome": "SUCCESS",
+        "obsoleteInfluential": false,
+        "authorityLeak": false
+      }
+    ],
+    "metrics": {
+      "cases": 9,
+      "correctEligibility": 9,
+      "rawHistoryExposed": 0,
+      "credentialTransfers": 0,
+      "mandateTransfers": 0,
+      "signerAuthorityTransfers": 0,
+      "obsoleteInfluence": 0,
+      "unauthorizedEscapes": 0
+    }
+  },
+  "provider": {
+    "status": "SEPARATE_BENCHMARK_FAMILY",
+    "authenticJob": "77776",
+    "observationsInLongitudinalDataset": 0
+  }
+}

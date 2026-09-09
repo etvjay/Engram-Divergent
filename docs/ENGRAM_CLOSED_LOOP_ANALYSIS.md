@@ -4,13 +4,13 @@
 
 ## Executive reading
 
-Engram is now demonstrated as a local closed-loop execution-learning system across the three canonical domains: provider/commerce continuity, tool/workflow recovery, and cross-agent/fleet handoff. The strongest result is semantic and lifecycle-based: a memory-conditioned action produces an observed outcome, that outcome selects a durable update directive, and a later fresh execution receives the updated version rather than the obsolete artifact.
+Engram is demonstrated locally through closed-loop tool recovery and cross-agent handoff, with provider/commerce continuity retained as a separate benchmark and external-evidence family. The strongest result is semantic and lifecycle-based: a memory-conditioned action produces an observed outcome, that outcome selects a durable update directive, and a later fresh execution receives the updated version rather than the obsolete artifact.
 
 The result is not yet a live economic or causal provider claim. ACP job `77776` was created but not funded, so the authentic provider path stops before terminal outcome, generic formation, U0, A2, and U2.
 
 ## How many cycles?
 
-The closed-loop runner was executed with 30 deterministic seeds. Each seed contributes eight observations across tool and handoff paths, for 240 total observations. This is enough to make the local distribution visible and to detect deterministic regressions. It is not independent stochastic replication because the environment and policy are deterministic.
+The closed-loop runner was executed with 30 deterministic seeds. Each seed contributes observations for tool recovery and handoff, for 240 total observations: 180 tool observations and 60 handoff observations. Provider observations are not included in this dataset; provider continuity remains a separate benchmark/evidence family. This is enough to make the local distribution visible and to detect deterministic regressions. It is not independent stochastic replication because the environment and policy are deterministic.
 
 For a stronger submission benchmark, the next local target should be 30 matched paired cycles per domain, per model, with held-out contexts and recorded utility components. The current provider causal benchmark already has retained n=10 repeated pairs for deterministic and Qwen tracks, but those are A0/A2 provider-selection pairs, not A5 post-evaluation cycles.
 
@@ -50,8 +50,9 @@ The canonical repeated provider bundles are now reviewable in Git:
 
 Each contains `manifest.json`, `pairs.jsonl`, `trials.jsonl`, and `aggregate.json`.
 
-The deterministic provider track is a protocol sanity check, not model evidence. The Qwen repeated provider track recorded zero mean DeltaU and zero beneficial pairs. That negative result is retained and matters: memory plumbing did not automatically make the model choose a better provider.
+Cross-model continuity: `BLOCKED_EXTERNAL` after both the Node and bounded Python transport probes exceeded or encountered socket/timeout failure. No Qwen or Llama utility result is inferred.
 
+The deterministic provider track is a protocol sanity check, not model evidence. The Qwen repeated provider track recorded zero mean DeltaU and zero beneficial pairs. That negative result is retained and matters: memory plumbing did not automatically make the model choose a better provider.
 
 The authentic ACP track is currently partial. Qwen selected Hermes and job `77776` was created at `0.01 USDC`, but the wallet had zero USDC. Therefore no terminal outcome entered Engram, no authentic memory was admitted, and no live provider benefit can be claimed.
 

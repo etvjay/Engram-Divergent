@@ -33,6 +33,37 @@ python3 -m venv /tmp/engram-analysis-venv
 - `dashboard-import.csv`: Tableau/Power BI import-ready extract;
 - `manifest.json`: source hash, tested SHA, renderer list, metrics, and runtime versions.
 
+## Held-out evaluation
+
+```bash
+npx tsx scripts/run-heldout-evaluation.ts
+```
+
+This produces tool-recovery and handoff cases that are separate from the 30-seed longitudinal dataset.
+
+## Parity validation
+
+Run the pinned environment after analysis generation:
+
+```bash
+/tmp/engram-analysis-venv/bin/python analysis/parity_check.py
+```
+
+The parity check compares canonical observations, pandas tables, dashboard rows, Plotly arm labels, and Vega-Lite inline data.
+
+## Read-only query surface
+
+The stdio MCP surface exposes the same canonical analysis without raw Sibyl access:
+
+```text
+get_evaluation_summary
+compare_arms
+get_memory_update_history
+get_authority_boundary_metrics
+get_use_case_scorecard
+get_evidence_receipt
+```
+
 ## Evidence boundary
 
 The current longitudinal data is deterministic local evidence. SciPy bootstrap output is therefore a resampling summary, not an independent stochastic confidence claim. Tableau and Power BI are marked import-ready because no connector or external dashboard readback is configured in this environment.
