@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "dfbf7351fafb9d669d0fc4523b554a2f168a6182",
+  "canonicalSha": "f1ebf661388642441f924d40916b0e35f638e061",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -81,5 +81,6 @@
   "finalVerdict": "REQUEST_CHANGES",
   "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP funding/terminal/A2 and cross-model",
   "canonicalEvidence": "evidence/canonical/longitudinal/latest/",
-  "testedSourceSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b"
+  "testedSourceSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
+  "analysisArtifact": "docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md"
 }
