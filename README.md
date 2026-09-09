@@ -285,6 +285,11 @@ For system-level integration review:
 - [`evidence/canonical/analysis/latest/utility-by-arm.vega-lite.json`](./evidence/canonical/analysis/latest/utility-by-arm.vega-lite.json) - Vega-Lite surface spec;
 - [`analysis/README.md`](./analysis/README.md) - pinned analysis environment and reproduction instructions;
 - [`CLAIM_MATRIX.md`](./CLAIM_MATRIX.md) - evidence-bounded claims.
+- [`docs/ENGRAM_MEMORY_OPERATIONS_INDEX.md`](./docs/ENGRAM_MEMORY_OPERATIONS_INDEX.md) - critical memory read/write paths.
+- [`docs/ENGRAM_SUBMISSION_NARRATIVE.md`](./docs/ENGRAM_SUBMISSION_NARRATIVE.md) - unified three-use-case story.
+- [`docs/ENGRAM_SUBMISSION_VIDEO_SCRIPT.md`](./docs/ENGRAM_SUBMISSION_VIDEO_SCRIPT.md) - 2–5 minute submission script.
+- `npm run proof:judge` - Sibyl-enabled versus isolated-empty judge proof.
+- `npm run demo:fresh-session` - explicit Process A → Process B replay.
 
 ## Fresh-session demos
 

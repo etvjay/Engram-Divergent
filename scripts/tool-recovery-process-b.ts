@@ -96,6 +96,7 @@ const output = {
   negativeAuthorization,
   unauthorizedInfluenceEscapes: positiveAuthorization === "AUTHORIZED" && negativeAuthorization.startsWith("REJECTED") ? 0 : 1,
   ids: { executionMemoryId: graph.executionMemory.id, memorySliceId: memorySlice.id, influenceGrantId: grant.id },
+  memorySlice: { claims: memorySlice.claims, redactedFields: memorySlice.redactedFields, evidenceRefs: memorySlice.evidenceRefs },
   allowedEffects: grant.allowedEffects,
   deniedEffects: grant.deniedEffects,
   evidenceRefs: graph.episodes.flatMap((episode) => episode.evidenceRefs),

@@ -1,0 +1,71 @@
+{
+  "schema": "engram.judge-proof/v1",
+  "evidenceState": "LOCAL_PASS",
+  "mode": "FRESH_SESSION_ONLY",
+  "generatedAt": "2026-09-09T22:38:31.151Z",
+  "testedSha": "74fcf56ecc1d4773e6173df57f836f620cc92a1c",
+  "source": {
+    "fixture": "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json",
+    "sha256": "934e8c9a6eb1f1aebefbfa18363556f424b56c79484d63f1ec6d58ca77e16849"
+  },
+  "arm1SibylEnabled": {
+    "sourceProcess": {
+      "completed": true,
+      "executionMemoryId": "9e859d67-3fe6-456b-acd1-0966c8d58980",
+      "admission": {
+        "status": "ADMITTED",
+        "reason": "Observed terminal tool failure with evidence-backed scope for a changed retry and fallback strategy.",
+        "evidenceState": "OBSERVED"
+      }
+    },
+    "freshProcess": {
+      "sourceProcessCompleted": true,
+      "freshRuntime": true,
+      "inMemoryObjectsReused": false
+    },
+    "memoryFound": true,
+    "applicable": true,
+    "eligible": true,
+    "memorySlice": {
+      "id": "3e5030a2-b3e2-4507-8c97-2fd2a3a66f6c",
+      "claims": [
+        "Tool A exhausted retries after rate limits and timeout; comparable work should change retry and fallback strategy."
+      ]
+    },
+    "influenceGrant": {
+      "id": "c82e9222-0dcf-4aa1-b154-4e4dd40af735",
+      "allowedEffects": [
+        "tool_selection",
+        "retry_policy",
+        "fallback_policy"
+      ],
+      "deniedEffects": [
+        "increase_budget",
+        "new_signer",
+        "new_wallet",
+        "new_asset",
+        "new_capability"
+      ]
+    },
+    "behavior": {
+      "changed": true,
+      "selectedStrategy": "tool-b-recovery",
+      "expectedOutcome": "SUCCESS"
+    },
+    "authority": {
+      "valid": true,
+      "unauthorizedEscapes": 0
+    },
+    "evidenceRefs": [
+      "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json"
+    ]
+  },
+  "arm2SibylAbsent": null,
+  "materialDegradation": null,
+  "claims": {
+    "processDeathObserved": true,
+    "memoryContinuityObserved": true,
+    "boundedInfluenceObserved": true,
+    "deletionDegradesContinuity": null
+  }
+}

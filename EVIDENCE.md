@@ -29,6 +29,13 @@
 - Testnet pivot readiness: `evidence/canonical/virtuals/testnet-pivot-readiness.json`
 - Testnet status: `BLOCKED_EXTERNAL_TESTNET_AUTH`; no active testnet agent, no verified ACP testnet provider/offering, and no testnet job created.
 
+- Judge proof: `evidence/canonical/judge/latest/proof.json`
+- Fresh-session proof: `evidence/canonical/judge/latest/fresh-session.json`
+- Critical memory read/write index: `docs/ENGRAM_MEMORY_OPERATIONS_INDEX.md`
+- Submission narrative: `docs/ENGRAM_SUBMISSION_NARRATIVE.md`
+- Submission video script: `docs/ENGRAM_SUBMISSION_VIDEO_SCRIPT.md`
+- Reviewer commands: `npm run proof:judge`, `npm run demo:fresh-session`, `npm run demo:engram`
+
 ## Tool recovery
 
 - State: `LOCAL_PASS`
