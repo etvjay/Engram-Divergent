@@ -1,0 +1,33 @@
+{
+  "schema": "engram.virtuals.a0-funding-retry/v1",
+  "observedAt": "2026-09-09T14:28:47Z",
+  "evidenceState": "BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE",
+  "preconditions": {
+    "reauthenticated": true,
+    "activeAgentWallet": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+    "jobClientWallet": "0x938813e44EA5B9322e112056fFE60A0aB272FC9",
+    "chainId": 8453
+  },
+  "authorization": {
+    "approved": true,
+    "jobId": "77776",
+    "amountUsdc": "0.01",
+    "fallbacks": "none"
+  },
+  "command": "acp client fund --job-id 77776 --chain-id 8453 --amount 0.01 --json",
+  "result": {
+    "exitCode": 1,
+    "error": "SESSION_NOT_FOUND",
+    "transactionBroadcast": false,
+    "receipt": null
+  },
+  "readback": {
+    "jobStatus": "open",
+    "historyEntries": 2,
+    "terminalOutcome": null,
+    "usdcBalance": "0.045238",
+    "nativeBaseBalanceWei": "20014250146104",
+    "replacementJobsCreated": 0
+  },
+  "decision": "STOP; authenticated ACP session still cannot resolve participation in existing job 77776."
+}
