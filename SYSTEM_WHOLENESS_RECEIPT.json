@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "4425b0bfbdda2d2333bb3da84cb5de318f8f73af",
+  "canonicalSha": "2e2ea5e15b1ef1ace20579e4466e90e4e5055f37",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -92,5 +92,15 @@
     "vega-lite"
   ],
   "tableau": "IMPORT_READY_NO_CONNECTOR",
-  "powerbi": "IMPORT_READY_NO_CONNECTOR"
+  "powerbi": "IMPORT_READY_NO_CONNECTOR",
+  "domainCoverage": {
+    "toolRecovery": 180,
+    "agentHandoff": 60,
+    "providerInLongitudinal": 0,
+    "providerEvidenceFamily": "separate"
+  },
+  "heldoutEvaluation": "evidence/canonical/analysis/latest/heldout-evaluation.json",
+  "evalScorecard": "evidence/canonical/analysis/latest/eval-scorecard.json",
+  "modelBacked": "BLOCKED_EXTERNAL",
+  "querySurface": "read-only evaluation MCP resources/tools"
 }
