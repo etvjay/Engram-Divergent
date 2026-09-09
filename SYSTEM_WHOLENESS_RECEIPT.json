@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "d66f6190cec05e81cb53464c5ff10f9f71da57d6",
+  "canonicalSha": "bfb19c82b10a4a683f56e72519e05f9721c79bbd",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -109,7 +109,7 @@
   "querySurface": "read-only evaluation MCP resources/tools",
   "externalProviderRead": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json",
   "modelTransportCanary": "evidence/canonical/analysis/latest/model-transport-canary.json",
-  "finalStatus": "SUBMISSION_FREEZE_WITH_EXTERNAL_ACP_BLOCKER",
+  "finalStatus": "SUBMISSION_FREEZE_WITH_ACP_V1_V2_EXTERNAL_LIMITATIONS",
   "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json",
   "deferredByScope": [
     "FRONTEND",
@@ -129,5 +129,10 @@
     "npm run proof:judge",
     "npm run demo:fresh-session",
     "npm run demo:engram"
-  ]
+  ],
+  "acpA0v2": "evidence/canonical/virtuals/a0-v2/2026-09-09T22-50-56-095Z/",
+  "acpA0v2Status": "BLOCKED_OR_FAILED_EXTERNAL_JOB_CREATED_CONTINUOUS_SESSION_FUND_PREBROADCAST_FAILURE",
+  "acpA0v2Job": "77914",
+  "acpA0v2SpendUsdc": "0",
+  "acpA0v2ReplacementJobs": 0
 }
