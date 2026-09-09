@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "b902aba955acfa10b91423afb9794a84c7fd8dc3",
+  "canonicalSha": "772f77ca0bb0de423bebadaf69d136dc3423f8c9",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -105,5 +105,6 @@
   "querySurface": "read-only evaluation MCP resources/tools",
   "externalProviderRead": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json",
   "modelTransportCanary": "evidence/canonical/analysis/latest/model-transport-canary.json",
-  "finalStatus": "SUBMISSION_FREEZE_BLOCKED_EXTERNAL_PROVIDER"
+  "finalStatus": "SUBMISSION_FREEZE_BLOCKED_EXTERNAL_PROVIDER",
+  "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json"
 }
