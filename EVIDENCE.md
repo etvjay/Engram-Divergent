@@ -69,6 +69,9 @@
   - `evidence/canonical/benchmarks/provider-urgent/deterministic-10/`
   - `evidence/canonical/benchmarks/provider-urgent/qwen-10/`
 
+- Multi-renderer analysis: `evidence/canonical/analysis/latest/`
+- Analysis environment: `analysis/requirements.txt` and `analysis/analyze_engram.py`
+
 ## Agent surface
 
 - State: `LOCAL_PASS`

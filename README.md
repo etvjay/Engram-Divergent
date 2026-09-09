@@ -257,7 +257,12 @@ For system-level integration review:
 - [`docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md`](./docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md) - three-use-case narrative, benchmark tables, evaluation interpretation, and limits;
 - [`evidence/canonical/longitudinal/latest/arm-summary.csv`](./evidence/canonical/longitudinal/latest/arm-summary.csv) - per-arm benchmark table;
 - [`evidence/canonical/longitudinal/latest/utility-by-arm.svg`](./evidence/canonical/longitudinal/latest/utility-by-arm.svg) - utility visualization;
+- [`evidence/canonical/analysis/latest/engram-analysis.html`](./evidence/canonical/analysis/latest/engram-analysis.html) - Plotly interactive analysis;
+- [`evidence/canonical/analysis/latest/utility-by-arm.png`](./evidence/canonical/analysis/latest/utility-by-arm.png) - static utility figure;
+- [`evidence/canonical/analysis/latest/utility-by-arm.vega-lite.json`](./evidence/canonical/analysis/latest/utility-by-arm.vega-lite.json) - Vega-Lite surface spec;
+- [`analysis/README.md`](./analysis/README.md) - pinned analysis environment and reproduction instructions;
 - [`CLAIM_MATRIX.md`](./CLAIM_MATRIX.md) - evidence-bounded claims.
+
 ## Fresh-session demos
 
 Use one Sibyl DB and tenant across separate processes:

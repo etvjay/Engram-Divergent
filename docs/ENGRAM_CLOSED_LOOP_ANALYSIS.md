@@ -100,9 +100,23 @@ Agent B received claims and applicability, not raw events, credentials, mandate,
 | Authentic external execution | `PARTIAL` | ACP decision and job creation only |
 | Live provider causal uplift | `UNVERIFIED` | funding/terminal/U2 absent |
 
-## Visualization
+## Multi-renderer analysis bundle
 
-The companion figure is `evidence/canonical/longitudinal/latest/utility-by-arm.svg`. The visual makes the main distinction visible: A2 and A5 are not merely recall states; they are behaviorally consequential states, while A3 and A4 are deliberately constrained or inert.
+The same canonical observations have also been processed through pandas, SciPy, matplotlib, seaborn, Plotly, and Vega-Lite-compatible output generation:
+
+- `evidence/canonical/analysis/latest/arm-metrics.csv`
+- `evidence/canonical/analysis/latest/paired-a5-vs-a2.csv`
+- `evidence/canonical/analysis/latest/provider-benchmark-metrics.csv`
+- `evidence/canonical/analysis/latest/utility-by-arm.png`
+- `evidence/canonical/analysis/latest/provider-delta-u.png`
+- `evidence/canonical/analysis/latest/engram-analysis.html`
+- `evidence/canonical/analysis/latest/utility-by-arm.vega-lite.json`
+- `evidence/canonical/analysis/latest/dashboard-import.csv`
+
+Tableau and Power BI are import-ready only. No external dashboard connector or readback is configured, so no Tableau/Power BI dashboard claim is made.
+
+Reproduction instructions and pinned analysis dependencies are in [`analysis/README.md`](../analysis/README.md).
+
 
 ## Bottom line
 

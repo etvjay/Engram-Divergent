@@ -1,0 +1,77 @@
+{
+  "schema": "engram.analysis-render-bundle/v1",
+  "source": "evidence/canonical/longitudinal/latest/summary.json",
+  "source_sha256": "a491829a23483d3c821f337e76581ea81225287dbf2886ba78ef6f9156d2ef53",
+  "tested_source_sha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
+  "observations": 240,
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "renderers": [
+    "pandas",
+    "scipy",
+    "matplotlib",
+    "seaborn",
+    "plotly",
+    "vega-lite"
+  ],
+  "external_bi": {
+    "tableau": "IMPORT_READY_NO_CONNECTOR",
+    "powerbi": "IMPORT_READY_NO_CONNECTOR"
+  },
+  "metrics": {
+    "deltaUA2A0": 1.899999999999999,
+    "deltaUA5A2": 0.020000000000002238,
+    "a5a2_bootstrap_95": [
+      0.020000000000000018,
+      0.020000000000000018
+    ]
+  },
+  "artifacts": [
+    "arm-metrics.csv",
+    "dashboard-import.csv",
+    "engram-analysis.html",
+    "paired-a5-vs-a2.csv",
+    "provider-benchmark-metrics.csv",
+    "provider-delta-u.png",
+    "utility-by-arm.png",
+    "utility-by-arm.vega-lite.json"
+  ],
+  "runtime": {
+    "python": "3.11.16",
+    "pandas": "3.0.5",
+    "numpy": "2.4.6",
+    "scipy": "see scipy",
+    "matplotlib": "3.11.1",
+    "seaborn": "0.13.2"
+  }
+}

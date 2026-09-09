@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Engram utility by lifecycle arm from canonical evidence.",
+  "data": {
+    "url": "../../analysis/latest/arm-metrics.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 5,
+    "cornerRadiusTopRight": 5
+  },
+  "encoding": {
+    "x": {
+      "field": "arm",
+      "type": "nominal",
+      "sort": [
+        "A0_NO_MEMORY",
+        "A1_RAW_HISTORY",
+        "A2_INITIAL_ENGRAM_MEMORY",
+        "A3_IRRELEVANT_MEMORY",
+        "A4_STALE_OR_CONTRADICTORY",
+        "A5_EVALUATED_UPDATED_MEMORY"
+      ],
+      "axis": {
+        "labelAngle": -30
+      }
+    },
+    "y": {
+      "field": "mean_utility",
+      "type": "quantitative",
+      "title": "Mean utility"
+    },
+    "color": {
+      "field": "arm",
+      "type": "nominal",
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "arm",
+        "type": "nominal"
+      },
+      {
+        "field": "observations",
+        "type": "quantitative"
+      },
+      {
+        "field": "mean_utility",
+        "type": "quantitative"
+      },
+      {
+        "field": "success_rate",
+        "type": "quantitative"
+      },
+      {
+        "field": "harmful_rate",
+        "type": "quantitative"
+      }
+    ]
+  }
+}
