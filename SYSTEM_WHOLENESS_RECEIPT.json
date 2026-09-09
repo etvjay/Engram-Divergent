@@ -1,15 +1,15 @@
 {
-  "canonicalSha": "772f77ca0bb0de423bebadaf69d136dc3423f8c9",
+  "canonicalSha": "67f6ba9a2565f38084eddd153001859e2d8a3e05",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
       "direct TypeScript modules",
-      "fixture process runners"
+      "fixture process runners",
+      "MCP stdio",
+      "typed developer SDK"
     ],
     "unsupportedSurfaces": [
       "REST",
-      "MCP",
-      "SDK",
       "Web"
     ],
     "localComposedCore": [
@@ -50,11 +50,12 @@
   },
   "stateMachine": {
     "local": "CLOSED_LOOP_COMPOSED",
-    "provider": "JOB_CREATED_FUNDING_BLOCKED",
+    "provider": "ACP_SESSION_REHYDRATION_BLOCKED",
     "terminalOutcome": "not reached for live provider",
-    "agentSurface": "MCP_STDIO_LOCAL_PASS"
+    "agentSurface": "MCP_STDIO_LOCAL_PASS",
+    "typedSdk": "LOCAL_PASS"
   },
-  "transportEquivalence": "NOT_APPLICABLE_NO_DECLARED_PUBLIC_TRANSPORTS",
+  "transportEquivalence": "MCP_AND_SDK_LOCAL_PASS; REST_AND_WEB_DEFERRED_BY_SCOPE",
   "authorityContinuity": {
     "local": "LOCAL_PASS",
     "violations": 0
@@ -67,19 +68,22 @@
   "modeStatus": {
     "toolRecovery": "LOCAL_PASS",
     "agentHandoff": "LOCAL_PASS",
-    "providerContinuity": "BLOCKED_FUNDING_BALANCE_ZERO",
+    "providerContinuity": "BLOCKED_EXTERNAL_SESSION_REHYDRATION",
     "base": "UNVERIFIED",
     "closedLoop": "LOCAL_PASS",
-    "crossModel": "BLOCKED_EXTERNAL"
+    "crossModel": "BLOCKED_EXTERNAL",
+    "frontend": "DEFERRED_BY_SCOPE",
+    "rest": "DEFERRED_BY_SCOPE",
+    "typedSdk": "LOCAL_PASS"
   },
   "coldHuman": "PASS_FOR_REPLAY_DEMO",
   "coldAgent": "PASS_MCP_STDIO_LIFECYCLE",
-  "coldDeveloper": "PASS_FOR_REPOSITORY_CLI; MCP_EXAMPLE_PASS; SDK_NOT_PROVEN",
-  "P0GapsRemaining": 3,
-  "P1GapsRemaining": 5,
+  "coldDeveloper": "PASS_TYPED_SDK_AND_REPOSITORY_CLI; REST_DEFERRED_BY_SCOPE",
+  "P0GapsRemaining": 1,
+  "P1GapsRemaining": 3,
   "authorityViolations": 0,
-  "finalVerdict": "REQUEST_CHANGES",
-  "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP funding/terminal/A2 and cross-model",
+  "finalVerdict": "REQUEST_CHANGES_EXTERNAL",
+  "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP/typed-SDK; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP session/funding/terminal/A2 and model-backed evaluation",
   "canonicalEvidence": "evidence/canonical/longitudinal/latest/",
   "testedSourceSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
   "analysisArtifact": "docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md",
@@ -106,5 +110,14 @@
   "externalProviderRead": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json",
   "modelTransportCanary": "evidence/canonical/analysis/latest/model-transport-canary.json",
   "finalStatus": "SUBMISSION_FREEZE_BLOCKED_EXTERNAL_PROVIDER",
-  "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json"
+  "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json",
+  "deferredByScope": [
+    "FRONTEND",
+    "REST",
+    "TABLEAU",
+    "POWER_BI"
+  ],
+  "externalProviderDiagnostic": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json",
+  "modelTransportDiagnostic": "evidence/canonical/analysis/latest/model-transport-diagnostic.json",
+  "typedSdk": "packages/agent-surface/src/sdk.ts; tests/integration/sibyl-agent-sdk.test.ts"
 }
