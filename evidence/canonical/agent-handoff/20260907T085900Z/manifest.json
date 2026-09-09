@@ -1,0 +1,18 @@
+{
+  "schema": "engram.agent-handoff-durable-learning/canonical-v1",
+  "evidenceState": "LOCAL_PASS",
+  "generatedAt": "2026-09-07T08:59:00Z",
+  "testedGitSha": "a3917d59cf0504e9dabee68a66d7bf87ef68dacc",
+  "sourceAgentId": "agent-a",
+  "consumerAgentId": "agent-b",
+  "processA": "process-a.json",
+  "processB": "process-b.json",
+  "executionMemoryId": "572e5b60-4e07-450a-bd9c-277610da49a6",
+  "memorySliceId": "44c7f788-51f4-4988-abd9-a424d25a017e",
+  "influenceGrantId": "3df99fb7-fc3c-4edb-a9b0-4783ee781f08",
+  "artifactSha256": {
+    "process-a.json": "91bb0f8641adce208e9269a3377bd0845436182a1a4acd660c4ed3be9703d706",
+    "process-b.json": "c240aed5ff48bf7b74e03c3a7fbe39b9bb5cc6b6c389947508ea63093bec3128"
+  },
+  "bundleSha256": "ea93a6d1cc2a9b38691ddeb2b43d03e623fd467d215530aca0630458004738b1"
+}

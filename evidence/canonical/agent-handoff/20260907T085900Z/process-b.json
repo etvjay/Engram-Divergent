@@ -1,0 +1,46 @@
+{
+  "schema": "engram.agent-handoff-durable-learning/v1",
+  "processBoundary": {
+    "agentADisappeared": true,
+    "freshAgentBProcess": true,
+    "inMemoryObjectsReused": false
+  },
+  "sourceAgentId": "agent-a",
+  "consumerAgentId": "agent-b",
+  "sourceExecutionMemoryId": "572e5b60-4e07-450a-bd9c-277610da49a6",
+  "memorySliceId": "44c7f788-51f4-4988-abd9-a424d25a017e",
+  "influenceGrantId": "3df99fb7-fc3c-4edb-a9b0-4783ee781f08",
+  "disclosure": {
+    "sourceProvenanceRetained": true,
+    "claimsExposed": [
+      "Comparable high-volume retrieval exhausted Tool A retries; use a bounded alternate-tool fallback strategy."
+    ],
+    "applicabilityExposed": {
+      "workflowType": "tool_recovery",
+      "taskType": "structured_data_retrieval",
+      "toolId": "tool-a-market-data",
+      "workloadClass": "high_volume_api",
+      "urgency": "ROUTINE",
+      "requestVolume": "HIGH"
+    },
+    "redactedFields": [
+      "rawHistory",
+      "sourceEvents"
+    ],
+    "rawHistoryExposed": false,
+    "sourceEventsExposed": false,
+    "fullAgentHistoryTransferred": false,
+    "credentialsTransferred": false,
+    "mandateTransferred": false,
+    "signerAuthorityTransferred": false
+  },
+  "applicability": {
+    "comparableTask": true,
+    "unrelatedTask": false
+  },
+  "positiveAuthorization": "AUTHORIZED",
+  "negativeAuthorization": "REJECTED:INFLUENCE_EFFECT_DENIED:increase_budget",
+  "wrongConsumerAuthorization": "REJECTED:AGENT_PROPOSAL_CONSUMER_AGENT_MISMATCH",
+  "unauthorizedInfluenceEscapes": 0,
+  "lineageValidation": []
+}
