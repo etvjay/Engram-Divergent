@@ -3,7 +3,7 @@
   "source": "evidence/canonical/longitudinal/latest/summary.json",
   "source_sha256": "a491829a23483d3c821f337e76581ea81225287dbf2886ba78ef6f9156d2ef53",
   "tested_source_sha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
-  "analysis_code_sha": "51b488de5ca3594d772fd09de8a1a4cfca7d4907",
+  "analysis_code_sha": "e0ec4d1b70e0564bd683e77827bfdde9e026d610",
   "metric_version": "engram-analysis/v2",
   "observations": 240,
   "domain_counts": {
@@ -92,6 +92,7 @@
     "memory-lifecycle.png",
     "memory-lifecycle.vega-lite.json",
     "model-backed-evaluation.json",
+    "model-transport-canary.json",
     "observations.csv",
     "paired-a5-vs-a2.csv",
     "provider-benchmark-metrics.csv",
