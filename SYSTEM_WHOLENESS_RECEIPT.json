@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "188541bd1c010a177a3a0c42c448f4fe839ea527",
+  "canonicalSha": "dfbf7351fafb9d669d0fc4523b554a2f168a6182",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -80,5 +80,6 @@
   "authorityViolations": 0,
   "finalVerdict": "REQUEST_CHANGES",
   "evidenceCeiling": "LOCAL_PASS for closed-loop/tool/handoff/MCP; PARTIAL_EXTERNAL for ACP create; BLOCKED_EXTERNAL for ACP funding/terminal/A2 and cross-model",
-  "canonicalEvidence": "evidence/canonical/longitudinal/latest/"
+  "canonicalEvidence": "evidence/canonical/longitudinal/latest/",
+  "testedSourceSha": "188541bd1c010a177a3a0c42c448f4fe839ea527"
 }
