@@ -7,7 +7,7 @@ import { BehavioralMemoryEvaluationSchema } from "../packages/evaluation/src/mem
 import { ExecutionMemorySchema, type ExecutionMemory } from "../packages/memory-core/src/execution-memory.js";
 import { materializeMemorySlice } from "../packages/experience/src/formation.js";
 
-const seedValues = [11, 23, 47];
+const seedValues = (process.env.ENGRAM_LONGITUDINAL_SEEDS ?? "11,23,47").split(",").map((value) => Number(value.trim())).filter((value) => Number.isInteger(value) && value >= 0);
 const uuid = () => randomUUID();
 
 function makeMemory(agentId: string, context: Record<string, unknown>, id = uuid()): ExecutionMemory {
