@@ -1,0 +1,24 @@
+{
+  "schema": "engram.virtuals.wallet-balance-read/v1",
+  "observedAt": "2026-09-09T14:17:48Z",
+  "evidenceState": "USDC_RECEIVED_GAS_BLOCKED",
+  "wallet": "0x938813e44ea5b9322e112056ffe60aa0ab272fc9",
+  "network": "base-mainnet",
+  "chainId": 8453,
+  "readBlock": "0x30b86c8",
+  "usdc": {
+    "token": "0x833589fcd6edb6e08f4c7c32d4f71b54bdA02913",
+    "raw": "45238",
+    "amount": "0.045238"
+  },
+  "nativeBase": {
+    "raw": "0",
+    "amount": "0"
+  },
+  "job77776": {
+    "requiredUsdc": "0.01",
+    "remainingUsdcAfterPayment": "0.035238",
+    "fundingAttempted": false
+  },
+  "nextBlocker": "native Base gas required for ACP funding user-operation"
+}
