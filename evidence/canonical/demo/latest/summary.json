@@ -6,7 +6,7 @@
   "useCases": [
     {
       "id": "provider-continuity",
-      "evidenceState": "BLOCKED_FUNDING_BALANCE_ZERO",
+      "evidenceState": "BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE",
       "source": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/",
       "preparation": "A0_PREPARED",
       "jobId": "77776",
@@ -14,7 +14,7 @@
       "jobFunded": false,
       "freshProcess": false,
       "authorizedInfluence": false,
-      "limitation": "A0 job was created, but funding failed before receipt because the ACP wallet balance was zero; no terminal provider outcome occurred."
+      "limitation": "Configured ACP wallet has zero USDC and zero native Base balance; no funding receipt can be produced."
     },
     {
       "id": "tool-recovery",
