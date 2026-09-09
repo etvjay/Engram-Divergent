@@ -1,5 +1,5 @@
 {
-  "canonicalSha": "67f6ba9a2565f38084eddd153001859e2d8a3e05",
+  "canonicalSha": "d66f6190cec05e81cb53464c5ff10f9f71da57d6",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
@@ -109,7 +109,7 @@
   "querySurface": "read-only evaluation MCP resources/tools",
   "externalProviderRead": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json",
   "modelTransportCanary": "evidence/canonical/analysis/latest/model-transport-canary.json",
-  "finalStatus": "SUBMISSION_FREEZE_BLOCKED_EXTERNAL_PROVIDER",
+  "finalStatus": "SUBMISSION_FREEZE_WITH_EXTERNAL_ACP_BLOCKER",
   "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json",
   "deferredByScope": [
     "FRONTEND",
@@ -119,5 +119,15 @@
   ],
   "externalProviderDiagnostic": "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json",
   "modelTransportDiagnostic": "evidence/canonical/analysis/latest/model-transport-diagnostic.json",
-  "typedSdk": "packages/agent-surface/src/sdk.ts; tests/integration/sibyl-agent-sdk.test.ts"
+  "typedSdk": "packages/agent-surface/src/sdk.ts; tests/integration/sibyl-agent-sdk.test.ts",
+  "judgeProof": "evidence/canonical/judge/latest/proof.json",
+  "freshSessionDemo": "evidence/canonical/judge/latest/fresh-session.json",
+  "memoryOperationsIndex": "docs/ENGRAM_MEMORY_OPERATIONS_INDEX.md",
+  "submissionNarrative": "docs/ENGRAM_SUBMISSION_NARRATIVE.md",
+  "submissionVideoScript": "docs/ENGRAM_SUBMISSION_VIDEO_SCRIPT.md",
+  "proofCommands": [
+    "npm run proof:judge",
+    "npm run demo:fresh-session",
+    "npm run demo:engram"
+  ]
 }
