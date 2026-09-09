@@ -21,6 +21,9 @@
 - Fresh read reconciliation: `evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json`
 - Fresh result: job remains open; configured wallet is unchanged; independent Base RPC reports USDC `0` and native balance `0`; economic path stopped as `BLOCKED_EXISTING_JOB_NOT_PROGRESSABLE`.
 
+- Testnet pivot readiness: `evidence/canonical/virtuals/testnet-pivot-readiness.json`
+- Testnet status: `BLOCKED_EXTERNAL_TESTNET_AUTH`; no active testnet agent, no verified ACP testnet provider/offering, and no testnet job created.
+
 ## Tool recovery
 
 - State: `LOCAL_PASS`

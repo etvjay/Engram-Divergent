@@ -1,0 +1,45 @@
+{
+  "schema": "engram.virtuals.testnet-pivot-readiness/v1",
+  "observedAt": "2026-09-09T14:04:39Z",
+  "evidenceState": "BLOCKED_EXTERNAL_TESTNET_AUTH",
+  "target": {
+    "network": "Base Sepolia candidate",
+    "chainId": 84532,
+    "status": "not verified in ACP chain registry"
+  },
+  "preservedMainnet": {
+    "jobId": "77776",
+    "chainId": 8453,
+    "status": "open",
+    "funded": false,
+    "unchanged": true
+  },
+  "readiness": {
+    "repositoryAdapterSupportsTestnetFlag": true,
+    "testnetConfigPath": "/home/ubuntu/.config/acp/config-testnet.json",
+    "testnetConfigPresent": false,
+    "activeTestnetAgent": false,
+    "testnetProviderOffering": "NOT_DISCOVERED",
+    "testnetJobCreated": false,
+    "testnetWalletFunded": false
+  },
+  "observedCommands": {
+    "chainList": "ACP returned mainnet environment with Base 8453, Robinhood Chain 4663, Solana 501",
+    "testnetBrowse": "NO_ACTIVE_AGENT"
+  },
+  "requiredExternalInputs": [
+    "authenticated ACP testnet configuration",
+    "active testnet agent",
+    "verified testnet provider/offering",
+    "disposable testnet wallet",
+    "testnet funds",
+    "explicit testnet job authorization"
+  ],
+  "sideEffects": {
+    "agentCreated": false,
+    "jobCreated": false,
+    "fundsMoved": false,
+    "mainnetJobChanged": false
+  },
+  "claimCeiling": "No testnet execution claim until authenticated provider/job/terminal evidence exists."
+}
