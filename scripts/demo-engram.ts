@@ -5,6 +5,7 @@ const root = process.cwd();
 const providerPrep = await json("evidence/canonical/virtuals/a0-preparation/20260907T084541Z/manifest.json");
 const providerExecution = await json("evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/manifest.json");
 const providerRead = await json("evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/read-reconciliation-20260909.json");
+const providerSession = await json("evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/acp-session-diagnostic.json");
 const tool = await json("evidence/canonical/tool-recovery/20260907T084535Z/process-b.json");
 const handoff = await json("evidence/canonical/agent-handoff/20260907T085900Z/process-b.json");
 const analysisManifest = await json("evidence/canonical/analysis/latest/manifest.json");
@@ -19,15 +20,15 @@ const summary = {
   useCases: [
     {
       id: "provider-continuity",
-      evidenceState: providerRead.evidenceState,
+      evidenceState: providerSession.evidenceState,
       source: "evidence/canonical/virtuals/a0-live-execution/20260909T104849Z/",
       preparation: providerPrep.stopGate,
       jobId: providerRead.job.jobId,
       jobCreated: providerExecution.jobCreated,
-      jobFunded: providerRead.wallet.usdcRawBalance !== "0",
+      jobFunded: false,
       freshProcess: false,
       authorizedInfluence: false,
-      limitation: providerRead.blockedReason,
+      limitation: "Authentic job history is readable, but ACP session reconstruction returns null and funding returns SESSION_NOT_FOUND; no terminal provider outcome occurred.",
     },
     {
       id: "tool-recovery",
