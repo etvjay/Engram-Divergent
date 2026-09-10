@@ -278,6 +278,7 @@ For system-level integration review:
 - [`DEMO.md`](./DEMO.md) — short replay narrative;
 - [`EVIDENCE.md`](./EVIDENCE.md) — reviewer evidence index;
 - [`docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md`](./docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md) - three-use-case narrative, benchmark tables, evaluation interpretation, and limits;
+- [`docs/ENGRAM_REAL_WORLD_EXPERIMENTS.md`](./docs/ENGRAM_REAL_WORLD_EXPERIMENTS.md) - plain-English explanation of the real-world problems, experiment steps, endpoint paths, current evidence, and next model tests;
 - [`evidence/canonical/longitudinal/latest/arm-summary.csv`](./evidence/canonical/longitudinal/latest/arm-summary.csv) - per-arm benchmark table;
 - [`evidence/canonical/longitudinal/latest/utility-by-arm.svg`](./evidence/canonical/longitudinal/latest/utility-by-arm.svg) - utility visualization;
 - [`evidence/canonical/analysis/latest/engram-analysis.html`](./evidence/canonical/analysis/latest/engram-analysis.html) - Plotly interactive analysis;
