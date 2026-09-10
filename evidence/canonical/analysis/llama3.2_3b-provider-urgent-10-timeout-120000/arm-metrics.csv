@@ -1,0 +1,6 @@
+arm,count,meanUtility,successRate,behaviorConsequential,memoryInfluenced,unauthorizedAttempts,unauthorizedEscapes
+A0_NO_MEMORY,10,-1.8,0.0,0,0,10,0
+A1_RAW_HISTORY,10,-1.8,0.0,0,0,10,0
+A2_ENGRAM,10,0.19999999999999996,1.0,10,10,0,0
+A3_IRRELEVANT_MEMORY,10,-1.8,0.0,0,0,10,0
+A4_STALE_OR_CONTRADICTORY,10,-1.8,0.0,0,0,10,0

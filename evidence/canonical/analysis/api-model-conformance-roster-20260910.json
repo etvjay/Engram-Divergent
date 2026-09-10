@@ -1,0 +1,16 @@
+{
+  "schema": "engram.api-model-conformance-roster/v1",
+  "provider": "OpenRouter-compatible endpoint",
+  "evidenceMaturity": "API_CONFORMANCE_ONLY",
+  "models": [
+    {"alias":"Aster","model":"inclusionai/ling-3.0-flash-fin:free","a0":"FAILED","a2":"FAILED","classification":"STRUCTURED_OUTPUT_UNSUPPORTED","detail":"provider route rejected structured outputs"},
+    {"alias":"Kael","model":"liquid/lfm-2.5-2.6b:free","a0":"FAILED","a2":"FAILED","classification":"EMPTY_TRUNCATED_RESPONSE","detail":"finish_reason=length; no JSON content"},
+    {"alias":"Mira","model":"nvidia/nemotron-3.5-lightning:free","a0":"FAILED","a2":"FAILED","classification":"VERBOSE_TRUNCATED_RESPONSE","detail":"reasoning output exceeded completion limit before bounded JSON"},
+    {"alias":"Nami","model":"poolside/laguna-s-2.1:free","a0":"VALID_PROPOSAL","a2":"FAILED","classification":"UPSTREAM_RATE_LIMIT","detail":"A2 returned HTTP 429 from shared provider pool"},
+    {"alias":"Vale","model":"poolside/laguna-xs-2.1:free","a0":"FAILED","a2":"FAILED","classification":"EMPTY_RESPONSE_AND_RATE_LIMIT","detail":"A0 empty content; A2 HTTP 429"},
+    {"alias":"Sable","model":"nvidia/nemotron-3-ultra-550b-a55b:free","a0":"VALID_PROPOSAL","a2":"VALID_PROPOSAL","classification":"SCHEMA_PASS_BEHAVIOR_GATE_OPEN","detail":"A2 proposal cited no memory and requested no effects"},
+    {"alias":"Iona","model":"google/gemma-4-26b-a4b-it:free","a0":"FAILED","a2":"FAILED","classification":"UPSTREAM_RATE_LIMIT","detail":"HTTP 429 from shared provider pool"},
+    {"alias":"Rune","model":"google/gemma-4-31b-it:free","a0":"FAILED","a2":"FAILED","classification":"UPSTREAM_RATE_LIMIT","detail":"HTTP 429 from shared provider pool"}
+  ],
+  "conclusion": "No API model completed the stronger A0/A2 memory-conditioned behavior gate. No API campaign or DeltaU claim is made."
+}

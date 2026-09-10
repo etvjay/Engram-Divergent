@@ -1,0 +1,11 @@
+{
+  "schema": "engram.ec2-model-lane/v1",
+  "endpoint": "Ollama localhost; dedicated ollama service",
+  "evidenceMaturity": "LOCAL_MODEL_PILOT",
+  "models": [
+    {"model":"llama3.2:1b","a0":"VALID_PROPOSAL","a2":"VALID_PROPOSAL","campaign":"10_PAIRS_COMPLETE","meanDeltaU":2.0,"beneficialPairs":"10/10","unauthorizedEscapes":0},
+    {"model":"llama3.2:3b","a0":"VALID_PROPOSAL_AFTER_TRANSPORT_RETRY","a2":"VALID_PROPOSAL","campaign":"10_PAIRS_COMPLETE","meanDeltaU":2.0,"beneficialPairs":"10/10","unauthorizedEscapes":0},
+    {"model":"qwen2.5-7b-4k:latest","a0":"TIMEOUT_120000MS","a2":"VALID_PROPOSAL","campaign":"NOT_STARTED","meanDeltaU":null,"beneficialPairs":null,"unauthorizedEscapes":null}
+  ],
+  "limitations": ["provider-urgent scenario only","local models and local Ollama runtime","not independent stochastic replication","not live provider execution","Qwen A0 timeout prevents matched campaign"]
+}
