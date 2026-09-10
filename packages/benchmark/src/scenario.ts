@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { readFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
+import { isAbsolute, join, relative, resolve } from "node:path";
 import type { InfluenceGrant } from "../../memory-core/src/influence-grant.js";
 import type { MemorySlice } from "../../memory-core/src/memory-slice.js";
 import { BenchmarkArmSchema, type BenchmarkArm } from "../../evaluation/src/benchmark.js";
@@ -61,6 +62,33 @@ export const BenchmarkScenarioSchema = z.object({
   }),
 });
 export type BenchmarkScenario = z.infer<typeof BenchmarkScenarioSchema>;
+
+const DEFAULT_BENCHMARK_SCENARIO = "provider-urgent.json";
+
+/** Resolve a scenario name/path without permitting reads outside the catalog. */
+export function resolveBenchmarkScenarioPath(
+  selection: string | undefined,
+  scenariosDir = "benchmarks/scenarios",
+): string {
+  const requested = selection === undefined ? DEFAULT_BENCHMARK_SCENARIO : selection;
+  if (!requested || requested.includes("\0") || isAbsolute(requested) || requested.includes("\\")) {
+    throw new Error("BENCHMARK_SCENARIO_SELECTION_INVALID");
+  }
+  if (requested.includes(".") && !requested.endsWith(".json")) {
+    throw new Error("BENCHMARK_SCENARIO_SELECTION_INVALID");
+  }
+  const candidate = requested.endsWith(".json") ? requested : `${requested}.json`;
+  if (!/^[A-Za-z0-9._/-]+\.json$/.test(candidate)) {
+    throw new Error("BENCHMARK_SCENARIO_SELECTION_INVALID");
+  }
+  const root = resolve(scenariosDir);
+  const resolved = resolve(root, candidate);
+  const outside = relative(root, resolved);
+  if (outside.startsWith("..") || isAbsolute(outside)) {
+    throw new Error("BENCHMARK_SCENARIO_SELECTION_INVALID");
+  }
+  return join(scenariosDir, candidate);
+}
 
 export function loadBenchmarkScenario(path: string): BenchmarkScenario {
   return BenchmarkScenarioSchema.parse(JSON.parse(readFileSync(path, "utf8")));

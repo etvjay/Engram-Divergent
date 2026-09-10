@@ -1,6 +1,6 @@
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { loadBenchmarkScenario } from "../packages/benchmark/src/scenario.js";
+import { loadBenchmarkScenario, resolveBenchmarkScenarioPath } from "../packages/benchmark/src/scenario.js";
 import { createBedrockAdapter } from "../packages/benchmark/src/adapters/bedrock.js";
 import { createQwenAdapter } from "../packages/benchmark/src/adapters/qwen.js";
 import { createDeterministicAdapter } from "../packages/benchmark/src/adapters/deterministic.js";
@@ -9,7 +9,9 @@ import { appendCampaignRecord, readCompletedPairIds, withRequestTimeout, type Ca
 
 const repoRoot = process.cwd();
 assertCleanGitTree(repoRoot);
-const scenario = loadBenchmarkScenario("benchmarks/scenarios/provider-urgent.json");
+const scenario = loadBenchmarkScenario(
+  resolveBenchmarkScenarioPath(process.env.ENGRAM_BENCHMARK_SCENARIO ?? process.argv[2]),
+);
 const repetitions = Number(process.env.ENGRAM_BENCHMARK_REPETITIONS ?? "10");
 const requestTimeoutMs = Number(process.env.ENGRAM_MODEL_REQUEST_TIMEOUT_MS ?? "30000");
 const model = process.env.ENGRAM_QWEN_MODEL;
