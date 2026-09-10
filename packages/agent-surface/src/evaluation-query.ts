@@ -17,7 +17,7 @@ async function readJson(root: string, name: string): Promise<Record<string, unkn
 
 export function createEvaluationQuerySurface(root = process.cwd()) {
   return {
-    listTools: () => SAFE_TOOLS.map((name) => ({ name, description: `Read-only canonical Engram evaluation query: ${name}.`, inputSchema: name === "get_evidence_receipt" ? { type: "object", additionalProperties: false, properties: { runId: { type: "string" } } } : { type: "object", additionalProperties: false }, annotations: { readOnlyHint: true, destructiveHint: false } })),
+    listTools: () => SAFE_TOOLS.map((name) => ({ name, description: `Read-only canonical Engram evaluation query: ${name}.`, inputSchema: name === "get_evidence_receipt" ? { type: "object", additionalProperties: false, properties: { runId: { type: "string" } } } : { type: "object", additionalProperties: false }, annotations: { readOnlyHint: true, destructiveHint: false }, _meta: { access: "read", confirmation: "none", hosted: false } })),
     listResources: () => Object.keys(RESOURCES),
     async readResource(uri: string): Promise<Record<string, unknown>> {
       const target = RESOURCES[uri as keyof typeof RESOURCES];

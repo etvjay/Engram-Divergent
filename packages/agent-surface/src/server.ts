@@ -18,7 +18,7 @@ export function createAgentSurface(store: BehavioralMemoryStore, options: { eval
   const query = createEvaluationQuerySurface(options.evaluationRoot);
   return {
     listTools: () => [
-      ...AGENT_SURFACE_TOOLS.slice(0, 4).map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.`, inputSchema: TOOL_INPUT_SCHEMAS[name], annotations: { readOnlyHint: false, destructiveHint: false } })),
+      ...AGENT_SURFACE_TOOLS.slice(0, 4).map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.`, inputSchema: TOOL_INPUT_SCHEMAS[name], annotations: { readOnlyHint: false, destructiveHint: false }, _meta: { access: "write", confirmation: "required", hosted: false } })),
       ...query.listTools(),
     ],
     listResources: () => query.listResources(),

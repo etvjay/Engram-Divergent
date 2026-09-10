@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "description": "Sibyl-native execution memory for autonomous agents",
   "type": "module",
+  "bin": {
+    "engram-mcp": "dist/scripts/engram-mcp.js"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run test:sibyl",
