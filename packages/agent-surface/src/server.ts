@@ -7,17 +7,18 @@ import { assertBehavioralProposalAuthorizedByGrant, AgentDecisionProposalSchema 
 import { formExecutionEpisode, formExecutionMemory, formExecutionSlice, formExperience, formCandidateMemory, admitCandidateMemory, materializeMemorySlice, materializeInfluenceGrant } from "../../experience/src/formation.js";
 import type { BehavioralMemoryStore } from "../../experience/src/store.js";
 import { createEvaluationQuerySurface } from "./evaluation-query.js";
+import { TOOL_INPUT_SCHEMAS, ToolNameSchema, mcpError, validateToolArguments } from "./mcp-contract.js";
 
 export const AGENT_SURFACE_TOOLS = ["record_complete_execution", "recall_applicable_memory", "request_influence", "submit_outcome_evaluation", "get_evaluation_summary", "compare_arms", "get_memory_update_history", "get_authority_boundary_metrics", "get_use_case_scorecard", "get_evidence_receipt"] as const;
 const SAFE_EFFECTS = ["provider_selection", "tool_selection", "retry_policy", "timeout_policy", "fallback_policy", "verification_policy"];
 
 type JsonRpcRequest = { jsonrpc: "2.0"; id: string | number; method: string; params?: Record<string, unknown> };
 
-export function createAgentSurface(store: BehavioralMemoryStore) {
-  const query = createEvaluationQuerySurface();
+export function createAgentSurface(store: BehavioralMemoryStore, options: { evaluationRoot?: string } = {}) {
+  const query = createEvaluationQuerySurface(options.evaluationRoot);
   return {
     listTools: () => [
-      ...AGENT_SURFACE_TOOLS.slice(0, 4).map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.` })),
+      ...AGENT_SURFACE_TOOLS.slice(0, 4).map((name) => ({ name, description: `Bounded Engram ${name}; raw Sibyl history is never returned.`, inputSchema: TOOL_INPUT_SCHEMAS[name], annotations: { readOnlyHint: false, destructiveHint: false } })),
       ...query.listTools(),
     ],
     listResources: () => query.listResources(),
@@ -27,10 +28,16 @@ export function createAgentSurface(store: BehavioralMemoryStore) {
         case "initialize": return { protocolVersion: "2026-06-18", capabilities: { tools: {}, resources: {} }, serverInfo: { name: "engram-agent-surface", version: "0.2.0" } };
         case "tools/list": return { tools: this.listTools() };
         case "resources/list": return { resources: this.listResources().map((uri) => ({ uri })) };
-        case "resources/read": return query.call("get_evaluation_summary");
+        case "resources/read": {
+          const uri = typeof params.uri === "string" ? params.uri : "";
+          return query.readResource(uri);
+        }
         case "tools/call": {
-          const name = String(params.name ?? "");
-          return await this.call({ ...request, method: name, params: (params.arguments as Record<string, unknown> | undefined) ?? {} });
+          const parsedName = ToolNameSchema.safeParse(params.name);
+          if (!parsedName.success) throw mcpError("MCP_TOOL_NOT_FOUND", "Unknown or missing tool name");
+          const name = parsedName.data;
+          const arguments_ = validateToolArguments(name, params.arguments);
+          return await this.call({ ...request, method: name, params: arguments_ });
         }
         case "record_complete_execution": return recordCompleteExecution(store, params);
         case "recall_applicable_memory": return recallApplicableMemory(store, params);

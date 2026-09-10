@@ -28,7 +28,13 @@ async function bridge<T>(op: string, args: Record<string, unknown> = {}): Promis
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     child.on("error", reject);
+    const timeoutMs = Number(process.env.ENGRAM_SIBYL_TIMEOUT_MS ?? 10000);
+    const timer = Number.isFinite(timeoutMs) && timeoutMs > 0 ? setTimeout(() => {
+      child.kill("SIGKILL");
+      reject(new Error(`SIBYL_BRIDGE_TIMEOUT: operation=${op}; timeoutMs=${timeoutMs}`));
+    }, timeoutMs) : undefined;
     child.on("close", (code) => {
+      if (timer) clearTimeout(timer);
       let parsed: BridgeResponse<T>;
       try {
         parsed = JSON.parse(stdout) as BridgeResponse<T>;

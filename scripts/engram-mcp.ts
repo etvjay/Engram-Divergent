@@ -12,6 +12,7 @@ for await (const line of input) {
     const result = await surface.call(request);
     process.stdout.write(`${JSON.stringify({ jsonrpc: "2.0", id: request.id, result })}\n`);
   } catch (error) {
-    process.stdout.write(`${JSON.stringify({ jsonrpc: "2.0", id: request?.id ?? null, error: { code: "ENGRAM_AGENT_SURFACE_ERROR", message: error instanceof Error ? error.message : String(error) } })}\n`);
+    const typed = error as { code?: string; message?: string; details?: unknown };
+    process.stdout.write(`${JSON.stringify({ jsonrpc: "2.0", id: request?.id ?? null, error: { code: typed.code ?? "ENGRAM_AGENT_SURFACE_ERROR", message: typed.message ?? String(error), ...(typed.details ? { details: typed.details } : {}) } })}\n`);
   }
 }
