@@ -1,0 +1,1873 @@
+{
+  "schema": "engram.local-model-real-world-canary/v1",
+  "evidenceState": "LOCAL_MODEL_CANARY_PASS",
+  "testedGitSha": "fd6d1c18edf7da5bd883db09ed4982974808a094",
+  "model": "llama3.2:1b",
+  "timeoutMs": 60000,
+  "scenarioCount": 16,
+  "armCount": 5,
+  "validProposalCount": 80,
+  "invalidProposalCount": 0,
+  "a2ValidProposalCount": 16,
+  "results": [
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 5591,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4455,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 6001,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4429,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4581,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4587,
+      "reply": {
+        "action": "CONTINUE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4350,
+      "reply": {
+        "action": "CONTINUE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 5894,
+      "reply": {
+        "action": "CONTINUE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CONTINUE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4288,
+      "reply": {
+        "action": "CONTINUE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4450,
+      "reply": {
+        "action": "CONTINUE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 4891,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 4699,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 6472,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 4619,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 4776,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 4548,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 4360,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 6014,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 4393,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 4550,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4743,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4535,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 6310,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4634,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4744,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4653,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4454,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 5982,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4489,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 4537,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 5453,
+      "reply": {
+        "action": "BACKOFF",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": {
+          "retry_policy": "BACKOFF"
+        }
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 5258,
+      "reply": {
+        "action": "BACKOFF",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": {
+          "retry_policy": "BACKOFF"
+        }
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 6075,
+      "reply": {
+        "action": "ESCALATE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "ESCALATE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 5270,
+      "reply": {
+        "action": "BACKOFF",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": {
+          "retry_policy": "BACKOFF"
+        }
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 5494,
+      "reply": {
+        "action": "BACKOFF",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": {
+          "retry_policy": "BACKOFF"
+        }
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4613,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4386,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 5908,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4333,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 4474,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 4864,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 4606,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 6007,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 4638,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 4754,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 4491,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "tool_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 4460,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "A1_RAW_HISTORY"
+        ],
+        "requestedEffects": [
+          "TOOL_SELECTION"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 5927,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "tool_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 6131,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "A3_IRRELEVANT_MEMORY"
+        ],
+        "requestedEffects": [
+          "USE_COMPATIBLE_SCHEMA",
+          "CHECK_STATUS",
+          "ESCALATE",
+          "STOP"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 4434,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "tool_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4671,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4437,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 6248,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4471,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 4658,
+      "reply": {
+        "action": "RECONCILE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 4872,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 4684,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 6481,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 4691,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 4834,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 4459,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 4273,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 5799,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 4230,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 4415,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 4528,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 4305,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 5951,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 4359,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 4554,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 4894,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 4773,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 6674,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 4930,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 5049,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 4909,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 4586,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 5949,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 4232,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:1b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 4420,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    }
+  ]
+}
