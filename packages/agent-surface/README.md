@@ -1,4 +1,4 @@
-# `@sibylengram/agent-surface`
+# `engram-agent-surface`
 
 Reusable, bounded Engram HTTP API boundary over the canonical `AgentSurface`.
 The package owns transport concerns; domain behavior remains injected through
@@ -54,7 +54,7 @@ hosted/authenticated operation.
 ## Typed SDK quickstart
 
 ```ts
-import { EngramClient } from "@sibylengram/agent-surface";
+import { EngramClient } from "engram-agent-surface";
 const client = new EngramClient({ surface });
 const recorded = await client.recordCompleteExecution(input);
 ```

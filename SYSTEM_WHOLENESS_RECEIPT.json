@@ -7,7 +7,7 @@
       "fixture process runners",
       "MCP stdio",
       "typed developer SDK",
-      "packaged @sibylengram/agent-surface SDK",
+      "packaged engram-agent-surface SDK",
       "packaged local-loopback REST API"
     ],
     "unsupportedSurfaces": [
