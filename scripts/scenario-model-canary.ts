@@ -89,7 +89,7 @@ for (const scenario of selectedScenarios) {
     console.log(JSON.stringify(record));
   }
 }
-const outDir = join("evidence", "canonical", "analysis", "local-model-real-world-canary");
+const outDir = join("evidence", "canonical", "analysis", "local-model-real-world-canary", model.replace(/[^a-zA-Z0-9._-]/g, "_"));
 await mkdir(outDir, { recursive: true });
 const testedGitSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: process.cwd() }).toString().trim();
 await writeFile(join(outDir, "results.json"), `${JSON.stringify({ schema: "engram.local-model-real-world-canary/v1", evidenceState: results.some((r) => r.arm === "A2_ENGRAM" && r.proposalStatus !== "VALID_PROPOSAL") ? "LOCAL_MODEL_CANARY_INCOMPLETE" : "LOCAL_MODEL_CANARY_PASS", testedGitSha, model, timeoutMs, scenarioCount: selectedScenarios.length, armCount: arms.length, validProposalCount: results.filter((r) => r.proposalStatus === "VALID_PROPOSAL").length, invalidProposalCount: results.filter((r) => r.proposalStatus === "INVALID_PROPOSAL").length, a2ValidProposalCount: results.filter((r) => r.arm === "A2_ENGRAM" && r.proposalStatus === "VALID_PROPOSAL").length, results }, null, 2)}\n`);
