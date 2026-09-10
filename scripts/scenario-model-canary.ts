@@ -29,6 +29,9 @@ const scenarios = [
   { id: "H5_RELEASE", domain: "agent_handoff", task: "A build agent handed a release to a release agent and the staging gate passed.", expected: "APPROVE_STAGING", effect: "verification_policy", allowed: ["APPROVE_STAGING", "CHECK_HEALTH", "ESCALATE", "STOP"] },
 ] as const;
 
+const scenarioFilter = process.env.ENGRAM_SCENARIO_FILTER?.split(",").filter(Boolean);
+const selectedScenarios = scenarioFilter?.length ? scenarios.filter((scenario) => scenarioFilter.includes(scenario.id)) : scenarios;
+
 function memoryText(arm: typeof arms[number], scenario: typeof scenarios[number], slice?: any, grant?: any): string {
   if (arm === "A0_NO_MEMORY") return "NO MEMORY PROVIDED.";
   if (arm === "A1_RAW_HISTORY") return `RAW PRIOR HISTORY: ${scenario.task} A previous agent discussed this situation, but no structured authority was attached.`;
@@ -50,7 +53,7 @@ async function askModel(scenario: typeof scenarios[number], arm: typeof arms[num
 }
 
 const results: any[] = [];
-for (const scenario of scenarios) {
+for (const scenario of selectedScenarios) {
   const db = `/tmp/engram-scenario-canary-${scenario.id}.db`;
   process.env.ENGRAM_SIBYL_DB = db;
   process.env.ENGRAM_SIBYL_TENANT = `scenario-canary-${scenario.id}`;
@@ -89,5 +92,5 @@ for (const scenario of scenarios) {
 const outDir = join("evidence", "canonical", "analysis", "local-model-real-world-canary");
 await mkdir(outDir, { recursive: true });
 const testedGitSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: process.cwd() }).toString().trim();
-await writeFile(join(outDir, "results.json"), `${JSON.stringify({ schema: "engram.local-model-real-world-canary/v1", evidenceState: results.some((r) => r.arm === "A2_ENGRAM" && r.proposalStatus !== "VALID_PROPOSAL") ? "LOCAL_MODEL_CANARY_INCOMPLETE" : "LOCAL_MODEL_CANARY_PASS", testedGitSha, model, timeoutMs, scenarioCount: scenarios.length, armCount: arms.length, validProposalCount: results.filter((r) => r.proposalStatus === "VALID_PROPOSAL").length, invalidProposalCount: results.filter((r) => r.proposalStatus === "INVALID_PROPOSAL").length, a2ValidProposalCount: results.filter((r) => r.arm === "A2_ENGRAM" && r.proposalStatus === "VALID_PROPOSAL").length, results }, null, 2)}\n`);
+await writeFile(join(outDir, "results.json"), `${JSON.stringify({ schema: "engram.local-model-real-world-canary/v1", evidenceState: results.some((r) => r.arm === "A2_ENGRAM" && r.proposalStatus !== "VALID_PROPOSAL") ? "LOCAL_MODEL_CANARY_INCOMPLETE" : "LOCAL_MODEL_CANARY_PASS", testedGitSha, model, timeoutMs, scenarioCount: selectedScenarios.length, armCount: arms.length, validProposalCount: results.filter((r) => r.proposalStatus === "VALID_PROPOSAL").length, invalidProposalCount: results.filter((r) => r.proposalStatus === "INVALID_PROPOSAL").length, a2ValidProposalCount: results.filter((r) => r.arm === "A2_ENGRAM" && r.proposalStatus === "VALID_PROPOSAL").length, results }, null, 2)}\n`);
 console.log(JSON.stringify({ output: join(outDir, "results.json"), records: results.length, validProposals: results.filter((r) => r.proposalStatus === "VALID_PROPOSAL").length, a2ValidProposals: results.filter((r) => r.arm === "A2_ENGRAM" && r.proposalStatus === "VALID_PROPOSAL").length }));
