@@ -219,6 +219,37 @@ record_complete_execution
 
 It exposes bounded claims and grants only; raw Sibyl history is not exposed. Run the stdio surface with `npm run agent-surface:mcp`.
 
+### Published SDK, MCP launcher, and agent skill
+
+The installable developer surface is published as [`engram-agent-surface@1.0.2`](https://www.npmjs.com/package/engram-agent-surface):
+
+```bash
+npm install engram-agent-surface
+```
+
+Use the published SDK from an external consumer:
+
+```ts
+import { EngramClient } from "engram-agent-surface";
+```
+
+Run the packaged local MCP server with `npx`:
+
+```json
+{
+  "mcpServers": {
+    "engram": {
+      "command": "npx",
+      "args": ["--yes", "engram-agent-surface@1.0.2"]
+    }
+  }
+}
+```
+
+The package exposes the `engram-mcp` executable, uses local Sibyl persistence by default, and keeps the same bounded recall, influence, and outcome semantics as the SDK and REST surfaces. It does not expose raw Sibyl history or unrestricted authority.
+
+Agent onboarding guidance is available in [`integrations/engram/SKILL.md`](./integrations/engram/SKILL.md) and is included in the published package as [`SKILL.md`](./packages/agent-surface/SKILL.md). The skill explains the required record → recall → bounded influence → outcome workflow. It is guidance for using Engram, not a memory store and not model-weight training.
+
 ### Typed developer SDK
 
 The typed SDK wraps the same bounded agent surface without duplicating memory or authorization semantics:
