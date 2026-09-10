@@ -55,6 +55,8 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
         '  "reasoningSummary": string',
         '  "memorySliceIds": array of the SLICE-n labels you relied on (only labels provided to you)',
         '  "requestedEffects": array of strings chosen ONLY from effects explicitly allowed by the provided influence grants (empty list if none apply)',
+        "IMPORTANT: memorySliceIds and requestedEffects are TOP-LEVEL fields. NEVER put them inside proposedAction. proposedAction contains only executable action fields such as provider.",
+        'Example: {"proposedAction":{"provider":"beacon"},"reasoningSummary":"...","memorySliceIds":["SLICE-1"],"requestedEffects":["PROVIDER_SUBSTITUTION"]}',
       ].join(" ");
 
       const user = [
