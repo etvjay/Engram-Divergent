@@ -55,6 +55,9 @@ const ROUTES: readonly Route[] = [
   { method: "GET", path: "/v1/evaluations/summary", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("get_evaluation_summary", {})) },
   { method: "GET", path: "/v1/evaluations/arms", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("compare_arms", {})) },
   { method: "GET", path: "/v1/evaluations/scorecard", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("get_use_case_scorecard", {})) },
+  { method: "GET", path: "/v1/evaluations/memory-updates", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("get_memory_update_history", {})) },
+  { method: "GET", path: "/v1/evaluations/authority", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("get_authority_boundary_metrics", {})) },
+  { method: "GET", path: "/v1/evaluations/evidence", classification: "read", schema: Empty, invoke: (s) => s.call(rpc("get_evidence_receipt", {})) },
 ];
 
 function rpc(name: string, params: Record<string, unknown>) {
