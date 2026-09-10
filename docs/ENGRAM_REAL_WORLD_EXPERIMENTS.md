@@ -37,7 +37,7 @@ Current status:
 | Procurement approval handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H4_PROCUREMENT`) |
 | Deployment release handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H5_RELEASE`) |
 
-The words **expected outcome** in a `PROPOSED` section describe the acceptance criteria. They do not describe a result that has already happened.
+The 16-case matrix has now been exercised through the typed SDK, REST/HTTP, and MCP stdio paths. The retained SDK result bundle is the canonical per-scenario evidence record; the endpoint suites verify that the same lifecycle reaches the same terminal `UPDATED` state through each transport.
 
 
 > Can the agent use the lesson later, when a similar problem happens again, without receiving the entire old conversation or gaining extra authority?
