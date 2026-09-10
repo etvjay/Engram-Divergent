@@ -44,6 +44,7 @@
     "agent-surface:mcp": "tsx scripts/engram-mcp.ts",
     "demo:engram": "tsx scripts/demo-engram.ts",
     "proof:judge": "ENGRAM_SIBYL_TEST_REQUIRED=1 tsx scripts/judge-proof.ts",
+    "proof:mcp-active-agent": "ENGRAM_MODEL=llama3.2:3b tsx scripts/mcp-active-agent-proof.ts",
     "demo:fresh-session": "ENGRAM_SIBYL_TEST_REQUIRED=1 tsx scripts/judge-proof.ts --fresh-only",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
     "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:evaluation && npm run test:sdk && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base && npm run test:surface-lifecycle"

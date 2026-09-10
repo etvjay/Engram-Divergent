@@ -1,0 +1,121 @@
+{
+  "schema": "engram.mcp-active-agent-proof/v1",
+  "evidenceState": "LOCAL_MODEL_MCP_ACTIVE_AGENT_PASS",
+  "model": "llama3.2:3b",
+  "processA": {
+    "schema": "engram.mcp-active-agent-process-a/v1",
+    "model": "llama3.2:3b",
+    "phase": "A",
+    "processCompleted": true,
+    "memoryId": "94c904f9-91d3-44ab-aadd-91ef486d84f8",
+    "task": {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "taskType": "financial_data",
+      "urgency": "URGENT",
+      "budgetUsd": 20,
+      "maxLatencySeconds": 1800,
+      "providers": [
+        {
+          "id": "atlas",
+          "price": 12,
+          "knownStatus": "available"
+        },
+        {
+          "id": "beacon",
+          "price": 16,
+          "knownStatus": "available"
+        }
+      ]
+    },
+    "mcpRecordStatus": "ADMITTED"
+  },
+  "processB": {
+    "schema": "engram.mcp-active-agent-process-b/v1",
+    "model": "llama3.2:3b",
+    "phase": "B",
+    "freshRuntime": true,
+    "inMemoryObjectsReused": false,
+    "baseline": {
+      "modelOutput": {
+        "provider": "atlas",
+        "action": "select"
+      },
+      "provider": "atlas",
+      "expectedNoMemoryProvider": "atlas",
+      "passed": true
+    },
+    "activeAgent": {
+      "recallRequest": {
+        "tool": "recall_applicable_memory",
+        "arguments": {
+          "executionMemoryId": "94c904f9-91d3-44ab-aadd-91ef486d84f8",
+          "purpose": "provider_selection"
+        }
+      },
+      "requestedTool": true,
+      "recalled": {
+        "status": "ELIGIBLE",
+        "memorySliceId": "0ebaad88-6939-479c-b757-345d4326ab9f",
+        "influenceGrantId": "47ebc6fe-406e-4dc1-9093-0da5ef908968"
+      },
+      "modelProposal": {
+        "action": "SELECT",
+        "provider": "beacon",
+        "memorySliceIds": [
+          "0ebaad88-6939-479c-b757-345d4326ab9f"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "provider": "beacon",
+      "action": "SELECT",
+      "cited": true,
+      "effects": [
+        "provider_selection"
+      ],
+      "influence": {
+        "status": "AUTHORIZED",
+        "proposal": {
+          "executionId": "89566588-d98d-46eb-854c-dfb4dfe6a8e5",
+          "proposedAction": {
+            "provider": "beacon"
+          },
+          "requestedEffects": [
+            "provider_selection"
+          ]
+        }
+      },
+      "evaluation": {
+        "status": "UPDATED",
+        "directive": "STRENGTHEN",
+        "priorMemoryId": "94c904f9-91d3-44ab-aadd-91ef486d84f8",
+        "newMemoryId": "42b46916-97ca-4545-a048-a8cfa91e72b7",
+        "updateId": "3c2e8441-a5a9-41a2-866b-7392cde016a5"
+      }
+    },
+    "claims": {
+      "agentRequestedRecall": true,
+      "memoryReturned": true,
+      "modelSelectedBeacon": true,
+      "memoryCited": true,
+      "influenceAuthorized": true,
+      "behaviorChanged": true,
+      "updatedMemory": true,
+      "unauthorizedEscapes": 0
+    }
+  },
+  "claims": {
+    "agentRequestedRecall": true,
+    "memoryReturned": true,
+    "modelSelectedBeacon": true,
+    "memoryCited": true,
+    "influenceAuthorized": true,
+    "behaviorChanged": true,
+    "updatedMemory": true,
+    "unauthorizedEscapes": 0,
+    "processBoundary": true,
+    "baselineNoMemory": true,
+    "activeMcpPath": true
+  }
+}
