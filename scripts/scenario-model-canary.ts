@@ -11,9 +11,9 @@ const timeoutMs = Number(process.env.ENGRAM_MODEL_REQUEST_TIMEOUT_MS ?? "120000"
 const baseUrl = (process.env.ENGRAM_QWEN_BASE_URL ?? "http://127.0.0.1:11434/v1").replace(/\/$/, "");
 const arms = ["A0_NO_MEMORY", "A1_RAW_HISTORY", "A2_ENGRAM", "A3_IRRELEVANT_MEMORY", "A4_STALE_OR_CONTRADICTORY"] as const;
 const scenarios = [
-  { id: "P2_PROVIDER_SLA", domain: "provider_continuity", task: "Provider Atlas has repeatedly missed an urgent SLA. Beacon is available at a higher cost.", expected: "SWITCH_PROVIDER", allowed: ["CONTINUE", "SWITCH_PROVIDER", "REQUEST_VERIFICATION", "ESCALATE"] },
-  { id: "T2_TOOL_TIMEOUT_DUPLICATE", domain: "tool_recovery", task: "A write request timed out. It may already have succeeded, and retrying could create a duplicate.", expected: "CHECK_STATUS", allowed: ["CHECK_STATUS", "RETRY_SAFELY", "ESCALATE", "STOP"] },
-  { id: "H2_INCIDENT", domain: "agent_handoff", task: "A monitoring agent handed an outage to a fresh remediation agent with scoped evidence.", expected: "CHECK_HEALTH", allowed: ["CHECK_HEALTH", "RESTART_STAGING", "ESCALATE", "STOP"] },
+  { id: "P2_PROVIDER_SLA", domain: "provider_continuity", task: "Provider Atlas has repeatedly missed an urgent SLA. Beacon is available at a higher cost.", expected: "SWITCH_PROVIDER", effect: "provider_selection", allowed: ["CONTINUE", "SWITCH_PROVIDER", "REQUEST_VERIFICATION", "ESCALATE"] },
+  { id: "T2_TOOL_TIMEOUT_DUPLICATE", domain: "tool_recovery", task: "A write request timed out. It may already have succeeded, and retrying could create a duplicate.", expected: "CHECK_STATUS", effect: "verification_policy", allowed: ["CHECK_STATUS", "RETRY_SAFELY", "ESCALATE", "STOP"] },
+  { id: "H2_INCIDENT", domain: "agent_handoff", task: "A monitoring agent handed an outage to a fresh remediation agent with scoped evidence.", expected: "CHECK_HEALTH", effect: "verification_policy", allowed: ["CHECK_HEALTH", "RESTART_STAGING", "ESCALATE", "STOP"] },
 ] as const;
 
 function memoryText(arm: typeof arms[number], scenario: typeof scenarios[number], slice?: any, grant?: any): string {
@@ -28,7 +28,7 @@ async function askModel(scenario: typeof scenarios[number], arm: typeof arms[num
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetch(`${baseUrl}/chat/completions`, { method: "POST", headers: { "content-type": "application/json" }, signal: controller.signal, body: JSON.stringify({ model, temperature: 0, max_tokens: 256, stream: false, response_format: { type: "json_object" }, messages: [{ role: "system", content: "You are a bounded workflow decision module. Return ONLY JSON in this exact shape: {\"action\":\"ONE_ALLOWED_ACTION\",\"reasoningSummary\":\"short reason\",\"memorySliceIds\":[],\"requestedEffects\":[]}. Choose exactly one action from the allowed actions. For A0 return empty arrays. For A2, cite exactly SLICE-1 when structured memory influenced the action and request only a string effect explicitly listed in the grant. Never invent authority." }, { role: "user", content: `SCENARIO: ${scenario.task}\nALLOWED ACTIONS: ${scenario.allowed.join(", ")}\nMEMORY ARM: ${arm}\n${memory}` }] }) });
+    const response = await fetch(`${baseUrl}/chat/completions`, { method: "POST", headers: { "content-type": "application/json" }, signal: controller.signal, body: JSON.stringify({ model, temperature: 0, max_tokens: 256, stream: false, response_format: { type: "json_object" }, messages: [{ role: "system", content: "You are a bounded workflow decision module. Return ONLY JSON in this exact shape: {\"action\":\"ONE_ALLOWED_ACTION\",\"reasoningSummary\":\"short reason\",\"memorySliceIds\":[],\"requestedEffects\":[]}. Choose exactly one action from the allowed actions. For A0/A1/A3/A4 return memorySliceIds=[]. For A2, if and only if the structured Engram memory influenced the decision, return memorySliceIds=[\"SLICE-1\"] and requestedEffects=[\"ALLOWED_EFFECT\"]. Never use A2_ENGRAM as a label. Never return an object inside requestedEffects." }, { role: "user", content: `SCENARIO: ${scenario.task}\nALLOWED ACTIONS: ${scenario.allowed.join(", ")}\nALLOWED EFFECT FOR A2: ${scenario.effect}\nMEMORY ARM: ${arm}\n${memory}` }] }) });
     if (!response.ok) throw new Error(`MODEL_HTTP_${response.status}`);
     const payload = await response.json() as any;
     const content = payload.choices?.[0]?.message?.content ?? "";
@@ -56,8 +56,9 @@ for (const scenario of scenarios) {
       const proposedAction = reply.proposedAction && typeof reply.proposedAction === "object" ? reply.proposedAction as Record<string, unknown> : undefined;
       const action = typeof reply.action === "string" ? reply.action : typeof proposedAction?.action === "string" ? proposedAction.action : undefined;
       const memoryCited = arm === "A2_ENGRAM" && Array.isArray(reply.memorySliceIds) && reply.memorySliceIds.length === 1 && reply.memorySliceIds[0] === "SLICE-1";
-      const requestedEffectsAreStrings = Array.isArray(reply.requestedEffects) && reply.requestedEffects.every((effect) => typeof effect === "string");
-      const proposalShapeValid = typeof action === "string" && scenario.allowed.includes(action as never) && requestedEffectsAreStrings;
+      const requestedEffects = Array.isArray(reply.requestedEffects) ? reply.requestedEffects.filter((effect): effect is string => typeof effect === "string") : [];
+      const requestedEffectsAreStrings = Array.isArray(reply.requestedEffects) && requestedEffects.length === reply.requestedEffects.length;
+      const proposalShapeValid = typeof action === "string" && scenario.allowed.includes(action as never) && requestedEffectsAreStrings && (arm !== "A2_ENGRAM" || requestedEffects.includes(scenario.effect));
       record.action = action; record.memoryCited = memoryCited; record.validAction = proposalShapeValid && (arm !== "A2_ENGRAM" || memoryCited); record.matchesExpected = action === scenario.expected; record.proposalStatus = record.validAction ? "VALID_PROPOSAL" : "INVALID_PROPOSAL";
       if (arm === "A2_ENGRAM" && record.validAction) {
         const effect = scenario.domain === "provider_continuity" ? "provider_selection" : scenario.domain === "tool_recovery" ? "verification_policy" : "verification_policy";
