@@ -2,8 +2,8 @@
   "schema": "engram.judge-proof/v1",
   "evidenceState": "LOCAL_PASS",
   "mode": "FRESH_SESSION_ONLY",
-  "generatedAt": "2026-09-09T22:40:28.902Z",
-  "testedSha": "68fbbb3387969d0cf0e5d3a25b4355d024db3062",
+  "generatedAt": "2026-09-10T16:59:45.375Z",
+  "testedSha": "4104c10db1598b2d77410b2cc0edc55548b49149",
   "source": {
     "fixture": "tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json",
     "sha256": "934e8c9a6eb1f1aebefbfa18363556f424b56c79484d63f1ec6d58ca77e16849"
@@ -11,7 +11,7 @@
   "arm1SibylEnabled": {
     "sourceProcess": {
       "completed": true,
-      "executionMemoryId": "ad5545d7-2cb3-4a45-9241-5228fcdc4daa",
+      "executionMemoryId": "1ef24ebb-b747-4602-9dbd-dd6e7fdd36e5",
       "admission": {
         "status": "ADMITTED",
         "reason": "Observed terminal tool failure with evidence-backed scope for a changed retry and fallback strategy.",
@@ -27,13 +27,13 @@
     "applicable": true,
     "eligible": true,
     "memorySlice": {
-      "id": "5b04ff37-504f-455d-8a68-73fd32297469",
+      "id": "ea927d3f-8d17-4f2a-89e3-24f40de9af6d",
       "claims": [
         "Tool A exhausted retries after rate limits and timeout; comparable work should change retry and fallback strategy."
       ]
     },
     "influenceGrant": {
-      "id": "dbec2a7e-11dc-4a59-9ec4-0e15e0467c70",
+      "id": "5011971f-3eeb-4cbe-a6d1-5e77c91f598b",
       "allowedEffects": [
         "tool_selection",
         "retry_policy",
