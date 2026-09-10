@@ -1,20 +1,18 @@
 {
   "name": "@sibylengram/agent-surface",
   "version": "1.0.0",
-  "description": "Typed Engram agent-surface SDK",
+  "private": false,
   "type": "module",
+  "description": "Typed Engram agent-surface SDK",
   "license": "MIT",
-  "files": ["dist", "README.md", "LICENSE"],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" },
+    "./openapi.json": "./openapi.json"
   },
+  "files": ["dist", "openapi.json", "README.md", "LICENSE"],
   "sideEffects": false,
   "engines": { "node": ">=20" },
   "scripts": {
@@ -23,5 +21,10 @@
     "pack:check": "npm run build && npm pack --dry-run"
   },
   "dependencies": { "zod": "^4.0.17" },
-  "devDependencies": { "tsup": "^8.5.0", "typescript": "^5.9.2" }
+  "devDependencies": { "tsup": "^8.5.0", "typescript": "^5.9.2" },
+  "engramBoundary": {
+    "deploymentModes": ["local-loopback", "hosted-authenticated"],
+    "openapi": "openapi.json",
+    "routeMatrixExport": "ROUTES"
+  }
 }
