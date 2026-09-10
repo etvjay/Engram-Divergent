@@ -24,6 +24,7 @@
     "packages/base-settlement/**/*.ts",
     "packages/agent-surface/**/*.ts",
     "packages/benchmark/**/*.ts",
+    "packages/agent-surface/**/*.ts",
     "scripts/**/*.ts",
     "tests/integration/sibyl-*.test.ts",
     "tests/integration/benchmark-runner.test.ts",
