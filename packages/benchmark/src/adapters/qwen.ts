@@ -16,6 +16,8 @@ export interface QwenAdapterConfig {
   temperature?: number;
   /** Injectable for tests; defaults to global fetch. */
   fetchImpl?: typeof fetch;
+  /** Abort a single model request after this many milliseconds. */
+  requestTimeoutMs?: number;
   /** Retries for degenerate model output (small models sometimes stop mid-JSON). */
   maxAttempts?: number;
 }
@@ -41,6 +43,8 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
   const apiKey = config.apiKey ?? process.env.ENGRAM_QWEN_API_KEY ?? "not-required";
   const temperature = config.temperature ?? 0;
   const fetchImpl = config.fetchImpl ?? fetch;
+  const requestTimeoutMs = config.requestTimeoutMs ?? Number(process.env.ENGRAM_MODEL_REQUEST_TIMEOUT_MS ?? "0");
+  if (!Number.isInteger(requestTimeoutMs) || requestTimeoutMs < 0) throw new Error("QWEN_ADAPTER_TIMEOUT_INVALID");
 
   const proposeOnce = async (request: ModelDecisionRequest, attempt: number): Promise<AgentDecisionProposal> => {
       const system = [
@@ -71,6 +75,8 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
       ].join("\n");
 
       let response: Response;
+      const controller = requestTimeoutMs > 0 ? new AbortController() : undefined;
+      const timer = controller ? setTimeout(() => controller.abort(), requestTimeoutMs) : undefined;
       try {
         response = await fetchImpl(`${baseUrl}/chat/completions`, {
           method: "POST",
@@ -78,6 +84,7 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
             "content-type": "application/json",
             authorization: `Bearer ${apiKey}`,
           },
+          signal: controller?.signal,
           body: JSON.stringify({
             model,
             temperature,
@@ -91,8 +98,11 @@ export function createQwenAdapter(config: QwenAdapterConfig = {}): ModelAdapter 
           }),
         });
       } catch (error) {
+        if (timer) clearTimeout(timer);
+        if ((error as Error).name === "AbortError") throw new Error(`QWEN_ADAPTER_TIMEOUT_${requestTimeoutMs}MS`);
         throw new Error(`QWEN_ADAPTER_REQUEST_FAILED: ${(error as Error).message}`);
       }
+      if (timer) clearTimeout(timer);
       if (!response.ok) {
         throw new Error(`QWEN_ADAPTER_HTTP_${response.status}: ${await response.text()}`);
       }
