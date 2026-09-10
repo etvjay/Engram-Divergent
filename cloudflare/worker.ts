@@ -58,6 +58,7 @@ export default {
       const result = await surface.call({ jsonrpc: "2.0", id: requestId, method: "tools/call", params: { name, arguments: params } });
       return response(200, { data: result }, requestId);
     } catch (error) {
+      console.error("ENGRAM_WORKER_FAILURE", requestId, error instanceof Error ? error.message : String(error));
       const mapped = errorCode(error);
       return response(mapped.status, { error: { code: error instanceof Error && ["BODY_TOO_LARGE", "INVALID_JSON"].includes(error.message) ? error.message : mapped.code, message: mapped.code } }, requestId);
     }
