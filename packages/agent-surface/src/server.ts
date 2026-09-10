@@ -74,7 +74,7 @@ async function recallApplicableMemory(store: BehavioralMemoryStore, params: Reco
   const slice = materializeMemorySlice({ memory, consumerAgentId: String(params.consumerAgentId), consumerExecutionId: String(params.consumerExecutionId), purpose: String(params.purpose ?? "bounded_influence"), subject: String(params.subject ?? memory.memoryType), claims: [memory.summary], evidenceRefs: ["engram://execution-memory/" + memory.id] });
   const grant = materializeInfluenceGrant({ slice, allowedEffects: SAFE_EFFECTS, deniedEffects: ["increase_budget", "new_signer", "new_wallet", "new_asset", "new_capability"], constraints: { authority: "monotonic" } });
   await store.persistMemorySlice(slice); await store.persistInfluenceGrant(grant);
-  return { status: "ELIGIBLE", memorySlice: { id: slice.id, claims: slice.claims, applicability: slice.applicability, redactedFields: slice.redactedFields }, influenceGrant: grant };
+  return { status: "ELIGIBLE", memorySlice: slice, influenceGrant: grant };
 }
 
 async function requestInfluence(store: BehavioralMemoryStore, params: Record<string, unknown>) {

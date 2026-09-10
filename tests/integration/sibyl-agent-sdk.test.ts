@@ -38,12 +38,14 @@ describeSibyl("typed cold-developer Engram SDK", () => {
       evidenceRefs: ["local:typed-sdk"], subject: "tool-recovery", observation: "Tool completed", interpretation: "Successful tool execution", applicability: { tool: "tool-a", workloadClass: "high" }, confidence: 0.8,
     });
     expect(recorded.status).toBe("ADMITTED");
-    const memoryId = String((recorded.ids as Record<string, unknown>).executionMemoryId);
+    if (recorded.status !== "ADMITTED") throw new Error("expected admission");
+    const memoryId = recorded.ids.executionMemoryId;
     const consumerExecutionId = randomUUID();
     const recalled = await client.recallApplicableMemory({ executionMemoryId: memoryId, consumerAgentId: "consumer-agent", consumerExecutionId, context: { tool: "tool-a", workloadClass: "high" }, purpose: "tool_selection", subject: "tool-recovery" });
     expect(recalled.status).toBe("ELIGIBLE");
-    const slice = recalled.memorySlice as { id: string };
-    const grant = recalled.influenceGrant as { id: string };
+    if (recalled.status !== "ELIGIBLE") throw new Error("expected eligible memory");
+    const slice = recalled.memorySlice;
+    const grant = recalled.influenceGrant;
     const proposal = await client.requestInfluence({ consumerAgentId: "consumer-agent", influenceGrantId: grant.id, proposal: { executionId: consumerExecutionId, actor: { runtime: "typed-sdk" }, decisionType: "tool_selection", proposedAction: { tool: "tool-b" }, reasoningSummary: "Bounded fallback", memorySliceIds: [slice.id], requestedEffects: ["tool_selection"], proposedAt: completedAt } });
     expect(proposal.status).toBe("AUTHORIZED");
     const evaluation = await client.submitOutcomeEvaluation({ evaluation: { id: randomUUID(), executionMemoryId: memoryId, memorySliceId: slice.id, influenceGrantId: grant.id, influencedExecutionId: consumerExecutionId, influencedDecisionId: randomUUID(), effect: "BENEFICIAL", effectScore: 0.8, actionChanged: true, treatmentAction: { tool: "tool-b" }, treatmentOutcome: "SUCCESS", updateDirective: "STRENGTHEN", rationale: "Fallback succeeded", evidenceState: "SIMULATED", evaluatedAt: "2026-09-09T00:02:00.000Z" } });
