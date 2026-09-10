@@ -4,9 +4,41 @@ This document explains the experiments in ordinary language.
 
 It is written for someone who wants to understand what Engram does, what problem it solves, how an experiment unfolds, and what the results actually prove.
 
-## The simple idea
+## Execution status: read this first
 
-An agent can make a mistake while doing a job. A normal system may record that mistake, but recording it is not enough. The useful question is:
+The catalogue below describes the experiments we intend to run. It is not a claim that every scenario has already been executed.
+
+| Status | Meaning |
+|---|---|
+| `EXECUTED` | A retained test or evidence bundle directly ran this scenario and recorded a result. |
+| `PARTIALLY REPRESENTED` | Existing tests cover a related version of the problem, but not the complete scenario described below. |
+| `PROPOSED` | The scenario is documented for future implementation; no result is claimed yet. |
+
+Current status:
+
+| Scenario family | Current status | Evidence |
+|---|---|---|
+| Provider continuity: repeated SLA miss / bounded provider change | `EXECUTED` locally | `tests/integration/sibyl-provider-continuity.test.ts`, `tests/scenarios/provider-continuity-memory.test.ts` |
+| Provider continuity: model-backed provider-urgent pilot | `EXECUTED` locally | `evidence/canonical/analysis/local-model-provider-urgent-10/` |
+| Provider timeout or outage | `PROPOSED` | No dedicated retained scenario result yet |
+| Provider price or terms change | `PROPOSED` | No dedicated retained scenario result yet |
+| Provider missing milestone | `PARTIALLY REPRESENTED` | Existing provider verification behavior, but no dedicated scenario manifest |
+| Provider contradiction | `PARTIALLY REPRESENTED` | Contradictory-memory tests exist; no dedicated provider contradiction campaign |
+| Safe provider substitution | `PARTIALLY REPRESENTED` | Provider-continuity behavior exists; no separate substitution scenario manifest |
+| Tool rate limit and backoff | `EXECUTED` locally | `tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json`, `tests/integration/tool-recovery-durable-learning.test.ts` |
+| Tool timeout with duplicate risk | `PROPOSED` | No dedicated duplicate-state fixture yet |
+| Partial workflow completion | `PROPOSED` | No dedicated scenario result yet |
+| Tool schema drift | `PROPOSED` | No dedicated scenario result yet |
+| Ambiguous completion and reconciliation | `PARTIALLY REPRESENTED` | State and idempotency tests exist; no dedicated recovery campaign |
+| Agent handoff: generic scoped handoff | `EXECUTED` locally | `tests/integration/agent-handoff-durable-learning.test.ts`, `evidence/canonical/agent-handoff/` |
+| Customer-support escalation | `PROPOSED` | No dedicated scenario result yet |
+| Incident-response handoff | `PROPOSED` | No dedicated scenario result yet |
+| Research verification handoff | `PROPOSED` | No dedicated scenario result yet |
+| Procurement approval handoff | `PROPOSED` | No dedicated scenario result yet |
+| Deployment release handoff | `PROPOSED` | No dedicated scenario result yet |
+
+The words **expected outcome** in a `PROPOSED` section describe the acceptance criteria. They do not describe a result that has already happened.
+
 
 > Can the agent use the lesson later, when a similar problem happens again, without receiving the entire old conversation or gaining extra authority?
 

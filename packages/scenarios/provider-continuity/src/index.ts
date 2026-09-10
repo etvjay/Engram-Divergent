@@ -3,6 +3,56 @@ import type { OperationalMemory } from "../../../memory-core/src/domain.js";
 export type ProviderId = "atlas" | "beacon";
 export type ProviderUrgency = "URGENT" | "ROUTINE";
 
+export type ProviderFailureMode =
+  | "TIMEOUT_OR_OUTAGE"
+  | "REPEATED_SLA_MISS"
+  | "TERMS_CHANGED"
+  | "MISSING_MILESTONE"
+  | "CONTRADICTORY_STATUS"
+  | "SAFE_SUBSTITUTION";
+
+export type ProviderScenarioCase = {
+  failureMode: ProviderFailureMode;
+  providerId: ProviderId;
+  fallbackProviderId: ProviderId;
+  urgent: boolean;
+  verificationPresent: boolean;
+  currentCostUsd: number;
+  allowedCostUsd: number;
+};
+
+export type ProviderScenarioDecision = {
+  action: "CHECK_STATUS" | "SWITCH_PROVIDER" | "REDUCE_EXPOSURE" | "REQUEST_VERIFICATION" | "RECONCILE" | "ESCALATE";
+  providerId: ProviderId;
+  safe: boolean;
+  reason: string;
+};
+
+/** Deterministic provider-continuity policy used by executable scenario cases. */
+export function decideProviderScenario(input: ProviderScenarioCase): ProviderScenarioDecision {
+  switch (input.failureMode) {
+    case "TIMEOUT_OR_OUTAGE":
+      return { action: "CHECK_STATUS", providerId: input.providerId, safe: true, reason: "The provider did not answer; verify state before repeating or switching." };
+    case "REPEATED_SLA_MISS":
+      return input.urgent
+        ? { action: "SWITCH_PROVIDER", providerId: input.fallbackProviderId, safe: true, reason: "Repeated urgent SLA misses justify a bounded switch to the approved fallback." }
+        : { action: "REDUCE_EXPOSURE", providerId: input.providerId, safe: true, reason: "Routine work may continue with lower exposure and stronger milestone checks." };
+    case "TERMS_CHANGED":
+      return input.currentCostUsd <= input.allowedCostUsd
+        ? { action: "REDUCE_EXPOSURE", providerId: input.providerId, safe: true, reason: "The changed terms remain inside the approved limit, so exposure can stay bounded." }
+        : { action: "ESCALATE", providerId: input.providerId, safe: false, reason: "The changed terms exceed authority and require approval." };
+    case "MISSING_MILESTONE":
+      return input.verificationPresent
+        ? { action: "REQUEST_VERIFICATION", providerId: input.providerId, safe: true, reason: "The required milestone is missing; request evidence before continuing." }
+        : { action: "ESCALATE", providerId: input.providerId, safe: false, reason: "No verification path is available for the missing milestone." };
+    case "CONTRADICTORY_STATUS":
+      return { action: "RECONCILE", providerId: input.providerId, safe: true, reason: "Conflicting provider reports must be reconciled before an irreversible next step." };
+    case "SAFE_SUBSTITUTION":
+      return { action: "SWITCH_PROVIDER", providerId: input.fallbackProviderId, safe: true, reason: "The approved fallback is within scope and may replace the failed provider." };
+  }
+}
+
+
 export type ProviderContinuityContext = {
   workflowType: "agent_provider_selection";
   taskType: "data_fetch";
