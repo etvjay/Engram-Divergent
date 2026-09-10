@@ -1,0 +1,67 @@
+{
+  "schema": "engram.model-fresh-session-proof/v1",
+  "evidenceState": "LOCAL_MODEL_FRESH_SESSION_PASS",
+  "model": "llama3.2:3b",
+  "processA": {
+    "schema": "engram.model-fresh-session-process-a/v1",
+    "model": "llama3.2:3b",
+    "phase": "A",
+    "processCompleted": true,
+    "modelObservation": {
+      "observation": "Provider Atlas missed two urgent SLA milestones at 3060 and 3120 seconds against an 1800 second limit.",
+      "interpretation": "The system should consider using Beacon as an alternative provider, as it is available at a higher cost, to ensure timely completion of urgent tasks.",
+      "confidence": 0.8
+    },
+    "executionMemoryId": "f594e173-f554-400f-9c9e-267688f2aaef",
+    "evidenceState": "LOCAL_MODEL_FRESH_SESSION"
+  },
+  "processB": {
+    "schema": "engram.model-fresh-session-process-b/v1",
+    "model": "llama3.2:3b",
+    "phase": "B",
+    "processBoundary": {
+      "sourceProcessCompleted": true,
+      "freshRuntime": true,
+      "inMemoryObjectsReused": false
+    },
+    "memory": {
+      "found": true,
+      "eligible": true,
+      "sliceId": "24b5fdb9-0623-46ac-99a8-8de937c951d6",
+      "claims": [
+        "The system should consider using Beacon as an alternative provider, as it is available at a higher cost, to ensure timely completion of urgent tasks."
+      ]
+    },
+    "modelProposal": {
+      "action": "SWITCH_PROVIDER",
+      "memorySliceIds": [
+        "SLICE-1"
+      ],
+      "requestedEffects": [
+        "provider_selection"
+      ]
+    },
+    "validMemoryConditionedProposal": true,
+    "authorization": "AUTHORIZED",
+    "evaluation": {
+      "status": "UPDATED",
+      "directive": "STRENGTHEN",
+      "priorMemoryId": "f594e173-f554-400f-9c9e-267688f2aaef",
+      "newMemoryId": "587b86ff-fc36-4411-bcf4-313221cab7ff",
+      "updateId": "0ee464a3-52b3-4b29-9e3e-38ee5924b84b"
+    },
+    "behaviorChanged": true,
+    "unauthorizedEscapes": 0,
+    "evidenceState": "LOCAL_MODEL_FRESH_SESSION"
+  },
+  "claims": {
+    "modelObservedFailure": true,
+    "processDeathObserved": true,
+    "memoryRecalled": true,
+    "memoryConditionedProposal": true,
+    "authorized": true,
+    "behaviorChanged": true,
+    "updatedMemory": true,
+    "unauthorizedEscapes": 0
+  }
+}
