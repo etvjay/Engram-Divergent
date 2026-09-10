@@ -74,8 +74,32 @@ The public SDK exports `EngramClient`, `createEngramClient`, `CompleteExecutionI
 SDK releases follow strict semver: 1.x exports and `EngramErrorCode` values are stable; additive changes are minor releases and breaking changes require a major release. Errors expose stable `code`, `retryable`, and `recovery` fields; only explicitly retryable failures should be retried.
 
 
-`createMcpStdioServer({ store })` wraps an injected canonical
-`BehavioralMemoryStore` (or an existing `AgentSurface`) with newline-delimited
+## MCP quickstart
+
+Install the package and point an MCP client at its packaged launcher:
+
+```sh
+npm install engram-agent-surface
+```
+
+```json
+{
+  "mcpServers": {
+    "engram": {
+      "command": "npx",
+      "args": ["--yes", "engram-agent-surface@1.0.2"]
+    }
+  }
+}
+```
+
+The launcher exposes the same bounded MCP surface as the repository command and
+uses local Sibyl persistence by default. It is a local integration path, not a
+claim of hosted authenticated operation.
+
+The agent usage guide is in `integrations/engram/SKILL.md` in the repository.
+
+
 JSON-RPC 2.0 over stdio. The executable entrypoint is:
 
 ```sh

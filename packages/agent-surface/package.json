@@ -1,18 +1,19 @@
 {
   "name": "engram-agent-surface",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": false,
   "type": "module",
   "description": "Typed Engram agent-surface SDK",
   "license": "MIT",
   "main": "./dist/index.cjs",
+  "bin": { "engram-mcp": "./dist/cli.cjs" },
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" },
     "./openapi.json": "./openapi.json"
   },
-  "files": ["dist", "openapi.json", "README.md", "LICENSE"],
+  "files": ["dist", "openapi.json", "README.md", "SKILL.md", "LICENSE"],
   "sideEffects": false,
   "engines": { "node": ">=20" },
   "scripts": {

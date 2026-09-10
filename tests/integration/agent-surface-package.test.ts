@@ -12,7 +12,7 @@ describe("packed Engram SDK boundary", () => {
     const temp = await mkdtemp("/tmp/engram-sdk-consumer-");
     try {
       await exec("npm", ["pack", "--pack-destination", temp], { cwd: packageDir });
-      const tarball = join(temp, "engram-agent-surface-1.0.0.tgz");
+      const tarball = join(temp, "engram-agent-surface-1.0.2.tgz");
       const consumer = join(temp, "consumer");
       await exec("mkdir", ["-p", consumer]);
       await exec("npm", ["init", "-y"], { cwd: temp });
