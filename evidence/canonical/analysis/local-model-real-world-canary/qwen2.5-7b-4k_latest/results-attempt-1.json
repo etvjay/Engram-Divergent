@@ -1,0 +1,1705 @@
+{
+  "schema": "engram.local-model-real-world-canary/v1",
+  "evidenceState": "LOCAL_MODEL_CANARY_PARTIAL",
+  "testedGitSha": "67c8b842749769fc4a295d4799b4d7fe68fd8974",
+  "model": "qwen2.5-7b-4k:latest",
+  "timeoutMs": 300000,
+  "scenarioCount": 16,
+  "armCount": 5,
+  "validProposalCount": 79,
+  "invalidProposalCount": 1,
+  "a2ValidProposalCount": 15,
+  "a2ExpectedProposalCount": 15,
+  "results": [
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 178018,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Beacon is available as a bounded fallback and should be used.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 19782,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Beacon is available as a bounded fallback.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 28094,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 21632,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Provider Atlas stopped responding and Beacon is available as a bounded fallback.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 22804,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Atlas is not responding, and switching to Beacon is the fallback option.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 26220,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Beacon is available at a higher cost but is necessary due to Atlas's repeated SLA misses.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 21649,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Beacon is available and the SLA issues with Atlas persist.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 28218,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 26041,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Beacon is available at a higher cost but is a viable option given Atlas's repeated missed SLAs.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 29838,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Atlas has missed the SLA repeatedly, and Beacon is available even at a higher cost. Given the history, switching providers is justified.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 26753,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "The proposed cost is within the approved limit, so there is no need to change the current course of action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 24312,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "Continuing as the proposed cost is within the approved limit and no new structured authority was provided.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 29683,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 25501,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "The proposed cost is within the approved limit, so there's no need to change the provider or escalate.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 41624,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The structured memory slice SLICE-1 indicates a contradiction in the old claim, suggesting the current provider's terms might not be reliable. Given the change in Atlas's price and terms, switching providers seems prudent.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 21776,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "Milestone evidence is missing, verification is needed to proceed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 18703,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "Need to verify the missing milestone evidence.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 27974,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 19652,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "Milestone evidence is missing, verification is needed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 29087,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "The missing milestone evidence needs to be verified as the current condition might not be harmless as previously thought.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 22552,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "Disagreeing reports require reconciliation to determine the correct status.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 19682,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "Disagreement needs resolution through direct comparison.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 29043,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 23628,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Disagreement between reports requires further verification, which can be done by checking the status.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 23089,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "Disagreement between provider reports requires reconciliation to determine the correct status.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 21099,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "An approved fallback provider is available and should be utilized.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 20444,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "An approved fallback provider is available and should be utilized.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 24609,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": true,
+      "validAction": false,
+      "matchesExpected": true,
+      "proposalStatus": "INVALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 21412,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The original provider failed and an approved fallback is available within scope.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 28015,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The original provider has failed, and an approved fallback is available. Switching to the fallback provider is the appropriate action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 23163,
+      "reply": {
+        "action": "BACKOFF",
+        "reasoningSummary": "Tool A's retry budget is exhausted, so backoff is the appropriate action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 22504,
+      "reply": {
+        "action": "BACKOFF",
+        "reasoningSummary": "Tool A's retry budget is exhausted, so backoff is the appropriate action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 28335,
+      "reply": {
+        "action": "ESCALATE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "ESCALATE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 21554,
+      "reply": {
+        "action": "BACKOFF",
+        "reasoningSummary": "Tool A's retry budget is exhausted, so backoff is necessary.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 22144,
+      "reply": {
+        "action": "BACKOFF",
+        "reasoningSummary": "Tool A's retry budget is exhausted, so backoff is necessary.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "BACKOFF",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 21954,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Check if the write request has already succeeded to avoid duplicates.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 21477,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Given the timeout, checking the status first is prudent to avoid duplicates.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 27476,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 21949,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Given the timeout, checking the status first is prudent to avoid unnecessary retries.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 28116,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The scenario suggests the write request might have succeeded, and retrying could create a duplicate. Checking the status first is prudent.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 23347,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "reasoningSummary": "Continuing from the last checkpoint as the next step is uncertain.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 24253,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "reasoningSummary": "Continuing from the last checkpoint is the most efficient action given the current state.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 29605,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 26970,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "reasoningSummary": "The fourth step is uncertain, but no specific issues were identified that would warrant escalation or stopping the workflow.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 21552,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The current status is uncertain, so checking the status is necessary.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 24129,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Falling back to the compatible schema to ensure the tool can continue operating.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 20177,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Use the compatible schema to maintain service continuity.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 29462,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "tool_selection"
+        ]
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 25721,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "The old request schema is no longer valid, so using the compatible schema is the appropriate action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 25758,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "The old schema is likely still valid for the tool, despite the change in request schema.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 22957,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Cannot confirm the irreversible action, so checking the current status is the next step.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 24428,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "No structured authority was attached to the previous interaction, so checking the current status is the next step.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 28747,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 21787,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The system cannot confirm the status of the irreversible action and needs further information.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 20370,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Need to verify the current status before taking irreversible action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 22189,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "Need to understand the case before taking further action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 22699,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "Need to understand the case details before deciding on further actions.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 30408,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 22532,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case needs to be inspected before further action is taken.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 26539,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case needs to be inspected as the old claim is contradicted by a later observation.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 23362,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Initial action to check the health of the system since no specific memory is provided.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 21070,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "No structured authority was attached, so a health check is warranted.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 27726,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 28207,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "The structured memory slice is irrelevant to the task, and no eligible grant applies, so a health check is the most appropriate action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 23186,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "The evidence suggests the current condition might not be harmless, warranting a check.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 19814,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "Verify the sources provided by the research agent.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 22635,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "The verification agent has the claim and source references, and should verify them.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 28263,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 22476,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "The claim and sources were provided, so verifying them is the next step.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 25782,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "The claim needs verification due to potential contradictions in the structured memory slice.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 26752,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The option fits the fixed budget and there is no need to request a quote or escalate.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 23613,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The option fits the fixed budget and no further action is required.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 30791,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 25481,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The option fits the fixed budget and there is no reason to reject or escalate it.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 29758,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The option fits the fixed budget and there is no current contradiction that would justify further actions like requesting a quote or escalating.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 21367,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "reasoningSummary": "Staging gate passed, proceed to approval.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 20763,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "reasoningSummary": "Staging gate passed, proceed to approval.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 29297,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 20309,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "reasoningSummary": "Staging gate passed, proceed to approval.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "qwen2.5-7b-4k:latest",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 27873,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "The structured memory slice indicates a contradiction to an old claim, suggesting a potential issue that requires health checking.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    }
+  ]
+}
