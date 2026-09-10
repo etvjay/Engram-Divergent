@@ -22,14 +22,15 @@
     "packages/scenarios/provider-continuity/**/*.ts",
     "packages/virtuals-acp/**/*.ts",
     "packages/base-settlement/**/*.ts",
-    "packages/benchmark/**/*.ts",
     "packages/agent-surface/**/*.ts",
+    "packages/benchmark/**/*.ts",
     "scripts/**/*.ts",
     "tests/integration/sibyl-*.test.ts",
     "tests/integration/benchmark-runner.test.ts",
     "tests/integration/virtuals-acp-evidence.test.ts",
     "tests/integration/base-settlement-*.test.ts",
     "tests/adapters/virtuals-acp-evidence.test.ts",
-    "tests/scenarios/provider-continuity-memory.test.ts"
+    "tests/scenarios/provider-continuity-memory.test.ts",
+    "tests/api/**/*.test.ts"
   ]
 }
