@@ -32,6 +32,7 @@
     "tests/adapters/virtuals-acp-evidence.test.ts",
     "tests/scenarios/provider-continuity-memory.test.ts",
     "tests/api/**/*.test.ts",
-    "tests/integration/engram-mcp-stdio-smoke.test.ts"
+    "tests/integration/engram-mcp-stdio-smoke.test.ts",
+    "tests/integration/engram-mcp-stdio-lifecycle.test.ts"
   ]
 }

@@ -23,6 +23,7 @@
     "test:evaluation": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/evaluation/*.test.ts tests/integration/sibyl-memory-update-lifecycle.test.ts tests/integration/cold-agent-surface.test.ts",
     "test:sdk": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/integration/sibyl-agent-sdk.test.ts",
     "test:api": "vitest run tests/api/rest.test.ts",
+    "test:surface-lifecycle": "ENGRAM_SIBYL_TEST_REQUIRED=1 vitest run tests/api/cold-rest-lifecycle.test.ts tests/integration/engram-mcp-stdio-lifecycle.test.ts tests/integration/cold-agent-surface.test.ts tests/integration/sibyl-agent-sdk.test.ts tests/integration/engram-mcp-stdio-smoke.test.ts",
     "longitudinal:local": "tsx scripts/run-longitudinal-evaluation.ts",
     "demo:sibyl:seed": "tsx scripts/sibyl-demo.ts seed",
     "demo:sibyl:recall": "tsx scripts/sibyl-demo.ts recall",
@@ -45,7 +46,7 @@
     "proof:judge": "ENGRAM_SIBYL_TEST_REQUIRED=1 tsx scripts/judge-proof.ts",
     "demo:fresh-session": "ENGRAM_SIBYL_TEST_REQUIRED=1 tsx scripts/judge-proof.ts --fresh-only",
     "base:settlement:verify": "tsx scripts/base-settlement-verify.ts",
-    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:evaluation && npm run test:sdk && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base"
+    "check": "npm run build && npm run test:primitives && npm run test:benchmark && npm run test:sibyl && npm run test:scenario && npm run test:evaluation && npm run test:sdk && npm run test:virtuals && npm run tool-recovery:local && npm run agent-handoff:local && npm run test:base && npm run test:surface-lifecycle"
   },
   "dependencies": {
     "zod": "^4.0.17"
