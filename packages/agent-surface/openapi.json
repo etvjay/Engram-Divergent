@@ -1,0 +1,26 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Engram Agent Surface", "version": "0.3.0", "description": "Bounded local-loopback or hosted-authenticated API. Hosted deployment requires an injected authenticator." },
+  "servers": [{ "url": "http://127.0.0.1:{port}", "description": "local-loopback only", "variables": { "port": { "default": "0" } } }],
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/v1/health": { "get": { "operationId": "health", "x-classification": "read", "security": [], "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/capabilities": { "get": { "operationId": "capabilities", "x-classification": "read", "security": [], "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/executions/complete": { "post": { "operationId": "recordCompleteExecution", "x-classification": "write", "requestBody": { "$ref": "#/components/requestBodies/Json" }, "responses": { "200": { "$ref": "#/components/responses/Success" }, "409": { "$ref": "#/components/responses/Error" } } } },
+    "/v1/memories/recall": { "post": { "operationId": "recallApplicableMemory", "x-classification": "read", "requestBody": { "$ref": "#/components/requestBodies/Json" }, "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/influence/requests": { "post": { "operationId": "requestInfluence", "x-classification": "write", "requestBody": { "$ref": "#/components/requestBodies/Json" }, "responses": { "200": { "$ref": "#/components/responses/Success" }, "409": { "$ref": "#/components/responses/Error" } } } },
+    "/v1/outcome-evaluations": { "post": { "operationId": "submitOutcomeEvaluation", "x-classification": "write", "requestBody": { "$ref": "#/components/requestBodies/Json" }, "responses": { "200": { "$ref": "#/components/responses/Success" }, "409": { "$ref": "#/components/responses/Error" } } } },
+    "/v1/evaluations/summary": { "get": { "operationId": "evaluationSummary", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/evaluations/arms": { "get": { "operationId": "compareArms", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/evaluations/scorecard": { "get": { "operationId": "scorecard", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/evaluations/memory-updates": { "get": { "operationId": "memoryUpdateHistory", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/evaluations/authority": { "get": { "operationId": "authorityMetrics", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } },
+    "/v1/evaluations/evidence": { "get": { "operationId": "evidenceReceipt", "x-classification": "read", "responses": { "200": { "$ref": "#/components/responses/Success" } } } }
+  },
+  "components": {
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer" } },
+    "requestBodies": { "Json": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } } },
+    "responses": { "Success": { "description": "Successful bounded response", "content": { "application/json": { "schema": { "type": "object" } } } }, "Error": { "description": "Normalized error", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } } },
+    "schemas": { "Error": { "type": "object", "required": ["error", "requestId"], "properties": { "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" } } }, "requestId": { "type": "string" } } } }
+  }
+}

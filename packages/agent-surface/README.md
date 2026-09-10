@@ -51,7 +51,28 @@ The API tests include a cold loopback consumer that imports the compiled
 A build artifact or local tarball is not a registry release and does not prove
 hosted/authenticated operation.
 
-## MCP stdio integration
+## Typed SDK quickstart
+
+```ts
+import { EngramClient } from "@sibylengram/agent-surface";
+const client = new EngramClient({ surface });
+const recorded = await client.recordCompleteExecution(input);
+```
+
+The public SDK exports `EngramClient`, `createEngramClient`, `CompleteExecutionInputSchema`, `EngramError`, `EngramRefusalError`, and the lifecycle request/response types. `surface` is supplied by the host application; credentials and raw Sibyl history remain outside this package.
+
+### Full SDK lifecycle
+
+1. Create a client with the application’s policy-bound `surface` adapter.
+2. Record a completed execution with outcome and evidence references.
+3. Recall the returned execution memory for a bounded consumer context.
+4. Request influence with the returned grant and a proposed action.
+5. Execute the application decision outside the SDK.
+6. Submit the observed outcome to create the next memory version.
+7. Query the read-only evaluation summary, arms, or scorecard.
+
+SDK releases follow strict semver: 1.x exports and `EngramErrorCode` values are stable; additive changes are minor releases and breaking changes require a major release. Errors expose stable `code`, `retryable`, and `recovery` fields; only explicitly retryable failures should be retried.
+
 
 `createMcpStdioServer({ store })` wraps an injected canonical
 `BehavioralMemoryStore` (or an existing `AgentSurface`) with newline-delimited

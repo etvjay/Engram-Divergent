@@ -1,0 +1,27 @@
+{
+  "name": "@sibylengram/agent-surface",
+  "version": "1.0.0",
+  "description": "Typed Engram agent-surface SDK",
+  "type": "module",
+  "license": "MIT",
+  "files": ["dist", "README.md", "LICENSE"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "sideEffects": false,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.mjs",
+    "prepack": "npm run build",
+    "pack:check": "npm run build && npm pack --dry-run"
+  },
+  "dependencies": { "zod": "^4.0.17" },
+  "devDependencies": { "tsup": "^8.5.0", "typescript": "^5.9.2" }
+}

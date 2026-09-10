@@ -7,6 +7,7 @@ import type { BehavioralMemoryStore } from "../../experience/src/store.js";
 
 const MAX_BODY_BYTES = 1_048_576;
 const MAX_RESPONSE_BYTES = 1_048_576;
+const DEFAULT_TIMEOUT_MS = 10_000;
 const REQUEST_ID = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
 const JsonRecord = z.record(z.string(), z.unknown());
 const Empty = z.object({}).strict();
@@ -112,16 +113,35 @@ function routeFor(method: string, path: string): Route | undefined {
   return ROUTES.find((route) => route.method === method && route.path === path);
 }
 
-export type RestServerOptions = { store?: BehavioralMemoryStore; surface?: AgentSurface; host?: string; port?: number };
+export type RestDeploymentMode = "local-loopback" | "hosted-authenticated";
+export type RestAuthContext = { request: IncomingMessage; method: string; path: string; classification: "read" | "write" };
+export type RestAuthenticator = (context: RestAuthContext) => boolean | Promise<boolean>;
+export type RestServerOptions = {
+  store?: BehavioralMemoryStore;
+  surface?: AgentSurface;
+  host?: string;
+  port?: number;
+  deploymentMode?: RestDeploymentMode;
+  authenticate?: RestAuthenticator;
+  timeoutMs?: number;
+};
+
+type CachedResponse = { status: number; payload: Record<string, unknown> };
 
 export function createRestServer(options: RestServerOptions = {}): Server {
   if (!options.surface && !options.store) throw new Error("REST_SURFACE_STORE_OR_SURFACE_REQUIRED");
   const surface = options.surface ?? createAgentSurface(options.store!);
+  const mode = options.deploymentMode ?? "local-loopback";
+  const timeoutMs = Math.max(1, Math.min(options.timeoutMs ?? DEFAULT_TIMEOUT_MS, 120_000));
+  const idempotency = new Map<string, { fingerprint: string; response: CachedResponse }>();
   return createServer(async (request, response) => {
     const id = requestId(request);
     const method = request.method ?? "GET";
     const url = new URL(request.url ?? "/", "http://127.0.0.1");
     try {
+      const loopback = request.socket.remoteAddress === "127.0.0.1" || request.socket.remoteAddress === "::1" || request.socket.remoteAddress === "::ffff:127.0.0.1";
+      if (mode === "local-loopback" && !loopback) { send(response, id, 403, { error: { code: "LOOPBACK_ONLY", message: "Local-loopback mode rejects non-loopback clients" } }); return; }
+      if (mode === "hosted-authenticated" && !options.authenticate) { send(response, id, 503, { error: { code: "AUTHENTICATOR_REQUIRED", message: "Hosted mode requires an authenticator" } }); return; }
       if (method === "GET" && url.pathname === "/v1/health") {
         send(response, id, 200, { status: "ok", evidence: "LOCAL_LOOPBACK" });
         return;
@@ -132,11 +152,21 @@ export function createRestServer(options: RestServerOptions = {}): Server {
       }
       const route = routeFor(method, url.pathname);
       if (!route) { send(response, id, 404, { error: { code: "NOT_FOUND", message: "Route not found" } }); return; }
+      if (options.authenticate && !(await options.authenticate({ request, method, path: url.pathname, classification: route.classification }))) { send(response, id, 401, { error: { code: "UNAUTHORIZED", message: "Authentication required" } }); return; }
       const contentType = request.headers["content-type"];
       if (method !== "GET" && (typeof contentType !== "string" || contentType.split(";", 1)[0] !== "application/json")) throw new HttpError(415, "CONTENT_TYPE_REQUIRED");
       const parsed = route.schema.safeParse(method === "GET" ? {} : await readBody(request));
       if (!parsed.success) { send(response, id, 400, { error: { code: "INVALID_REQUEST", message: "Request does not match the route schema" } }); return; }
-      const result = await route.invoke(surface, parsed.data as Record<string, unknown>);
+      const key = method === "POST" ? request.headers["idempotency-key"] : undefined;
+      if (method === "POST" && (typeof key !== "string" || !/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/.test(key))) throw new HttpError(400, "IDEMPOTENCY_KEY_REQUIRED");
+      const fingerprint = method === "POST" ? JSON.stringify(parsed.data) : "";
+      const cached = method === "POST" ? idempotency.get(`${url.pathname}:${key}`) : undefined;
+      if (cached) {
+        if (cached.fingerprint !== fingerprint) throw new HttpError(409, "IDEMPOTENCY_KEY_REUSED");
+        send(response, id, cached.response.status, cached.response.payload); return;
+      }
+      const result = await withTimeout(route.invoke(surface, parsed.data as Record<string, unknown>), timeoutMs);
+      if (method === "POST") idempotency.set(`${url.pathname}:${key}`, { fingerprint, response: { status: 200, payload: { data: result } } });
       send(response, id, 200, { data: result });
     } catch (error) {
       const mapped = error instanceof HttpError ? { status: error.status, code: error.code } : errorCode(error);
@@ -154,4 +184,11 @@ export async function listenRestServer(server: Server, options: Pick<RestServerO
   return { host, port: address.port };
 }
 
-export { MAX_BODY_BYTES, MAX_RESPONSE_BYTES, ROUTES };
+function withTimeout<T>(operation: Promise<T>, timeout: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(new HttpError(504, "UPSTREAM_TIMEOUT")), timeout);
+    operation.then((value) => { clearTimeout(timer); resolve(value); }, (error) => { clearTimeout(timer); reject(error); });
+  });
+}
+
+export { DEFAULT_TIMEOUT_MS, MAX_BODY_BYTES, MAX_RESPONSE_BYTES, ROUTES };

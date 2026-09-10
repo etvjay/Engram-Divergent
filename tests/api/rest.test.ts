@@ -35,7 +35,7 @@ describe("versioned REST surface", () => {
   it("routes a strict write request and preserves the request id", async () => {
     const base = await app();
     const response = await fetch(`${base}/v1/executions/complete`, {
-      method: "POST", headers: { "content-type": "application/json", "x-request-id": "contract-test-1" },
+      method: "POST", headers: { "content-type": "application/json", "x-request-id": "contract-test-1", "idempotency-key": "contract-write-1" },
       body: JSON.stringify({ execution: { id: "execution-1" }, outcome: { id: "outcome-1" } }),
     });
     expect(response.status).toBe(200);
@@ -45,14 +45,14 @@ describe("versioned REST surface", () => {
 
   it("rejects malformed, wrong content type, unknown, and oversized requests without internals", async () => {
     const base = await app();
-    const malformed = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ execution: {} }) });
+    const malformed = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers: { "content-type": "application/json", "idempotency-key": "malformed-1" }, body: JSON.stringify({ execution: {} }) });
     expect(malformed.status).toBe(400);
     expect((await malformed.json()).error).toEqual({ code: "INVALID_REQUEST", message: "Request does not match the route schema" });
     const wrongType = await fetch(`${base}/v1/executions/complete`, { method: "POST", body: "{}" });
     expect(wrongType.status).toBe(415);
     const unknown = await fetch(`${base}/v1/not-a-route`);
     expect(unknown.status).toBe(404);
-    const oversized = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ execution: {}, outcome: {}, summary: "x".repeat(MAX_BODY_BYTES) }) });
+    const oversized = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers: { "content-type": "application/json", "idempotency-key": "oversized-1" }, body: JSON.stringify({ execution: {}, outcome: {}, summary: "x".repeat(MAX_BODY_BYTES) }) });
     expect(oversized.status).toBe(413);
     expect(JSON.stringify(await oversized.json())).not.toContain("Sibyl");
   });
@@ -62,5 +62,24 @@ describe("versioned REST surface", () => {
     const response = await fetch(`${base}/v1/health`);
     expect(response.status).toBe(200);
     expect(await response.json()).toMatchObject({ status: "ok", evidence: "LOCAL_LOOPBACK" });
+  });
+
+  it("replays an idempotent write and rejects key reuse with a new body", async () => {
+    const base = await app();
+    const headers = { "content-type": "application/json", "idempotency-key": "replay-1" };
+    const body = JSON.stringify({ execution: { id: "execution-1" }, outcome: { id: "outcome-1" } });
+    const first = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers, body });
+    const replay = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers, body });
+    expect(first.status).toBe(200); expect(replay.status).toBe(200);
+    expect((await replay.json()).data).toEqual((await first.json()).data);
+    const reused = await fetch(`${base}/v1/executions/complete`, { method: "POST", headers, body: JSON.stringify({ execution: { id: "different" }, outcome: { id: "outcome-1" } }) });
+    expect(reused.status).toBe(409);
+  });
+
+  it("fails closed for hosted mode without an authenticator", async () => {
+    server = createRestServer({ surface, deploymentMode: "hosted-authenticated" });
+    const address = await listenRestServer(server);
+    const response = await fetch(`http://${address.host}:${address.port}/v1/health`);
+    expect(response.status).toBe(503);
   });
 });
