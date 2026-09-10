@@ -1,0 +1,13 @@
+name = "engram-agent-surface"
+main = "cloudflare/worker.ts"
+compatibility_date = "2026-09-10"
+workers_dev = true
+
+[vars]
+ENGRAM_DEPLOYMENT_MODE = "hosted-authenticated"
+
+[[d1_databases]]
+binding = "ENGRAM_DB"
+database_name = "engram-sibyl"
+database_id = "be2698ce-5cef-4a2d-9ba5-f74327831a27"
+migrations_dir = "cloudflare/migrations"

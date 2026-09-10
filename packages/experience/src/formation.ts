@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+const randomUUID = () => globalThis.crypto.randomUUID();
 import { z } from "zod";
 import { ExecutionEpisodeSchema, type ExecutionEpisode } from "./episode.js";
 import { ExecutionSliceSchema, type ExecutionSlice } from "./execution-slice.js";

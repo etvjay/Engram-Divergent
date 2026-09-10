@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+const randomUUID = () => globalThis.crypto.randomUUID();
 import { ExecutionEventSchema, OutcomeSchema } from "../../memory-core/src/domain.js";
 import { ExecutionMemorySchema } from "../../memory-core/src/execution-memory.js";
 import { BehavioralMemoryEvaluationSchema } from "../../evaluation/src/memory-evaluation.js";
