@@ -37,23 +37,23 @@ Current status:
 | Procurement approval handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H4_PROCUREMENT`) |
 | Deployment release handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H5_RELEASE`) |
 
-The first model-backed canary is retained separately from the deterministic matrix:
+The broader model-backed campaign has now completed:
 
 ```text
 model: llama3.2:3b
-scenarios: P2, T2, H2
+scenarios: P1–P6, T1–T5, H1–H5
 arms: A0 through A4
-requests: 15
-valid proposals: 15/15
-A2 valid proposals: 3/3
-A2 memory citations: 3/3
-A2 authorizations: 3/3
+requests: 80
+valid proposals: 80/80
+A2 valid proposals: 16/16
+A2 memory citations: 16/16
+A2 authorizations: 16/16
+A2 expected actions: 16/16
+A2 changed action versus A0: 10/16
 evidence state: LOCAL_MODEL_CANARY_PASS
 ```
 
-The model produced valid, memory-citing A2 proposals for all three canary scenarios, and all three passed the real Engram authorization path. The canary artifact is `evidence/canonical/analysis/local-model-real-world-canary/results.json`.
-
-This gate now permits expansion to all 16 model scenarios. The canary is still only local model evidence; it does not establish production or live external behavior.
+The model-backed artifact is `evidence/canonical/analysis/local-model-real-world-canary/results.json`. The tested Git SHA in that artifact matches the committed tree. This remains local model evidence; it does not establish production or live external behavior.
 
 
 > Can the agent use the lesson later, when a similar problem happens again, without receiving the entire old conversation or gaining extra authority?

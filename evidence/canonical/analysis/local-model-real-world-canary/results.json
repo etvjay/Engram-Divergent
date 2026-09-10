@@ -1,15 +1,120 @@
 {
   "schema": "engram.local-model-real-world-canary/v1",
   "evidenceState": "LOCAL_MODEL_CANARY_PASS",
-  "testedGitSha": "6346178d42e47157240769d85b7e31e34b8b1f17",
+  "testedGitSha": "2705925b3311ceaabea687a0c6c357c5f89eef40",
   "model": "llama3.2:3b",
   "timeoutMs": 120000,
-  "scenarioCount": 3,
+  "scenarioCount": 16,
   "armCount": 5,
-  "validProposalCount": 15,
+  "validProposalCount": 80,
   "invalidProposalCount": 0,
-  "a2ValidProposalCount": 3,
+  "a2ValidProposalCount": 16,
   "results": [
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 11737,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Provider Atlas stopped responding, switching to Beacon as a fallback",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 10604,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "No structured authority available, switching to Beacon as a bounded fallback",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 16447,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "The provider is not responding, and the beacon is available as a fallback.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 11849,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Provider Atlas stopped responding, using Beacon as a bounded fallback",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 10609,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Provider Atlas stopped responding, using Beacon as a bounded fallback",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
     {
       "scenarioId": "P2_PROVIDER_SLA",
       "domain": "provider_continuity",
@@ -17,7 +122,7 @@
       "arm": "A0_NO_MEMORY",
       "expectedAction": "SWITCH_PROVIDER",
       "status": "PASS",
-      "latencyMs": 12854,
+      "latencyMs": 12869,
       "reply": {
         "action": "CONTINUE",
         "reasoningSummary": "Provider Atlas has repeatedly missed an urgent SLA, and switching providers may be the most cost-effective solution.",
@@ -37,7 +142,7 @@
       "arm": "A1_RAW_HISTORY",
       "expectedAction": "SWITCH_PROVIDER",
       "status": "PASS",
-      "latencyMs": 12100,
+      "latencyMs": 11933,
       "reply": {
         "action": "SWITCH_PROVIDER",
         "reasoningSummary": "Repeated missed SLAs and higher cost of Beacon prompt switching to a new provider.",
@@ -59,7 +164,7 @@
       "arm": "A2_ENGRAM",
       "expectedAction": "SWITCH_PROVIDER",
       "status": "PASS",
-      "latencyMs": 12405,
+      "latencyMs": 13890,
       "reply": {
         "action": "SWITCH_PROVIDER",
         "reasoningSummary": "The structured memory applies.",
@@ -84,7 +189,7 @@
       "arm": "A3_IRRELEVANT_MEMORY",
       "expectedAction": "SWITCH_PROVIDER",
       "status": "PASS",
-      "latencyMs": 10885,
+      "latencyMs": 10909,
       "reply": {
         "action": "SWITCH_PROVIDER",
         "reasoningSummary": "Repeatedly missed SLA, Beacon is available at a higher cost",
@@ -104,7 +209,7 @@
       "arm": "A4_STALE_OR_CONTRADICTORY",
       "expectedAction": "SWITCH_PROVIDER",
       "status": "PASS",
-      "latencyMs": 11144,
+      "latencyMs": 11240,
       "reply": {
         "action": "SWITCH_PROVIDER",
         "reasoningSummary": "Repeatedly missed SLA, Beacon is available at a higher cost",
@@ -118,13 +223,537 @@
       "proposalStatus": "VALID_PROPOSAL"
     },
     {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 11502,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "The proposed cost is still within the approved limit, so no action is needed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 8750,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "No change in provider selection needed",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 14651,
+      "reply": {
+        "action": "REDUCE_EXPOSURE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "REDUCE_EXPOSURE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 11050,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "The proposed cost is still within the approved limit, so no change is needed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REDUCE_EXPOSURE",
+      "status": "PASS",
+      "latencyMs": 12004,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "Current failing condition is not harmful, and grant is expired, so no action is needed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 8325,
+      "reply": {
+        "action": "STOP",
+        "reasoningSummary": "Milestone evidence is missing",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "STOP",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 9110,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "Missing milestone evidence in Provider Atlas report",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 14008,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 9747,
+      "reply": {
+        "action": "REQUEST_VERIFICATION",
+        "reasoningSummary": "Milestone evidence is missing from Provider Atlas reports",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_VERIFICATION",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "REQUEST_VERIFICATION",
+      "status": "PASS",
+      "latencyMs": 9419,
+      "reply": {
+        "action": "ESCALATE",
+        "reasoningSummary": "Missing milestone evidence in Provider Atlas reports",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "ESCALATE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 9513,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Disagreement between provider reports requires verification of job status",
+        "memorySliceIds": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 10357,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "Disagreement between provider reports requires reconciliation to ensure accuracy.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 14444,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 10293,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Reports from different providers disagree on the completion of the same job",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 11199,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "Reports from different providers disagree on the status of the job completion.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "RECONCILE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 9137,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Fallback provider available within scope",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 9404,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Fallback provider available within scope",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 15303,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 8697,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Fallback provider available within scope",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 8945,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Fallback provider available within scope",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 9473,
+      "reply": {
+        "action": "STOP",
+        "reasoningSummary": "Tool A rate-limited and retry budget exhausted",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "STOP",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 11960,
+      "reply": {
+        "action": "STOP",
+        "reasoningSummary": "Tool A's fixed retry budget is exhausted, and no structured authority was attached to the previous discussion.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "STOP",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 13774,
+      "reply": {
+        "action": "ESCALATE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "ESCALATE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 10164,
+      "reply": {
+        "action": "STOP",
+        "reasoningSummary": "Tool A is rate-limited and its fixed retry budget is exhausted.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "STOP",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "ESCALATE",
+      "status": "PASS",
+      "latencyMs": 10059,
+      "reply": {
+        "action": "STOP",
+        "reasoningSummary": "Tool A rate-limited and retry budget exhausted",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "STOP",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
       "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
       "domain": "tool_recovery",
       "model": "llama3.2:3b",
       "arm": "A0_NO_MEMORY",
       "expectedAction": "CHECK_STATUS",
       "status": "PASS",
-      "latencyMs": 10875,
+      "latencyMs": 11723,
       "reply": {
         "action": "CHECK_STATUS",
         "reasoningSummary": "Check the status of the write request to determine if it has succeeded or not.",
@@ -143,7 +772,7 @@
       "arm": "A1_RAW_HISTORY",
       "expectedAction": "CHECK_STATUS",
       "status": "PASS",
-      "latencyMs": 12687,
+      "latencyMs": 14364,
       "reply": {
         "action": "RETRY_SAFELY",
         "reasoningSummary": "To avoid creating a duplicate, we should retry the write request safely to ensure it has succeeded.",
@@ -163,7 +792,7 @@
       "arm": "A2_ENGRAM",
       "expectedAction": "CHECK_STATUS",
       "status": "PASS",
-      "latencyMs": 11993,
+      "latencyMs": 14743,
       "reply": {
         "action": "CHECK_STATUS",
         "reasoningSummary": "The structured memory applies.",
@@ -188,7 +817,7 @@
       "arm": "A3_IRRELEVANT_MEMORY",
       "expectedAction": "CHECK_STATUS",
       "status": "PASS",
-      "latencyMs": 11250,
+      "latencyMs": 11562,
       "reply": {
         "action": "CHECK_STATUS",
         "reasoningSummary": "The write request timed out, and we need to check its status before retrying.",
@@ -208,7 +837,7 @@
       "arm": "A4_STALE_OR_CONTRADICTORY",
       "expectedAction": "CHECK_STATUS",
       "status": "PASS",
-      "latencyMs": 11535,
+      "latencyMs": 11776,
       "reply": {
         "action": "RETRY_SAFELY",
         "reasoningSummary": "To avoid potential duplicate writes, we should retry the write request safely.",
@@ -222,13 +851,432 @@
       "proposalStatus": "VALID_PROPOSAL"
     },
     {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 10133,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "No memory available, cannot resume from checkpoint",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 10752,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Uncertain fourth step requires checking status before proceeding.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 14800,
+      "reply": {
+        "action": "RESUME_FROM_CHECKPOINT",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "retry_policy"
+        ]
+      },
+      "action": "RESUME_FROM_CHECKPOINT",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 12383,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Uncertain fourth step requires checking status before proceeding.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RESUME_FROM_CHECKPOINT",
+      "status": "PASS",
+      "latencyMs": 10969,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Uncertain fourth step requires checking status before taking action",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 12354,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Request schema changed, using compatible schema to avoid validation failure",
+        "memorySliceIds": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 12814,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Request schema change detected, using compatible schema to avoid validation failure",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 18253,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "tool_selection"
+        ]
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 12224,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Request schema changed, using compatible schema is required for validation",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "USE_COMPATIBLE_SCHEMA",
+      "status": "PASS",
+      "latencyMs": 10431,
+      "reply": {
+        "action": "USE_COMPATIBLE_SCHEMA",
+        "reasoningSummary": "Request schema change causes validation failure",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 9074,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "System cannot confirm irreversible action",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 8302,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "System cannot confirm irreversible action",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 14231,
+      "reply": {
+        "action": "RECONCILE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "RECONCILE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 10713,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "System cannot confirm irreversible action",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "RECONCILE",
+      "status": "PASS",
+      "latencyMs": 8627,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "System cannot confirm irreversible action",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 15891,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case was handed over from a first-line support agent to a specialist, requiring further inspection to resolve the issue.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 15878,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case was handed over from a first-line support agent to a specialist, indicating a need for further review of the case scope.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 17175,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 13633,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case was handed over from a first-line support agent to a specialist, requiring further review.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "INSPECT_SCOPED_CASE",
+      "status": "PASS",
+      "latencyMs": 13758,
+      "reply": {
+        "action": "INSPECT_SCOPED_CASE",
+        "reasoningSummary": "The case requires further investigation before taking any action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "INSPECT_SCOPED_CASE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
       "scenarioId": "H2_INCIDENT",
       "domain": "agent_handoff",
       "model": "llama3.2:3b",
       "arm": "A0_NO_MEMORY",
       "expectedAction": "CHECK_HEALTH",
       "status": "PASS",
-      "latencyMs": 8737,
+      "latencyMs": 9309,
       "reply": {
         "action": "CHECK_HEALTH",
         "reasoningSummary": "Outage received, checking health of system",
@@ -247,10 +1295,10 @@
       "arm": "A1_RAW_HISTORY",
       "expectedAction": "CHECK_HEALTH",
       "status": "PASS",
-      "latencyMs": 12499,
+      "latencyMs": 16363,
       "reply": {
         "action": "CHECK_HEALTH",
-        "reasoningSummary": "Outage was handed to a fresh remediation agent with scoped evidence, requires verification of system health before proceeding.",
+        "reasoningSummary": "Outage was handed to a fresh remediation agent with scoped evidence, so it's essential to verify the current health of the system before taking any further actions.",
         "memorySliceIds": [],
         "requestedEffects": []
       },
@@ -267,7 +1315,7 @@
       "arm": "A2_ENGRAM",
       "expectedAction": "CHECK_HEALTH",
       "status": "PASS",
-      "latencyMs": 12040,
+      "latencyMs": 14745,
       "reply": {
         "action": "CHECK_HEALTH",
         "reasoningSummary": "The structured memory applies.",
@@ -292,7 +1340,7 @@
       "arm": "A3_IRRELEVANT_MEMORY",
       "expectedAction": "CHECK_HEALTH",
       "status": "PASS",
-      "latencyMs": 9990,
+      "latencyMs": 10568,
       "reply": {
         "action": "CHECK_HEALTH",
         "reasoningSummary": "Outage received with scoped evidence, remediation agent initiated",
@@ -312,7 +1360,7 @@
       "arm": "A4_STALE_OR_CONTRADICTORY",
       "expectedAction": "CHECK_HEALTH",
       "status": "PASS",
-      "latencyMs": 10592,
+      "latencyMs": 11036,
       "reply": {
         "action": "CHECK_HEALTH",
         "reasoningSummary": "Outage has been handed to remediation agent with scoped evidence",
@@ -323,6 +1371,321 @@
       "memoryCited": false,
       "validAction": true,
       "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 10976,
+      "reply": {
+        "action": "REQUEST_SOURCE",
+        "reasoningSummary": "No memory available to verify claim",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_SOURCE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 11770,
+      "reply": {
+        "action": "REQUEST_SOURCE",
+        "reasoningSummary": "No structured authority was attached to the claim, so a source reference is needed to proceed.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "REQUEST_SOURCE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 14039,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 10209,
+      "reply": {
+        "action": "VERIFY_SOURCES",
+        "reasoningSummary": "Verification of sources is required before proceeding with the claim.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "VERIFY_SOURCES",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "VERIFY_SOURCES",
+      "status": "PASS",
+      "latencyMs": 11689,
+      "reply": {
+        "action": "ESCALATE",
+        "reasoningSummary": "Claim and source references provided, escalating to next agent for further review",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "ESCALATE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 10088,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "Option fits the fixed budget",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 11142,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "Option fits the fixed budget, no structured authority needed",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 15159,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 10161,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "Option fits the fixed budget",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_WITHIN_LIMIT",
+      "status": "PASS",
+      "latencyMs": 10340,
+      "reply": {
+        "action": "APPROVE_WITHIN_LIMIT",
+        "reasoningSummary": "Option fits the fixed budget",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "APPROVE_WITHIN_LIMIT",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 9880,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "No memory provided, checking health of the system",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 12046,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "No structured authority was attached to the previous discussion, so the release cannot be fully trusted.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 15814,
+      "reply": {
+        "action": "APPROVE_STAGING",
+        "reasoningSummary": "The structured memory applies.",
+        "memorySliceIds": [
+          "SLICE-1"
+        ],
+        "requestedEffects": [
+          "verification_policy"
+        ]
+      },
+      "action": "APPROVE_STAGING",
+      "memoryCited": true,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL",
+      "authorization": "AUTHORIZED"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 10581,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Release passed staging gate, but health needs to be verified before proceeding.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "APPROVE_STAGING",
+      "status": "PASS",
+      "latencyMs": 12021,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Staging gate passed, but health needs to be checked before proceeding.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
       "proposalStatus": "VALID_PROPOSAL"
     }
   ]
