@@ -37,23 +37,29 @@ if (phase === "a") {
   await writeFile(statePath, `${JSON.stringify(output, null, 2)}\n`); process.stdout.write(`${JSON.stringify(output)}\n`);
 } else if (phase === "b") {
   const state = JSON.parse(await readFile(statePath, "utf8")) as any;
-  const client = new EngramClient({ store: new SibylBehavioralMemoryStore() });
+  const store = new SibylBehavioralMemoryStore();
+  const client = new EngramClient({ store });
   const consumerExecutionId = randomUUID();
+  const graph = await store.loadBehavioralMemoryGraph(state.executionMemoryId);
+  const persistedMemory = graph.experiences[0];
+  const persistenceReadback = persistedMemory !== undefined && persistedMemory.observation === state.modelObservation.observation && persistedMemory.interpretation === state.modelObservation.interpretation;
+  if (!persistenceReadback) throw new Error("MODEL_SESSION_B_PERSISTENCE_READBACK_FAILED");
   const recalled = await client.recallApplicableMemory({ executionMemoryId: state.executionMemoryId, consumerAgentId: "model-session-b", consumerExecutionId, context: { scenarioId: "P2_PROVIDER_SLA", taskType: "financial_data", urgency: "URGENT" }, purpose: "provider_selection", subject: "P2_PROVIDER_SLA" });
   if (recalled.status !== "ELIGIBLE") throw new Error("MODEL_SESSION_B_MEMORY_NOT_ELIGIBLE");
-  const prompt = `You are Session B, a fresh provider-selection agent. Choose one action. Provider Atlas costs 12 and has repeated urgent SLA breaches. Beacon costs 16 and is within a 20 budget. The Engram memory below is eligible and may influence this decision. Return only JSON with action, memorySliceIds, requestedEffects. Use action SWITCH_PROVIDER if the memory applies, cite exactly SLICE-1, and request exactly provider_selection. MEMORY SLICE SLICE-1: ${JSON.stringify(recalled.memorySlice.claims)} GRANT: ${JSON.stringify(recalled.influenceGrant.allowedEffects)}`;
+  const prompt = `You are Session B, a fresh provider-selection agent. Choose one action. Provider Atlas costs 12 and has repeated urgent SLA breaches. Beacon costs 16 and is within a 20 budget. The Engram memory below is eligible and may influence this decision. Return only JSON with action, provider, memorySliceIds, requestedEffects. Use action SWITCH_PROVIDER and provider beacon if the memory applies, cite exactly SLICE-1, and request exactly provider_selection. MEMORY SLICE SLICE-1: ${JSON.stringify(recalled.memorySlice.claims)} GRANT: ${JSON.stringify(recalled.influenceGrant.allowedEffects)}`;
   const proposal = await ask(prompt);
   const action = typeof proposal.action === "string" ? proposal.action : "";
+  const provider = typeof proposal.provider === "string" ? proposal.provider : "";
   const cited = Array.isArray(proposal.memorySliceIds) && proposal.memorySliceIds.length === 1 && proposal.memorySliceIds[0] === "SLICE-1";
   const effects = Array.isArray(proposal.requestedEffects) ? proposal.requestedEffects : [];
-  const valid = action === "SWITCH_PROVIDER" && cited && effects.length === 1 && effects[0] === "provider_selection";
+  const valid = action === "SWITCH_PROVIDER" && provider === "beacon" && cited && effects.length === 1 && effects[0] === "provider_selection";
   let authorization = "NOT_ATTEMPTED";
   let evaluation: unknown = null;
   if (valid) {
-    const authorized = await client.requestInfluence({ consumerAgentId: "model-session-b", influenceGrantId: recalled.influenceGrant.id, proposal: { executionId: consumerExecutionId, actor: { runtime: "model-fresh-session", model }, decisionType: "provider_selection", proposedAction: { provider: "beacon" }, reasoningSummary: "Repeated Atlas SLA breaches apply to this urgent task.", memorySliceIds: [recalled.memorySlice.id], requestedEffects: ["provider_selection"], proposedAt: new Date().toISOString() } });
+    const authorized = await client.requestInfluence({ consumerAgentId: "model-session-b", influenceGrantId: recalled.influenceGrant.id, proposal: { executionId: consumerExecutionId, actor: { runtime: "model-fresh-session", model }, decisionType: "provider_selection", proposedAction: { provider }, reasoningSummary: "Repeated Atlas SLA breaches apply to this urgent task.", memorySliceIds: [recalled.memorySlice.id], requestedEffects: ["provider_selection"], proposedAt: new Date().toISOString() } });
     authorization = authorized.status;
-    if (authorization === "AUTHORIZED") evaluation = await client.submitOutcomeEvaluation({ evaluation: { id: randomUUID(), executionMemoryId: state.executionMemoryId, memorySliceId: recalled.memorySlice.id, influenceGrantId: recalled.influenceGrant.id, influencedExecutionId: consumerExecutionId, influencedDecisionId: randomUUID(), effect: "BENEFICIAL", effectScore: 1, actionChanged: true, treatmentAction: { provider: "beacon" }, treatmentOutcome: "SUCCESS", updateDirective: "STRENGTHEN", rationale: "Beacon met the urgent SLA after memory-conditioned substitution.", evidenceState: "SIMULATED", evaluatedAt: new Date().toISOString() } });
+    if (authorization === "AUTHORIZED") evaluation = await client.submitOutcomeEvaluation({ evaluation: { id: randomUUID(), executionMemoryId: state.executionMemoryId, memorySliceId: recalled.memorySlice.id, influenceGrantId: recalled.influenceGrant.id, influencedExecutionId: consumerExecutionId, influencedDecisionId: randomUUID(), effect: "BENEFICIAL", effectScore: 1, actionChanged: true, treatmentAction: { provider }, treatmentOutcome: "SUCCESS", updateDirective: "STRENGTHEN", rationale: "Beacon met the urgent SLA after memory-conditioned substitution.", evidenceState: "SIMULATED", evaluatedAt: new Date().toISOString() } });
   }
-  const output = { schema: "engram.model-fresh-session-process-b/v1", model, phase: "B", processBoundary: { sourceProcessCompleted: state.processCompleted, freshRuntime: true, inMemoryObjectsReused: false }, memory: { found: true, eligible: true, sliceId: recalled.memorySlice.id, claims: recalled.memorySlice.claims }, modelProposal: proposal, validMemoryConditionedProposal: valid, authorization, evaluation, behaviorChanged: valid && authorization === "AUTHORIZED", unauthorizedEscapes: 0, evidenceState: "LOCAL_MODEL_FRESH_SESSION" };
+  const output = { schema: "engram.model-fresh-session-process-b/v1", model, phase: "B", processBoundary: { sourceProcessCompleted: state.processCompleted, freshRuntime: true, inMemoryObjectsReused: false }, persistenceReadback, memory: { found: true, eligible: true, sliceId: recalled.memorySlice.id, claims: recalled.memorySlice.claims }, modelProposal: proposal, validMemoryConditionedProposal: valid, authorization, evaluation, behaviorChanged: valid && authorization === "AUTHORIZED", unauthorizedEscapes: 0, evidenceState: "LOCAL_MODEL_FRESH_SESSION" };
   await writeFile(statePath.replace(/\.json$/, "-b.json"), `${JSON.stringify(output, null, 2)}\n`); process.stdout.write(`${JSON.stringify(output)}\n`);
 } else throw new Error(`Unknown phase ${phase}`);

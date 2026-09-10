@@ -12,7 +12,7 @@
       "interpretation": "The system should consider using Beacon as an alternative provider, as it is available at a higher cost, to ensure timely completion of urgent tasks.",
       "confidence": 0.8
     },
-    "executionMemoryId": "f594e173-f554-400f-9c9e-267688f2aaef",
+    "executionMemoryId": "8910d558-8b3f-4a52-a663-620a45f9ad4f",
     "evidenceState": "LOCAL_MODEL_FRESH_SESSION"
   },
   "processB": {
@@ -24,16 +24,18 @@
       "freshRuntime": true,
       "inMemoryObjectsReused": false
     },
+    "persistenceReadback": true,
     "memory": {
       "found": true,
       "eligible": true,
-      "sliceId": "24b5fdb9-0623-46ac-99a8-8de937c951d6",
+      "sliceId": "09d9c7e9-89a5-45aa-befc-d90a109dc30b",
       "claims": [
         "The system should consider using Beacon as an alternative provider, as it is available at a higher cost, to ensure timely completion of urgent tasks."
       ]
     },
     "modelProposal": {
       "action": "SWITCH_PROVIDER",
+      "provider": "beacon",
       "memorySliceIds": [
         "SLICE-1"
       ],
@@ -46,9 +48,9 @@
     "evaluation": {
       "status": "UPDATED",
       "directive": "STRENGTHEN",
-      "priorMemoryId": "f594e173-f554-400f-9c9e-267688f2aaef",
-      "newMemoryId": "587b86ff-fc36-4411-bcf4-313221cab7ff",
-      "updateId": "0ee464a3-52b3-4b29-9e3e-38ee5924b84b"
+      "priorMemoryId": "8910d558-8b3f-4a52-a663-620a45f9ad4f",
+      "newMemoryId": "58f758c5-b37f-4a8c-9f93-51fea411b29c",
+      "updateId": "669a3a16-ae7e-44c1-a523-aee8faa93fe8"
     },
     "behaviorChanged": true,
     "unauthorizedEscapes": 0,
@@ -57,9 +59,12 @@
   "claims": {
     "modelObservedFailure": true,
     "processDeathObserved": true,
+    "modelObservationPersisted": true,
     "memoryRecalled": true,
+    "modelSelectedProvider": true,
     "memoryConditionedProposal": true,
     "authorized": true,
+    "authorizedProvider": true,
     "behaviorChanged": true,
     "updatedMemory": true,
     "unauthorizedEscapes": 0
