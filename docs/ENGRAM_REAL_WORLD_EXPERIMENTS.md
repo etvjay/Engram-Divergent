@@ -293,6 +293,378 @@ This proves that Engram can carry a bounded lesson between agents without transf
 
 ---
 
+## Complete scenario catalogue
+
+Every scenario below follows the same experiment structure. This makes the results comparable and lets a reader see exactly what was tested.
+
+For each scenario we write down:
+
+```text
+real problem
+→ experiment setup
+→ step-by-step execution
+→ allowed actions
+→ expected outcome
+→ what the result proves
+→ what it does not prove
+```
+
+### Provider and commerce continuity scenarios
+
+#### P1 — Provider timeout or temporary outage
+
+**Real problem:** The chosen provider stops responding. Continuing may waste time, but switching too early may cost more or lose useful context.
+
+**Experiment setup:** Provider A is selected. Its response is delayed or unavailable. Provider B is available as a bounded fallback.
+
+**Step-by-step execution:**
+
+1. The agent sends the task to Provider A.
+2. The request times out.
+3. Engram records the failed attempt and the uncertainty.
+4. A later task is matched to the same provider conditions.
+5. Engram recalls the earlier experience if it applies.
+6. The agent proposes checking status, waiting, switching, or escalating.
+7. Engram allows only the actions covered by the grant.
+8. The final outcome is evaluated and the memory is updated.
+
+**Allowed actions:** `check_status`, `switch_provider`, `retry_safely`, `open_escalation`, `stop_and_report`.
+
+**Expected outcome:** The agent avoids a blind repeat and chooses a documented safe recovery path.
+
+**Evidence boundary:** A local or sandbox test proves recovery logic. It does not prove a live provider will honor the same response timing.
+
+#### P2 — Repeated SLA miss
+
+**Real problem:** A provider repeatedly misses an important delivery or verification milestone.
+
+**Experiment setup:** Provider A records repeated misses. Provider B is more reliable but may cost more.
+
+**Step-by-step execution:**
+
+1. The first execution completes with an SLA miss.
+2. Engram records the provider, task type, milestone, and outcome.
+3. The next similar task starts in a fresh process.
+4. Engram checks whether the old lesson applies to the new urgency and task type.
+5. The agent proposes a provider or term change.
+6. Engram checks that the proposal is within authority.
+7. The new provider result is evaluated.
+
+**Allowed actions:** Change provider, require milestone verification, reduce exposure, or escalate. No unrestricted spending or mandate expansion is allowed.
+
+**Expected outcome:** Urgent work may move to the more reliable provider, while routine work may remain with the cheaper provider under stricter checks.
+
+**Evidence boundary:** This is the existing provider-continuity shape. It proves task-specific memory influence, not a universal provider reputation system.
+
+#### P3 — Provider price or terms change
+
+**Real problem:** A provider that was previously acceptable changes its price, deposit requirement, or delivery terms.
+
+**Experiment setup:** The old memory records the prior approved terms. The new proposal exceeds the allowed cost or exposure.
+
+**Step-by-step execution:**
+
+1. The agent receives the new provider terms.
+2. Engram recalls the earlier terms and their outcome.
+3. The agent compares the new terms with the permitted mandate.
+4. Engram either authorizes a bounded adjustment or rejects the over-limit proposal.
+5. The outcome records whether the task completed without exceeding authority.
+
+**Allowed actions:** Accept within the existing limit, negotiate within a fixed range, switch provider, or escalate.
+
+**Expected outcome:** Memory helps the agent notice the change; it does not grant permission to spend more.
+
+**Evidence boundary:** The experiment proves authority-preserving decision support, not financial savings in a live marketplace.
+
+#### P4 — Missing milestone
+
+**Real problem:** A provider says the task is progressing, but a required milestone is missing.
+
+**Experiment setup:** The provider response is plausible but lacks the evidence required to continue.
+
+**Step-by-step execution:**
+
+1. The agent receives the incomplete progress report.
+2. Engram recalls that this provider/task combination previously needed milestone verification.
+3. The agent requests verification or pauses.
+4. Engram rejects a proposal to mark the task complete without evidence.
+5. The final state is recorded as verified, paused, failed, or escalated.
+
+**Allowed actions:** Request evidence, wait, pause, escalate, or switch.
+
+**Expected outcome:** The agent does not treat an unverified milestone as success.
+
+**Evidence boundary:** This tests evidence discipline in a controlled workflow, not the truthfulness of a real provider.
+
+#### P5 — Provider contradiction
+
+**Real problem:** Two provider responses disagree about the state of the same job.
+
+**Experiment setup:** One response says the job completed. Another says it is still pending.
+
+**Step-by-step execution:**
+
+1. The agent receives both responses.
+2. Engram identifies the old lesson as potentially contradictory or stale.
+3. The agent requests a trusted status check instead of choosing a convenient answer.
+4. Engram blocks an action that depends on an unresolved contradiction.
+5. The result is reconciled and the memory is updated only after evidence is available.
+
+**Allowed actions:** Reconcile, request a trusted read, pause, or escalate.
+
+**Expected outcome:** The agent enters an explicit unknown or reconciliation state rather than fabricating certainty.
+
+**Evidence boundary:** A deterministic contradiction test proves the state policy. It does not prove all external data sources are consistent.
+
+#### P6 — Safe provider substitution
+
+**Real problem:** The original provider cannot complete the job and another provider is available.
+
+**Experiment setup:** The fallback has different cost, capabilities, or risk. The grant permits substitution only within a defined scope.
+
+**Step-by-step execution:**
+
+1. The original provider fails.
+2. Engram recalls any relevant prior substitution outcome.
+3. The agent proposes a fallback.
+4. Engram checks provider, task, cost, and effect restrictions.
+5. The fallback runs in the sandbox.
+6. The result is compared with the original plan.
+
+**Allowed actions:** Switch only within the approved provider set and terms; otherwise escalate.
+
+**Expected outcome:** The agent uses experience to choose a safer fallback without silently widening the mandate.
+
+**Evidence boundary:** This proves bounded substitution logic, not live commerce performance.
+
+### Tool and workflow recovery scenarios
+
+#### T1 — Rate limit and backoff
+
+**Real problem:** A tool rejects repeated requests because the agent is sending them too quickly.
+
+**Experiment setup:** Tool A returns rate-limit failures. The retry budget is fixed and cannot be increased by the agent.
+
+**Step-by-step execution:**
+
+1. Process A calls Tool A.
+2. Tool A returns rate-limit failures.
+3. The retry budget is exhausted.
+4. Process A records the failed execution.
+5. Engram admits the recovery lesson.
+6. Process A exits.
+7. Process B starts fresh and recalls the lesson.
+8. Process B proposes a bounded recovery action.
+9. Engram authorizes the allowed action and rejects an unauthorized budget increase.
+10. The test checks the full lineage and confirms zero unauthorized escapes.
+
+**Allowed actions:** Back off, check status, switch tool, escalate, or stop.
+
+**Expected outcome:** The agent does not keep hammering the tool or increase its own retry authority.
+
+**Evidence boundary:** This is already a local process-boundary pass. Model consistency across many rate-limit patterns remains to be tested.
+
+#### T2 — Timeout with duplicate risk
+
+**Real problem:** A write request times out, but it may already have succeeded. Retrying could create a duplicate.
+
+**Experiment setup:** The mock tool stores whether the write happened even when the response is lost.
+
+**Step-by-step execution:**
+
+1. The agent submits the write.
+2. The response times out.
+3. Engram records the result as unknown, not failed.
+4. A later agent recalls the lesson about checking status first.
+5. The agent calls `check_status`.
+6. The agent retries only if the status proves that no write occurred.
+7. The test checks whether one or two writes exist.
+
+**Allowed actions:** Check status, retry safely, escalate, or stop.
+
+**Expected outcome:** There is at most one successful write. A blind retry is treated as harmful behavior.
+
+**Evidence boundary:** A stateful mock proves duplicate prevention. It does not prove safety against every real provider's idempotency behavior.
+
+#### T3 — Partial workflow completion
+
+**Real problem:** Some workflow steps completed, while a later step is uncertain. Starting again may repeat completed work.
+
+**Experiment setup:** The workflow has several numbered steps and a durable status for each one.
+
+**Step-by-step execution:**
+
+1. Steps one through three complete.
+2. Step four returns an uncertain result.
+3. Engram records the completed prefix and the uncertainty.
+4. A fresh process recalls the recovery lesson.
+5. The agent checks the current state.
+6. It resumes from the correct step or escalates.
+7. The test verifies that completed steps were not repeated.
+
+**Allowed actions:** Check status, resume from a confirmed checkpoint, escalate, or stop.
+
+**Expected outcome:** The agent continues safely from the known state instead of restarting blindly.
+
+**Evidence boundary:** This proves checkpoint-aware recovery in the fixture, not full distributed transaction recovery.
+
+#### T4 — Tool schema drift
+
+**Real problem:** A tool changes a field name or response shape. The old call no longer matches the tool contract.
+
+**Experiment setup:** Version one expects one schema; version two expects another. The agent receives an explicit validation error.
+
+**Step-by-step execution:**
+
+1. The old request fails validation.
+2. Engram records the schema failure and the tool version.
+3. A later process recalls that the old request is no longer valid.
+4. The agent proposes the known compatible request or asks for help.
+5. Engram rejects a proposal that fabricates a successful result.
+6. The outcome records whether the corrected call succeeded.
+
+**Allowed actions:** Use the approved new schema, inspect the contract, escalate, or stop.
+
+**Expected outcome:** The agent treats the error as a contract mismatch rather than repeatedly sending the same invalid request.
+
+**Evidence boundary:** The fixture proves explicit schema handling. It does not prove automatic compatibility with arbitrary third-party API changes.
+
+#### T5 — Ambiguous completion and reconciliation
+
+**Real problem:** The system cannot confirm whether an action happened.
+
+**Experiment setup:** The action may have completed, but the acknowledgement is missing.
+
+**Step-by-step execution:**
+
+1. The agent submits the action.
+2. The acknowledgement is lost.
+3. Engram records the state as unknown.
+4. The next process recalls that an unknown result requires reconciliation.
+5. The agent checks the authoritative state.
+6. It records completed, not completed, or still unknown.
+7. Only then may it retry or escalate.
+
+**Allowed actions:** Reconcile, retry after proof, escalate, or stop.
+
+**Expected outcome:** The agent never treats uncertainty as permission to repeat an irreversible action.
+
+**Evidence boundary:** This proves a fail-safe state transition in the test system, not universal correctness of external status APIs.
+
+### Agent and fleet handoff scenarios
+
+#### H1 — Customer-support escalation
+
+**Real problem:** A first-line support agent cannot solve a case and a specialist must take over.
+
+**Experiment setup:** Agent A records the customer issue, attempted steps, and verified facts. Agent B is the specialist.
+
+**Step-by-step execution:**
+
+1. Agent A works the case.
+2. Agent A records the useful lesson and unresolved question.
+3. Agent A exits.
+4. Agent B starts fresh.
+5. Engram sends only the relevant MemorySlice.
+6. Agent B verifies the next step and proposes a bounded action.
+7. The result is evaluated and attached to the same lineage.
+
+**Allowed actions:** Inspect the scoped case, request an approved next step, escalate, or close with evidence.
+
+**Expected outcome:** Agent B avoids repeating the same investigation without receiving Agent A's entire private history.
+
+**Evidence boundary:** A local handoff proves scoped transfer, not customer-service quality in production.
+
+#### H2 — Incident-response handoff
+
+**Real problem:** A monitoring agent detects an outage, then a remediation agent takes over.
+
+**Experiment setup:** Agent A observes symptoms. Agent B may run only approved remediation checks.
+
+**Step-by-step execution:**
+
+1. Agent A records the incident and evidence.
+2. Engram forms a lesson about the observed failure pattern.
+3. Agent A disappears or hands off.
+4. Agent B receives the scoped memory.
+5. Agent B checks whether the same pattern applies.
+6. Agent B proposes a bounded remediation or escalation.
+7. Engram rejects unrelated or over-broad actions.
+
+**Allowed actions:** Check health, inspect approved logs, restart an approved component, or escalate.
+
+**Expected outcome:** The handoff preserves operational context without giving Agent B unrestricted production authority.
+
+**Evidence boundary:** Use a sandbox or replayed incident before any real infrastructure action.
+
+#### H3 — Research verification handoff
+
+**Real problem:** One research agent finds a claim, but another agent must verify it before publication or decision-making.
+
+**Experiment setup:** Agent A records the claim and source references. Agent B receives the claim summary, not an unfiltered transcript.
+
+**Step-by-step execution:**
+
+1. Agent A records the source and confidence.
+2. Engram stores what was observed and what remains uncertain.
+3. Agent B starts fresh.
+4. Agent B receives the eligible memory and source provenance.
+5. Agent B checks the claim against approved sources.
+6. Agent B marks it verified, contradicted, or unresolved.
+7. The memory is updated with the verification result.
+
+**Allowed actions:** Verify, request another source, mark unresolved, or escalate.
+
+**Expected outcome:** The second agent can continue the work without treating the first agent's claim as established fact.
+
+**Evidence boundary:** This tests provenance and uncertainty handling, not research truth in every domain.
+
+#### H4 — Procurement approval handoff
+
+**Real problem:** A sourcing agent finds an option, but a separate approval agent must confirm that it fits the budget and mandate.
+
+**Experiment setup:** Agent A gathers options. Agent B may approve only within fixed terms.
+
+**Step-by-step execution:**
+
+1. Agent A records the option, price, and conditions.
+2. Engram stores the evaluated sourcing experience.
+3. Agent B starts with no raw history.
+4. Agent B receives the relevant option summary and constraints.
+5. Agent B checks the price and terms against its authority.
+6. Agent B approves, rejects, or escalates.
+7. Engram records the outcome.
+
+**Allowed actions:** Approve within limits, request a quote, reject, or escalate.
+
+**Expected outcome:** Useful procurement context transfers, but budget authority does not silently transfer from Agent A to Agent B.
+
+**Evidence boundary:** Use a fake purchasing ledger or sandbox; do not make real purchases during the benchmark.
+
+#### H5 — Deployment release handoff
+
+**Real problem:** A build agent prepares a release, but a release agent must decide whether it is safe to deploy.
+
+**Experiment setup:** Agent A records test results and known warnings. Agent B receives the scoped evidence and release criteria.
+
+**Step-by-step execution:**
+
+1. Agent A records the build and test outcome.
+2. Engram forms a lesson about the release condition.
+3. Agent A exits.
+4. Agent B starts fresh and recalls the applicable evidence.
+5. Agent B checks the release gate.
+6. Agent B deploys only if the gate is satisfied; otherwise it pauses or escalates.
+7. The resulting deployment state is recorded.
+
+**Allowed actions:** Inspect checks, approve a bounded test deployment, pause, or escalate.
+
+**Expected outcome:** Agent B does not repeat the build investigation, but it also does not inherit an automatic right to deploy.
+
+**Evidence boundary:** Start with a local or disposable staging deployment. No production deployment should be part of the first experiment.
+
+---
+
 ## The five comparison conditions
 
 For model experiments, the same task is run under five conditions:
