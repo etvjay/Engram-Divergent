@@ -37,7 +37,7 @@ describe("Cloudflare Worker boundary", () => {
     const denied = await worker.fetch(new Request("https://engram.example/v1/executions/complete", { method: "POST", body: "{}", headers: { "content-type": "application/json" } }), env);
     expect(denied.status).toBe(401);
     const executionId = crypto.randomUUID();
-    const accepted = await worker.fetch(new Request("https://engram.example/v1/executions/complete", { method: "POST", body: JSON.stringify(execution(executionId)), headers: { "content-type": "application/json", authorization: "Bearer test-token" } }), env);
+    const accepted = await worker.fetch(new Request("https://engram.example/v1/executions/complete", { method: "POST", body: JSON.stringify(execution(executionId)), headers: { "content-type": "application/json", authorization: "Bearer test-token", "idempotency-key": "worker-test-1" } }), env);
     expect(accepted.status).toBe(200);
     expect((await accepted.json() as any).data.status).toBe("ADMITTED");
   });

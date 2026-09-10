@@ -57,9 +57,9 @@
     "agentSurface": "MCP_STDIO_LOCAL_PASS",
     "typedSdk": "LOCAL_PASS",
     "rest": "REST_LOCAL_LOOPBACK_PASS",
-    "cloudflare": "HOSTED_WORKER_D1_PARTIAL_CYCLE_PASS"
+    "cloudflare": "HOSTED_WORKER_D1_PASS_10_OF_10_SIMULATED_CYCLES"
   },
-  "transportEquivalence": "MCP_SDK_REST_LOCAL_PASS; HOSTED_REST_D1_PARTIAL_9_OF_10_SIMULATED_CYCLES; HOSTED_LLM_AND_WEB_UNVERIFIED",
+  "transportEquivalence": "MCP_SDK_REST_LOCAL_PASS; HOSTED_REST_D1_PASS_10_OF_10_SIMULATED_CYCLES; HOSTED_LLM_AND_WEB_UNVERIFIED",
   "authorityContinuity": {
     "local": "LOCAL_PASS",
     "violations": 0
@@ -79,11 +79,11 @@
     "frontend": "DEFERRED_BY_SCOPE",
     "rest": "LOCAL_LOOPBACK_PASS",
     "typedSdk": "LOCAL_PACKAGED_PASS",
-    "hostedRest": "HOSTED_WORKER_D1_PARTIAL_CYCLE_PASS"
+    "hostedRest": "HOSTED_WORKER_D1_PASS_10_OF_10_SIMULATED_CYCLES"
   },
   "coldHuman": "PASS_FOR_REPLAY_DEMO",
-  "coldAgent": "PASS_MCP_STDIO_LIFECYCLE; HOSTED_REST_PARTIAL_9_OF_10_SIMULATED_CYCLES",
-  "coldDeveloper": "PASS_PACKAGED_SDK_AND_LOCAL_LOOPBACK_REST; HOSTED_REST_PARTIAL",
+  "coldAgent": "PASS_MCP_STDIO_LIFECYCLE; HOSTED_REST_10_OF_10_SIMULATED_CYCLES",
+  "coldDeveloper": "PASS_PACKAGED_SDK_AND_LOCAL_LOOPBACK_REST; HOSTED_REST_D1_PASS",
   "P0GapsRemaining": 1,
   "P1GapsRemaining": 3,
   "authorityViolations": 0,
@@ -92,7 +92,7 @@
   "canonicalEvidence": "evidence/canonical/longitudinal/latest/",
   "testedSourceSha": "b25d1686f7011d27391625eda00785d9f4cf7a1b",
   "analysisArtifact": "docs/ENGRAM_CLOSED_LOOP_ANALYSIS.md",
-  "hostedCampaign": "evidence/canonical/analysis/hosted-worker-simulated-10/",
+  "hostedCampaign": "evidence/canonical/analysis/hosted-worker-simulated-10-idempotent/",
   "analysisRenderers": [
     "pandas",
     "scipy",
@@ -137,10 +137,10 @@
     "npm run demo:engram"
   ],
   "cloudflareDeployment": {
-    "status": "HOSTED_PARTIAL",
+    "status": "HOSTED_PASS_BOUNDED_SIMULATED",
     "wranglerAuth": "READ_ONLY_VERIFIED",
     "target": "engram-agent-surface",
-    "reason": "Cloudflare Worker with isolated engram-sibyl D1 is deployed; hosted simulated lifecycle reached 9 of 10 cycles, with one transient secret-propagation failure. Full hosted campaign remains incomplete.",
+    "reason": "Cloudflare Worker with isolated engram-sibyl D1 is deployed; final-version hosted simulated lifecycle completed 10 of 10 cycles with durable idempotency and zero unauthorized escapes. No model-backed claim is made.",
     "deletionPerformed": false,
     "deploymentPerformed": true
   },

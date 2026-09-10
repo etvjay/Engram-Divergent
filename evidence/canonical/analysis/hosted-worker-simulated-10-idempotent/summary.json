@@ -1,0 +1,9 @@
+{
+  "evidence_mode": "HOSTED_SIMULATED",
+  "target_cycles": 10,
+  "completed_cycles": 10,
+  "failed_cycles": 0,
+  "memory_updates": 10,
+  "unauthorized_escapes": 0,
+  "mean_latency_ms": 2073.1
+}
