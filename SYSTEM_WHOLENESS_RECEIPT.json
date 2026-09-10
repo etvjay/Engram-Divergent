@@ -1,15 +1,17 @@
 {
-  "canonicalSha": "bfb19c82b10a4a683f56e72519e05f9721c79bbd",
+  "canonicalSha": "7c656d49abfc9fcaad3731544f2d8060bcff34a5",
   "systemMap": {
     "entrySurfaces": [
       "npm scripts",
       "direct TypeScript modules",
       "fixture process runners",
       "MCP stdio",
-      "typed developer SDK"
+      "typed developer SDK",
+      "packaged @sibylengram/agent-surface SDK",
+      "packaged local-loopback REST API"
     ],
     "unsupportedSurfaces": [
-      "REST",
+      "hosted REST/Cloudflare Worker",
       "Web"
     ],
     "localComposedCore": [
@@ -53,9 +55,11 @@
     "provider": "ACP_SESSION_REHYDRATION_BLOCKED",
     "terminalOutcome": "not reached for live provider",
     "agentSurface": "MCP_STDIO_LOCAL_PASS",
-    "typedSdk": "LOCAL_PASS"
+    "typedSdk": "LOCAL_PASS",
+    "rest": "REST_LOCAL_LOOPBACK_PASS",
+    "cloudflare": "BLOCKED_EXTERNAL_WORKERS_RUNTIME_AND_SIBYL_PERSISTENCE_MISMATCH"
   },
-  "transportEquivalence": "MCP_AND_SDK_LOCAL_PASS; REST_AND_WEB_DEFERRED_BY_SCOPE",
+  "transportEquivalence": "MCP_SDK_REST_LOCAL_PASS; HOSTED_REST_AND_WEB_BLOCKED_EXTERNAL",
   "authorityContinuity": {
     "local": "LOCAL_PASS",
     "violations": 0
@@ -73,12 +77,13 @@
     "closedLoop": "LOCAL_PASS",
     "crossModel": "BLOCKED_EXTERNAL",
     "frontend": "DEFERRED_BY_SCOPE",
-    "rest": "DEFERRED_BY_SCOPE",
-    "typedSdk": "LOCAL_PASS"
+    "rest": "LOCAL_LOOPBACK_PASS",
+    "typedSdk": "LOCAL_PACKAGED_PASS",
+    "hostedRest": "BLOCKED_EXTERNAL_CLOUDFLARE_RUNTIME_AND_PERSISTENCE"
   },
   "coldHuman": "PASS_FOR_REPLAY_DEMO",
   "coldAgent": "PASS_MCP_STDIO_LIFECYCLE",
-  "coldDeveloper": "PASS_TYPED_SDK_AND_REPOSITORY_CLI; REST_DEFERRED_BY_SCOPE",
+  "coldDeveloper": "PASS_PACKAGED_SDK_AND_LOCAL_LOOPBACK_REST; HOSTED_REST_BLOCKED",
   "P0GapsRemaining": 1,
   "P1GapsRemaining": 3,
   "authorityViolations": 0,
@@ -113,7 +118,7 @@
   "analysisRenderProvenance": "evidence/canonical/analysis/latest/manifest.json",
   "deferredByScope": [
     "FRONTEND",
-    "REST",
+    "HOSTED_REST_CLOUDFLARE",
     "TABLEAU",
     "POWER_BI"
   ],
@@ -130,6 +135,14 @@
     "npm run demo:fresh-session",
     "npm run demo:engram"
   ],
+  "cloudflareDeployment": {
+    "status": "BLOCKED_EXTERNAL",
+    "wranglerAuth": "READ_ONLY_VERIFIED",
+    "target": null,
+    "reason": "No Wrangler project exists; current REST uses node:http and Sibyl uses a Python bridge/local filesystem, so a direct Workers deployment would not preserve canonical state or authority.",
+    "deletionPerformed": false,
+    "deploymentPerformed": false
+  },
   "acpA0v2": "evidence/canonical/virtuals/a0-v2/2026-09-09T22-50-56-095Z/",
   "acpA0v2Status": "BLOCKED_OR_FAILED_EXTERNAL_JOB_CREATED_CONTINUOUS_SESSION_FUND_PREBROADCAST_FAILURE",
   "acpA0v2Job": "77914",
