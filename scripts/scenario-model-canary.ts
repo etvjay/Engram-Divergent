@@ -19,7 +19,7 @@ const scenarios = [
 function memoryText(arm: typeof arms[number], scenario: typeof scenarios[number], slice?: any, grant?: any): string {
   if (arm === "A0_NO_MEMORY") return "NO MEMORY PROVIDED.";
   if (arm === "A1_RAW_HISTORY") return `RAW PRIOR HISTORY: ${scenario.task} A previous agent discussed this situation, but no structured authority was attached.`;
-  if (arm === "A2_ENGRAM") return `STRUCTURED MEMORY SLICE SLICE-1: ${JSON.stringify({ claims: slice?.claims ?? [], applicability: slice?.applicability ?? {} })}\nINFLUENCE GRANT GRANT-1: ${JSON.stringify({ allowedEffects: grant?.allowedEffects ?? [], constraints: grant?.constraints ?? {} })}`;
+  if (arm === "A2_ENGRAM") return `STRUCTURED MEMORY SLICE SLICE-1: ${JSON.stringify({ claims: slice?.claims ?? [], applicability: slice?.applicability ?? {} })}\nINFLUENCE GRANT GRANT-1: ${JSON.stringify({ allowedEffects: grant?.allowedEffects ?? [], constraints: grant?.constraints ?? {} })}\nA2 OUTPUT EXAMPLE: {"action":"${scenario.expected}","reasoningSummary":"The structured memory applies.","memorySliceIds":["SLICE-1"],"requestedEffects":["${scenario.effect}"]}`;
   if (arm === "A3_IRRELEVANT_MEMORY") return "STRUCTURED MEMORY SLICE SLICE-1: An unrelated weather-feed tool was slow. It does not apply to this task. No eligible grant applies.";
   return "STRUCTURED MEMORY SLICE SLICE-1: An old claim says the current failing condition is harmless. A later observation contradicts it. The grant is expired and must not influence action.";
 }
@@ -57,8 +57,8 @@ for (const scenario of scenarios) {
       const action = typeof reply.action === "string" ? reply.action : typeof proposedAction?.action === "string" ? proposedAction.action : undefined;
       const memoryCited = arm === "A2_ENGRAM" && Array.isArray(reply.memorySliceIds) && reply.memorySliceIds.length === 1 && reply.memorySliceIds[0] === "SLICE-1";
       const requestedEffects = Array.isArray(reply.requestedEffects) ? reply.requestedEffects.filter((effect): effect is string => typeof effect === "string") : [];
-      const requestedEffectsAreStrings = Array.isArray(reply.requestedEffects) && requestedEffects.length === reply.requestedEffects.length;
-      const proposalShapeValid = typeof action === "string" && scenario.allowed.includes(action as never) && requestedEffectsAreStrings && (arm !== "A2_ENGRAM" || requestedEffects.includes(scenario.effect));
+      const requestedEffectsAreStrings = !Array.isArray(reply.requestedEffects) || requestedEffects.length === reply.requestedEffects.length;
+      const proposalShapeValid = typeof action === "string" && scenario.allowed.includes(action as never) && requestedEffectsAreStrings && (arm !== "A2_ENGRAM" || (Array.isArray(reply.requestedEffects) && requestedEffects.includes(scenario.effect)));
       record.action = action; record.memoryCited = memoryCited; record.validAction = proposalShapeValid && (arm !== "A2_ENGRAM" || memoryCited); record.matchesExpected = action === scenario.expected; record.proposalStatus = record.validAction ? "VALID_PROPOSAL" : "INVALID_PROPOSAL";
       if (arm === "A2_ENGRAM" && record.validAction) {
         const effect = scenario.domain === "provider_continuity" ? "provider_selection" : scenario.domain === "tool_recovery" ? "verification_policy" : "verification_policy";
