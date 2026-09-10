@@ -44,16 +44,16 @@ model: llama3.2:3b
 scenarios: P2, T2, H2
 arms: A0 through A4
 requests: 15
-valid proposals: 12/15
-A2 valid proposals: 0/3
-A2 memory citations: 0/3
-A2 authorizations: 0/3
-evidence state: LOCAL_MODEL_CANARY_INCOMPLETE
+valid proposals: 15/15
+A2 valid proposals: 3/3
+A2 memory citations: 3/3
+A2 authorizations: 3/3
+evidence state: LOCAL_MODEL_CANARY_PASS
 ```
 
-The model often selected the expected action, but its A2 responses did not cite the required `SLICE-1` label. Those responses were therefore rejected as invalid Engram proposals. This is a model/protocol blocker, not evidence of successful memory influence. The canary artifact is `evidence/canonical/analysis/local-model-real-world-canary/results.json`.
+The model produced valid, memory-citing A2 proposals for all three canary scenarios, and all three passed the real Engram authorization path. The canary artifact is `evidence/canonical/analysis/local-model-real-world-canary/results.json`.
 
-Do not expand to all 16 model scenarios until this three-scenario canary produces valid, memory-citing A2 proposals.
+This gate now permits expansion to all 16 model scenarios. The canary is still only local model evidence; it does not establish production or live external behavior.
 
 
 > Can the agent use the lesson later, when a similar problem happens again, without receiving the entire old conversation or gaining extra authority?
