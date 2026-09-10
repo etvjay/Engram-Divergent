@@ -20,22 +20,22 @@ Current status:
 |---|---|---|
 | Provider continuity: repeated SLA miss / bounded provider change | `EXECUTED` locally | `tests/integration/sibyl-provider-continuity.test.ts`, `tests/scenarios/provider-continuity-memory.test.ts` |
 | Provider continuity: model-backed provider-urgent pilot | `EXECUTED` locally | `evidence/canonical/analysis/local-model-provider-urgent-10/` |
-| Provider timeout or outage | `PROPOSED` | No dedicated retained scenario result yet |
-| Provider price or terms change | `PROPOSED` | No dedicated retained scenario result yet |
-| Provider missing milestone | `PARTIALLY REPRESENTED` | Existing provider verification behavior, but no dedicated scenario manifest |
-| Provider contradiction | `PARTIALLY REPRESENTED` | Contradictory-memory tests exist; no dedicated provider contradiction campaign |
-| Safe provider substitution | `PARTIALLY REPRESENTED` | Provider-continuity behavior exists; no separate substitution scenario manifest |
+| Provider timeout or outage | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`P1_PROVIDER_TIMEOUT`) |
+| Provider price or terms change | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`P3_PROVIDER_TERMS`) |
+| Provider missing milestone | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`P4_PROVIDER_MILESTONE`) |
+| Provider contradiction | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`P5_PROVIDER_CONTRADICTION`) |
+| Safe provider substitution | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`P6_PROVIDER_SUBSTITUTION`) |
 | Tool rate limit and backoff | `EXECUTED` locally | `tests/fixtures/tool-recovery/tool-a-rate-limit-failure.json`, `tests/integration/tool-recovery-durable-learning.test.ts` |
-| Tool timeout with duplicate risk | `PROPOSED` | No dedicated duplicate-state fixture yet |
-| Partial workflow completion | `PROPOSED` | No dedicated scenario result yet |
-| Tool schema drift | `PROPOSED` | No dedicated scenario result yet |
-| Ambiguous completion and reconciliation | `PARTIALLY REPRESENTED` | State and idempotency tests exist; no dedicated recovery campaign |
+| Tool timeout with duplicate risk | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`T2_TOOL_TIMEOUT_DUPLICATE`) |
+| Partial workflow completion | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`T3_TOOL_PARTIAL`) |
+| Tool schema drift | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`T4_TOOL_SCHEMA`) |
+| Ambiguous completion and reconciliation | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`T5_TOOL_AMBIGUOUS`) |
 | Agent handoff: generic scoped handoff | `EXECUTED` locally | `tests/integration/agent-handoff-durable-learning.test.ts`, `evidence/canonical/agent-handoff/` |
-| Customer-support escalation | `PROPOSED` | No dedicated scenario result yet |
-| Incident-response handoff | `PROPOSED` | No dedicated scenario result yet |
-| Research verification handoff | `PROPOSED` | No dedicated scenario result yet |
-| Procurement approval handoff | `PROPOSED` | No dedicated scenario result yet |
-| Deployment release handoff | `PROPOSED` | No dedicated scenario result yet |
+| Customer-support escalation | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H1_SUPPORT`) |
+| Incident-response handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H2_INCIDENT`) |
+| Research verification handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H3_RESEARCH`) |
+| Procurement approval handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H4_PROCUREMENT`) |
+| Deployment release handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H5_RELEASE`) |
 
 The words **expected outcome** in a `PROPOSED` section describe the acceptance criteria. They do not describe a result that has already happened.
 

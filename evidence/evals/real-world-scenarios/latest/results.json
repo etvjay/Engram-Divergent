@@ -1,0 +1,168 @@
+{
+  "schema": "engram.real-world-scenario-matrix/v1",
+  "evidenceState": "LOCAL_PASS",
+  "testedGitSha": "976e6ce0c29fdb29a97817fb3af5d8f580c6b1c6",
+  "scenarioCount": 16,
+  "results": [
+    {
+      "scenarioId": "P1_PROVIDER_TIMEOUT",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "CHECK_STATUS",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "SWITCH_PROVIDER",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "P3_PROVIDER_TERMS",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "REDUCE_EXPOSURE",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "P4_PROVIDER_MILESTONE",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "REQUEST_VERIFICATION",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "P5_PROVIDER_CONTRADICTION",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "RECONCILE",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "P6_PROVIDER_SUBSTITUTION",
+      "domain": "provider_continuity",
+      "status": "PASS",
+      "action": "SWITCH_PROVIDER",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "T1_TOOL_RATE_LIMIT",
+      "domain": "tool_recovery",
+      "status": "PASS",
+      "action": "ESCALATE",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "status": "PASS",
+      "action": "CHECK_STATUS",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "T3_TOOL_PARTIAL",
+      "domain": "tool_recovery",
+      "status": "PASS",
+      "action": "RESUME_FROM_CHECKPOINT",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "T4_TOOL_SCHEMA",
+      "domain": "tool_recovery",
+      "status": "PASS",
+      "action": "USE_COMPATIBLE_SCHEMA",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "T5_TOOL_AMBIGUOUS",
+      "domain": "tool_recovery",
+      "status": "PASS",
+      "action": "RECONCILE",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "H1_SUPPORT",
+      "domain": "agent_handoff",
+      "status": "PASS",
+      "action": "INSPECT_SCOPED_CASE",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "status": "PASS",
+      "action": "CHECK_HEALTH",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "H3_RESEARCH",
+      "domain": "agent_handoff",
+      "status": "PASS",
+      "action": "VERIFY_SOURCES",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "H4_PROCUREMENT",
+      "domain": "agent_handoff",
+      "status": "PASS",
+      "action": "APPROVE_WITHIN_LIMIT",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    },
+    {
+      "scenarioId": "H5_RELEASE",
+      "domain": "agent_handoff",
+      "status": "PASS",
+      "action": "APPROVE_STAGING",
+      "evidenceState": "SIMULATED",
+      "surfaces": [
+        "SDK"
+      ]
+    }
+  ]
+}
