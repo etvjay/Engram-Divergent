@@ -1,0 +1,14 @@
+{
+  "evidence_mode": "HOSTED_SIMULATED",
+  "target_cycles": 10,
+  "observed_cycles": 10,
+  "completed_cycles": 9,
+  "transient_failures": 1,
+  "failure_reasons": {
+    "AUTH_PROPAGATION": 1
+  },
+  "memory_updates": 9,
+  "unauthorized_escapes": 0,
+  "mean_latency_ms": 1226.11,
+  "status": "PARTIAL_CAMPAIGN"
+}
