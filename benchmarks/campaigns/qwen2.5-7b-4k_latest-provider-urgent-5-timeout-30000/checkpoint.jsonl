@@ -1,0 +1,5 @@
+{"kind":"error","pairId":"provider-urgent-pair-1","recordedAt":"2026-09-10T05:21:54.777Z","error":"MODEL_REQUEST_TIMEOUT_30000MS"}
+{"kind":"error","pairId":"provider-urgent-pair-2","recordedAt":"2026-09-10T05:22:24.804Z","error":"MODEL_REQUEST_TIMEOUT_30000MS"}
+{"kind":"error","pairId":"provider-urgent-pair-3","recordedAt":"2026-09-10T05:22:54.806Z","error":"MODEL_REQUEST_TIMEOUT_30000MS"}
+{"kind":"error","pairId":"provider-urgent-pair-4","recordedAt":"2026-09-10T05:23:24.809Z","error":"MODEL_REQUEST_TIMEOUT_30000MS"}
+{"kind":"error","pairId":"provider-urgent-pair-5","recordedAt":"2026-09-10T05:23:54.813Z","error":"MODEL_REQUEST_TIMEOUT_30000MS"}

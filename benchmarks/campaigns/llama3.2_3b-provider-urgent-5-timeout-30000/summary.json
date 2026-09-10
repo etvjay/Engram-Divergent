@@ -1,0 +1,11 @@
+{
+  "schema": "engram.benchmark-campaign-summary/v1",
+  "model": "llama3.2:3b",
+  "scenarioId": "provider-urgent",
+  "targetRepetitions": 5,
+  "completedPairs": 0,
+  "errorPairs": 5,
+  "checkpointPath": "benchmarks/campaigns/llama3.2_3b-provider-urgent-5-timeout-30000/checkpoint.jsonl",
+  "requestTimeoutMs": 30000,
+  "updatedAt": "2026-09-10T05:30:30.651Z"
+}

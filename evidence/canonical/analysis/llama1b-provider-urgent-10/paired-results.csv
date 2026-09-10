@@ -1,0 +1,11 @@
+pairId,controlTrialId,treatmentTrialId,deltaUtility,actionChanged,behaviorConsequential,beneficial,harmful,authorityClean
+provider-urgent-pair-1,9be720b6-6fba-4268-933d-3cf87f5aa6ab,7384e38e-c347-4678-a5a9-02ec3e822755,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-2,f237c580-cc08-4ff9-b049-c416bf0a6ba5,5565d13e-126b-462d-a6eb-79bdcd38896d,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-3,456a5be6-dc5c-4895-a94a-63882f7a8538,d3f8245e-c58b-481a-bc7f-7912664b2333,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-4,89ecbb29-7574-4086-aad2-ead299162430,cda4142b-a4fd-4486-ac43-606681dc5afc,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-5,99540d84-bca3-4b90-97d6-50600a301fd7,0b07e155-c47a-4c91-b0ba-28806d6e489f,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-6,20855a81-3669-463e-a44e-7284432a5a13,45621cf6-9f57-4d76-8190-7482c417ce43,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-7,609e3e5c-fa10-44c4-aacd-2df7e888f92a,e4c6085c-008b-4b7d-8063-894eb02f108c,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-8,ab899e1b-6aaf-460c-852e-8bedc15b3dfc,825cb6a7-eed9-4be2-826e-46f9dbbd785f,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-9,a5a3da27-33e8-4fda-9b03-3e046a5cf350,2ea057ed-7667-42ed-b48d-a37f4fe78cd8,1.9999999999999998,True,True,True,False,True
+provider-urgent-pair-10,f7f125d6-1b23-4bc6-ac1d-345223c4291e,2bbcadea-6dde-4f27-aa1e-24f08a5cf3e1,1.9999999999999998,True,True,True,False,True

@@ -1,0 +1,11 @@
+{
+  "schema": "engram.benchmark-campaign-summary/v1",
+  "model": "qwen2.5-7b-4k:latest",
+  "scenarioId": "provider-urgent",
+  "targetRepetitions": 5,
+  "completedPairs": 0,
+  "errorPairs": 5,
+  "checkpointPath": "benchmarks/campaigns/qwen2.5-7b-4k_latest-provider-urgent-5-timeout-30000/checkpoint.jsonl",
+  "requestTimeoutMs": 30000,
+  "updatedAt": "2026-09-10T05:24:24.814Z"
+}
