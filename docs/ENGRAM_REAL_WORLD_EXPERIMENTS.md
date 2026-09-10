@@ -37,7 +37,23 @@ Current status:
 | Procurement approval handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H4_PROCUREMENT`) |
 | Deployment release handoff | `EXECUTED` through SDK matrix | `evidence/evals/real-world-scenarios/latest/results.json` (`H5_RELEASE`) |
 
-The 16-case matrix has now been exercised through the typed SDK, REST/HTTP, and MCP stdio paths. The retained SDK result bundle is the canonical per-scenario evidence record; the endpoint suites verify that the same lifecycle reaches the same terminal `UPDATED` state through each transport.
+The first model-backed canary is retained separately from the deterministic matrix:
+
+```text
+model: llama3.2:3b
+scenarios: P2, T2, H2
+arms: A0 through A4
+requests: 15
+valid proposals: 12/15
+A2 valid proposals: 0/3
+A2 memory citations: 0/3
+A2 authorizations: 0/3
+evidence state: LOCAL_MODEL_CANARY_INCOMPLETE
+```
+
+The model often selected the expected action, but its A2 responses did not cite the required `SLICE-1` label. Those responses were therefore rejected as invalid Engram proposals. This is a model/protocol blocker, not evidence of successful memory influence. The canary artifact is `evidence/canonical/analysis/local-model-real-world-canary/results.json`.
+
+Do not expand to all 16 model scenarios until this three-scenario canary produces valid, memory-citing A2 proposals.
 
 
 > Can the agent use the lesson later, when a similar problem happens again, without receiving the entire old conversation or gaining extra authority?

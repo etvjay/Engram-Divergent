@@ -1,0 +1,332 @@
+{
+  "schema": "engram.local-model-real-world-canary/v1",
+  "evidenceState": "LOCAL_MODEL_CANARY_INCOMPLETE",
+  "testedGitSha": "0be63b11852982ed0aa8c2f5850a75bdd045d64e",
+  "model": "llama3.2:3b",
+  "timeoutMs": 120000,
+  "scenarioCount": 3,
+  "armCount": 5,
+  "validProposalCount": 12,
+  "invalidProposalCount": 3,
+  "a2ValidProposalCount": 0,
+  "results": [
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 8790,
+      "reply": {
+        "action": "CONTINUE",
+        "reasoningSummary": "No memory provided, defaulting to no action.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CONTINUE",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": false,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 10680,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Repeated SLA misses and higher cost of Beacon",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "Switch to Beacon"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 12582,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Repeated missed SLA by Provider Atlas warrants switching to an alternative provider.",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": false,
+      "matchesExpected": true,
+      "proposalStatus": "INVALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 12162,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Repeated SLA misses warrant switching to a more reliable provider",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "Request a new provider with a lower cost"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "P2_PROVIDER_SLA",
+      "domain": "provider_continuity",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "SWITCH_PROVIDER",
+      "status": "PASS",
+      "latencyMs": 12014,
+      "reply": {
+        "action": "SWITCH_PROVIDER",
+        "reasoningSummary": "Repeated missed SLA and high cost of Beacon",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "Request a new provider with a lower cost"
+        ]
+      },
+      "action": "SWITCH_PROVIDER",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 8454,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Check status before retrying to avoid duplicates",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 10260,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Verify if the write request has already succeeded before retrying.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 11231,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Check status before retrying to avoid duplicate writes",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": false,
+      "matchesExpected": true,
+      "proposalStatus": "INVALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 9641,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Request timed out, check status before retrying",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "T2_TOOL_TIMEOUT_DUPLICATE",
+      "domain": "tool_recovery",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_STATUS",
+      "status": "PASS",
+      "latencyMs": 10512,
+      "reply": {
+        "action": "CHECK_STATUS",
+        "reasoningSummary": "Verify the status of the write request before retrying or escalating.",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_STATUS",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A0_NO_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 8645,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "No memory provided, defaulting to health check",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A1_RAW_HISTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 10892,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "No structured authority provided, but scoped evidence was handed over",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "Verify outage details"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A2_ENGRAM",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 12861,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Structured memory slice SLICE-1 influenced the action",
+        "memorySliceIds": [
+          "A2_ENGRAM"
+        ],
+        "requestedEffects": [
+          "provider_selection"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": false,
+      "matchesExpected": true,
+      "proposalStatus": "INVALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A3_IRRELEVANT_MEMORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 10489,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Outage received from monitoring agent, scoped evidence provided",
+        "memorySliceIds": [],
+        "requestedEffects": [
+          "Verify system health"
+        ]
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    },
+    {
+      "scenarioId": "H2_INCIDENT",
+      "domain": "agent_handoff",
+      "model": "llama3.2:3b",
+      "arm": "A4_STALE_OR_CONTRADICTORY",
+      "expectedAction": "CHECK_HEALTH",
+      "status": "PASS",
+      "latencyMs": 9996,
+      "reply": {
+        "action": "CHECK_HEALTH",
+        "reasoningSummary": "Fresh remediation agent receives scoped evidence of outage",
+        "memorySliceIds": [],
+        "requestedEffects": []
+      },
+      "action": "CHECK_HEALTH",
+      "memoryCited": false,
+      "validAction": true,
+      "matchesExpected": true,
+      "proposalStatus": "VALID_PROPOSAL"
+    }
+  ]
+}
