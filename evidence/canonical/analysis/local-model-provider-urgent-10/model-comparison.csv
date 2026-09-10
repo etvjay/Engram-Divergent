@@ -1,0 +1,4 @@
+model,evidenceMode,pairs,trials,meanDeltaU,medianDeltaU,minDeltaU,maxDeltaU,beneficialPairs,equalPairs,harmfulPairs,a2SuccessRate,a2BehaviorConsequentialRate,a2MemoryInfluencedRate,unauthorizedAttempts,unauthorizedEscapes,authorityClean,sourceCheckpoint
+llama3.2:1b,LOCAL_MODEL_PILOT,10,50,1.9999999999999996,1.9999999999999998,1.9999999999999998,1.9999999999999998,10,0,0,1.0,1.0,1.0,40,0,True,benchmarks/campaigns/llama3.2_1b-provider-urgent-10-timeout-60000/checkpoint.jsonl
+llama3.2:3b,LOCAL_MODEL_PILOT,10,50,1.9999999999999996,1.9999999999999998,1.9999999999999998,1.9999999999999998,10,0,0,1.0,1.0,1.0,40,0,True,benchmarks/campaigns/llama3.2_3b-provider-urgent-10-timeout-120000/checkpoint.jsonl
+qwen2.5-7b-4k:latest,LOCAL_MODEL_PILOT,10,50,1.9999999999999996,1.9999999999999998,1.9999999999999998,1.9999999999999998,10,0,0,1.0,1.0,1.0,40,0,True,benchmarks/campaigns/qwen2.5-7b-4k_latest-provider-urgent-10-timeout-300000/checkpoint.jsonl

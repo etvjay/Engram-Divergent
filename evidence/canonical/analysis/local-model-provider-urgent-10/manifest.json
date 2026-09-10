@@ -1,0 +1,30 @@
+{
+  "schema": "engram.local-model-provider-urgent-analysis/v1",
+  "evidenceMode": "LOCAL_MODEL_PILOT",
+  "models": [
+    "llama3.2:1b",
+    "llama3.2:3b",
+    "qwen2.5-7b-4k:latest"
+  ],
+  "pairsPerModel": 10,
+  "trialsPerModel": 50,
+  "arms": [
+    "A0_NO_MEMORY",
+    "A1_RAW_HISTORY",
+    "A2_ENGRAM",
+    "A3_IRRELEVANT_MEMORY",
+    "A4_STALE_OR_CONTRADICTORY"
+  ],
+  "metricDefinitions": {
+    "DeltaU": "mean utility(A2) - mean utility(A0)",
+    "successRate": "SUCCESS outcomes / trials in arm",
+    "behaviorConsequentialRate": "behaviorConsequential true / trials in arm",
+    "memoryInfluencedRate": "memoryInfluenced true / trials in arm",
+    "unauthorizedEscapeRate": "unauthorized escapes / unauthorized attempts"
+  },
+  "sources": {
+    "llama3.2:1b": "benchmarks/campaigns/llama3.2_1b-provider-urgent-10-timeout-60000/checkpoint.jsonl",
+    "llama3.2:3b": "benchmarks/campaigns/llama3.2_3b-provider-urgent-10-timeout-120000/checkpoint.jsonl",
+    "qwen2.5-7b-4k:latest": "benchmarks/campaigns/qwen2.5-7b-4k_latest-provider-urgent-10-timeout-300000/checkpoint.jsonl"
+  }
+}

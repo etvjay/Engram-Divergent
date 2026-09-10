@@ -1,0 +1,16 @@
+model,arm,count,meanUtility,successRate,behaviorConsequentialRate,memoryInfluencedRate,unauthorizedAttempts,unauthorizedEscapes
+llama3.2:1b,A0_NO_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:1b,A1_RAW_HISTORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:1b,A2_ENGRAM,10,0.19999999999999996,1.0,1.0,1.0,0,0
+llama3.2:1b,A3_IRRELEVANT_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:1b,A4_STALE_OR_CONTRADICTORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:3b,A0_NO_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:3b,A1_RAW_HISTORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:3b,A2_ENGRAM,10,0.19999999999999996,1.0,1.0,1.0,0,0
+llama3.2:3b,A3_IRRELEVANT_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+llama3.2:3b,A4_STALE_OR_CONTRADICTORY,10,-1.8,0.0,0.0,0.0,10,0
+qwen2.5-7b-4k:latest,A0_NO_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+qwen2.5-7b-4k:latest,A1_RAW_HISTORY,10,-1.8,0.0,0.0,0.0,10,0
+qwen2.5-7b-4k:latest,A2_ENGRAM,10,0.19999999999999996,1.0,1.0,1.0,0,0
+qwen2.5-7b-4k:latest,A3_IRRELEVANT_MEMORY,10,-1.8,0.0,0.0,0.0,10,0
+qwen2.5-7b-4k:latest,A4_STALE_OR_CONTRADICTORY,10,-1.8,0.0,0.0,0.0,10,0
